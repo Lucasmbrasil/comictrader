@@ -9,7 +9,7 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     if (initialState !== false) {
-      return setAuthenticated(true);
+      setAuthenticated(true);
     }
   }, []);
 
