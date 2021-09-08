@@ -1,5 +1,7 @@
 import React from "react";
 
+import axios from "axios";
+
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
@@ -30,15 +32,17 @@ function Login() {
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
 
-  const Requisicao = (data) => {
+  const SignIN = (data) => {
     console.log(data);
-
-    localStorage.setItem("@comictrader:token", JSON.stringify(data));
+    axios
+      .post("http://localhost:3001/login", data)
+      .then((response) => console.log(response))
+      .then((error) => console.log(error));
   };
 
   return (
     <>
-      <form onSubmit={handleSubmit(Requisicao)}>
+      <form onSubmit={handleSubmit(SignIN)}>
         <input {...register("email")} placeholder="Digite seu email" />
         {errors.email?.message}
         <input {...register("password")} placeholder="Digite sua senha" />
