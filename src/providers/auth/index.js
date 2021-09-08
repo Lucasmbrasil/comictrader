@@ -5,6 +5,7 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const initialState =
     JSON.parse(localStorage.getItem("@comictrader:token")) || false;
+
   const [authenticated, setAuthenticated] = useState(initialState);
 
   useEffect(() => {
