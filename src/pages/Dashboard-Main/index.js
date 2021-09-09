@@ -6,11 +6,10 @@ import { Card, Container } from "./styled";
 function DashboardMain() {
   const [hqs, setHqs] = useState([]);
   const [input, setInput] = useState("");
-
   useEffect(() => {
     comic
       .get(
-        "/issues/?api_key=bf2d39824c84c5c81e7f1adcabea036406aff8e9&format=json"
+        "/issues/?api_key=e0240c902e8c43c50db1c50099fe9aa9c328103c&format=json"
       )
       .then((response) => setHqs(response.data.results))
       .catch((e) => console.log(e));
@@ -18,9 +17,10 @@ function DashboardMain() {
   const handleSearch = () => {
     comic
       .get(
-        `search/?api_key=bf2d39824c84c5c81e7f1adcabea036406aff8e9&format=json&sort=name:asc&resources=issue&query=${input}`
+        `search/?api_key=e0240c902e8c43c50db1c50099fe9aa9c328103c&format=json&sort=name:asc&resources=issue&query=${input}`
       )
-      .then((response) => setHqs(response.data.results));
+      .then((response) => setHqs(response.data.results))
+      .catch((e) => console.log(e));
   };
 
   console.log(hqs);
@@ -31,6 +31,7 @@ function DashboardMain() {
         onChange={(e) => setInput(e.target.value)}
       />
       <button onClick={handleSearch}>Pesquisar</button>
+      {hqs.length === 0 && <p>Hq não encontrada</p>}
       <Container>
         {hqs.map((item) => (
           <Card key={item.id}>
