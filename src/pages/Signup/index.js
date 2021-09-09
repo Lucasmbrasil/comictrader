@@ -1,3 +1,7 @@
+import React from "react";
+import Footer from "../../components/Footer";
+import Header from "../../components/Header";
+import { BlackTop, InitialBackground, InitialContainer } from "../../styles/globalComponents";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
@@ -5,10 +9,10 @@ import { useAuth } from "../../providers/auth";
 import { useUser } from "../../providers/user";
 import { FormGroup, InputGroup, Button } from "@blueprintjs/core";
 import { Link } from "react-router-dom";
-
 // import { Container } from './styles';
 
 function Signup() {
+
   const { authenticated } = useAuth();
   const { onSubmitSignup } = useUser();
 
@@ -37,8 +41,11 @@ function Signup() {
   // }
 
   return (
-    <div>
-      <FormGroup onSubmit={handleSubmit(onSubmitSignup)}>
+    <InitialBackground>
+      <BlackTop>
+        <Header/>
+        <InitialContainer>
+        <FormGroup onSubmit={handleSubmit(onSubmitSignup)}>
         <h1>Cadastrar</h1>
         <InputGroup
           {...register("name")}
@@ -67,8 +74,11 @@ function Signup() {
           Já é cadastrado? Faça seu <Link to="/login">login</Link>{" "}
         </p>
       </FormGroup>
-    </div>
-  );
+        </InitialContainer>
+        <Footer/>
+      </BlackTop>
+    </InitialBackground>
+  )
 }
 
 export default Signup;

@@ -2,24 +2,14 @@ import React from "react";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import { BlackTop, InitialBackground, InitialContainer } from "../../styles/globalComponents";
-import { MainImage } from "./styles";
 
-// import { Container } from './styles';
-
-function Home() {
+function FAQ() {
   return (
     <InitialBackground>
       <BlackTop>
         <Header/>
         <InitialContainer>
-          <MainImage>
-            <h2>Bem-vindo ao ComicTrader!</h2>
-          </MainImage>
-          <div>
-            <p></p>
-            <p></p>
-            <button></button>
-          </div>
+          F.A.Q.
         </InitialContainer>
         <Footer/>
       </BlackTop>
@@ -27,4 +17,4 @@ function Home() {
   )
 }
 
-export default Home;
+export default FAQ;

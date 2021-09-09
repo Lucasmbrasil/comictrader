@@ -1,4 +1,7 @@
 import React from "react";
+import Footer from "../../components/Footer";
+import Header from "../../components/Header";
+import { BlackTop, InitialBackground, InitialContainer } from "../../styles/globalComponents";
 import axios from "axios";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -8,6 +11,7 @@ import { Link } from "react-router-dom";
 // import { Container } from './styles';
 
 function Login() {
+
   // const { authenticated, setAuthenticated } = useAuth(); // sera utilizado para proteção de rotas futuramente
   const schema = yup.object().shape({
     email: yup
@@ -39,20 +43,26 @@ function Login() {
   };
 
   return (
-    <>
-      <h1>Login</h1>
-      <form onSubmit={handleSubmit(SignIN)}>
-        <input {...register("email")} placeholder="Digite seu email" />
-        {errors.email?.message}
-        <input {...register("password")} placeholder="Digite sua senha" />
-        {errors.password?.message}
-        <button type="submit">Logar com a minha conta</button>
-      </form>
-      <p>
-        Não tem um cadastro? Faça seu <Link to="/signup">registro</Link>
-      </p>
-    </>
-  );
+    <InitialBackground>
+      <BlackTop>
+        <Header/>
+        <InitialContainer>
+          <h1>Login</h1>
+          <form onSubmit={handleSubmit(SignIN)}>
+            <input {...register("email")} placeholder="Digite seu email" />
+            {errors.email?.message}
+            <input {...register("password")} placeholder="Digite sua senha" />
+            {errors.password?.message}
+            <button type="submit">Logar com a minha conta</button>
+          </form>
+          <p>
+            Não tem um cadastro? Faça seu <Link to="/signup">registro</Link>
+          </p>
+        </InitialContainer>
+        <Footer/>
+      </BlackTop>
+    </InitialBackground>
+  ) 
 }
 
 export default Login;
