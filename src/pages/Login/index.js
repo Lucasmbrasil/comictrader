@@ -1,16 +1,14 @@
 import React from "react";
-
 import axios from "axios";
-
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
-
-import { useAuth } from "../../providers/auth";
+import { Link } from "react-router-dom";
+// import { useAuth } from "../../providers/auth";
 // import { Container } from './styles';
 
 function Login() {
-  const { authenticated, setAuthenticated } = useAuth(); // sera utilizado para proteção de rotas futuramente
+  // const { authenticated, setAuthenticated } = useAuth(); // sera utilizado para proteção de rotas futuramente
   const schema = yup.object().shape({
     email: yup
       .string()
@@ -42,6 +40,7 @@ function Login() {
 
   return (
     <>
+      <h1>Login</h1>
       <form onSubmit={handleSubmit(SignIN)}>
         <input {...register("email")} placeholder="Digite seu email" />
         {errors.email?.message}
@@ -49,6 +48,9 @@ function Login() {
         {errors.password?.message}
         <button type="submit">Logar com a minha conta</button>
       </form>
+      <p>
+        Não tem um cadastro? Faça seu <Link to="/signup">registro</Link>
+      </p>
     </>
   );
 }
