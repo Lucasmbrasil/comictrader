@@ -1,12 +1,19 @@
+import React from "react";
+import Footer from "../../components/Footer";
+import Header from "../../components/Header";
+import {
+  BlackTop,
+  InitialBackground,
+  InitialContainer,
+} from "../../styles/globalComponents";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-// import { useAuth } from "../../providers/auth";
-import { useUser } from "../../providers/user";
 import { Link } from "react-router-dom";
-import { TextField, Button } from "@material-ui/core";
+import { TextField, Button, FormGroup } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 import fakeapi from "../../services/fakeapi";
+// import { useAuth } from "../../providers/auth";
 
 // import { Container } from './styles';
 
@@ -36,6 +43,7 @@ function Signup() {
   // if(authenticated) {
   //   return <Redirect to="/dashboard" />
   // }
+
   const history = useHistory();
 
   const onSubmitSignup = (data) => {
@@ -54,35 +62,41 @@ function Signup() {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit(onSubmitSignup)}>
-        <h1>Cadastrar</h1>
-        <TextField
-          {...register("name")}
-          placeholder="name"
-          helperText={errors.name?.message}
-        />
-        <TextField
-          {...register("email")}
-          placeholder="email"
-          helperText={errors.email?.message}
-        />
-        <TextField
-          {...register("password")}
-          placeholder="password"
-          helperText={errors.password?.message}
-        />
-        <TextField
-          {...register("state")}
-          placeholder="state"
-          helperText={errors.state?.message}
-        />
-        <Button type="submit">Cadastrar</Button>
-        <p>
-          Já é cadastrado? Faça seu <Link to="/login">login</Link>{" "}
-        </p>
-      </form>
-    </div>
+    <InitialBackground>
+      <BlackTop>
+        <Header />
+        <InitialContainer>
+          <FormGroup onSubmit={handleSubmit(onSubmitSignup)}>
+            <h1>Cadastrar</h1>
+            <TextField
+              {...register("name")}
+              placeholder="name"
+              helperText={errors.name?.message}
+            />
+            <TextField
+              {...register("email")}
+              placeholder="email"
+              helperText={errors.email?.message}
+            />
+            <TextField
+              {...register("password")}
+              placeholder="password"
+              helperText={errors.password?.message}
+            />
+            <TextField
+              {...register("state")}
+              placeholder="state"
+              helperText={errors.state?.message}
+            />
+            <Button type="submit">Cadastrar</Button>
+            <p>
+              Já é cadastrado? Faça seu <Link to="/login">login</Link>{" "}
+            </p>
+          </FormGroup>
+        </InitialContainer>
+        <Footer />
+      </BlackTop>
+    </InitialBackground>
   );
 }
 
