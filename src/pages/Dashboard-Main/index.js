@@ -9,7 +9,7 @@ function DashboardMain() {
   useEffect(() => {
     comic
       .get(
-        "/issues/?api_key=e0240c902e8c43c50db1c50099fe9aa9c328103c&format=json"
+        "/issues/?api_key=bf2d39824c84c5c81e7f1adcabea036406aff8e9&format=json"
       )
       .then((response) => setHqs(response.data.results))
       .catch((e) => console.log(e));
@@ -17,7 +17,7 @@ function DashboardMain() {
   const handleSearch = () => {
     comic
       .get(
-        `search/?api_key=e0240c902e8c43c50db1c50099fe9aa9c328103c&format=json&sort=name:asc&resources=issue&query=${input}`
+        `search/?api_key=bf2d39824c84c5c81e7f1adcabea036406aff8e9&format=json&sort=name:asc&resources=issue&query=${input}`
       )
       .then((response) => setHqs(response.data.results))
       .catch((e) => console.log(e));
