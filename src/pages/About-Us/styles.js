@@ -4,17 +4,21 @@ import styled from "styled-components";
 
 export const UsContainer = styled.div`
 background-color:black;
-height: 88%;
- width: 100%;
+height: 389px;
+    width: 1205px;
  display: flex;
  justify-content:space-evenly;
  flex-direction: row;
  align-items: center;
+ @media screen and (max-width:768px){
+    flex-direction:column;
+    height: 1222px;
+ }
 `;
 
 
 export const FirtsDev = styled.div`
-       border: 1px solid black;
+       
     border-radius: 5px;
     height: 99%;
     width: 20%;
@@ -23,12 +27,15 @@ export const FirtsDev = styled.div`
     justify-content: center;
     align-items: center;
    
-   
+    @media screen and (max-width:768px){
+        height: 214px;
+    width: 204px;
+ }
 `;
 
 
 export const SecondDev = styled.div`
-     border: 1px solid black;
+    
     border-radius: 5px;
     height: 99%;
     width: 20%;
@@ -36,13 +43,16 @@ export const SecondDev = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    
+    @media screen and (max-width:768px){
+        height: 264px;
+    width: 249px;
+ }
    
 `;
 
 
 export const ThirdDev = styled.div`
-     border: 1px solid black;
+     
     border-radius: 5px;
     height: 99%;
     width: 20%;
@@ -50,13 +60,18 @@ export const ThirdDev = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    
+    @media screen and (max-width:768px){
+        
+    height: 272px;
+    width: 252px;
+
+ }
    
 `;
 
 
 export const FourthDev = styled.div`
-    border: 1px solid black;
+    
     border-radius: 5px;
     height: 99%;
     width: 20%;
@@ -64,8 +79,12 @@ export const FourthDev = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    @media screen and (max-width:768px){
+        
+        height: 241px;
+    width: 211px;
+     }
     
-   
 `;
 
 
@@ -75,8 +94,8 @@ export const LinkDivs = styled.div`
     height: 6%;
     width: 100%;
     .icons{
-        width: 40%;
-        height: 61%;
+        width: 36px;
+        height: 23px;
         cursor:pointer;
         }
 
@@ -85,12 +104,14 @@ export const LinkDivs = styled.div`
             width: 67px;
         }
 
+
+
 `;
 
 
 export const DevImage = styled.img`
-        width: 47%;
-    height: 35%;
+       width: 124px;
+    height: 125px;
     border-radius: 100%;
 
 `;
