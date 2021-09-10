@@ -6,10 +6,15 @@ import { Card } from "../Dashboard-Main/styled";
 // import { Container } from './styles';
 function DashboardComic() {
   const { id, specificComic, getComic } = useComics();
+  const [descricao, setDescricao] = useState("");
 
   useEffect(() => {
     getComic(id);
   }, []);
+
+  // if (specificComic.aliases !== undefined) {
+  //   setDescricao(specificComic.description);
+  // }
 
   return (
     <div>
@@ -20,6 +25,7 @@ function DashboardComic() {
             src={specificComic.image.thumb_url}
             alt={specificComic.volume.name}
           />
+          <p>{specificComic.description.replace(/<.*?>/g, "")}</p>
         </>
       )}
     </div>
