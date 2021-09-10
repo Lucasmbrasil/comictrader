@@ -14,19 +14,19 @@ const Routes = () => {
       <Route exact path="/">
         <Home />
       </Route>
-      <Route exact path="/login">
+      <Route path="/login">
         <Login />
       </Route>
-      <Route exact path="/signup">
+      <Route path="/signup">
         <Signup />
       </Route>
-      <Route exact path="/main">
+      <Route path="/main">
         <DashboardMain />
       </Route>
-      <Route exact path="/comic">
+      <Route path="/comic">
         <DashboardComic />
       </Route>
-      <Route exact path="/profile">
+      <Route path="/profile">
         <DashboardUser />
       </Route>
       <Route exact path="/faq">
