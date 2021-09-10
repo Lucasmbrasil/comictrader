@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const fakeapi = axios.create({
-  baseURL: "",
+  baseURL: "https://fakeapi-capstone.herokuapp.com/",
 });
 
 export default fakeapi;
