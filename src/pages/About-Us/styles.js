@@ -75,8 +75,14 @@ export const LinkDivs = styled.div`
     height: 6%;
     width: 100%;
     .icons{
-        width: 10%;
-        height: 61%
+        width: 40%;
+        height: 61%;
+        cursor:pointer;
+        }
+
+        a{
+            color:white;
+            width: 67px;
         }
 
 `;
