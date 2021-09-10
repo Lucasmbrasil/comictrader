@@ -22,7 +22,7 @@ function AboutUs() {
             <a href="https://www.linkedin.com/in/anna-louise-de-oliveira-ferreira-a6127b142"><img src={"https://cdn.worldvectorlogo.com/logos/linkedin-icon-2.svg"} alt="" className="icons" /></a>
             </LinkDivs>
             <p>Anna Louise</p>
-            <p>Cargo:SM </p>
+            <p>Cargo:Scrum Master</p>
            </FirtsDev>
            <SecondDev>
            <DevImage src={"https://ca.slack-edge.com/TQZR39SET-U01SH3SQNUC-72b840dbfd32-512"} alt= ""/>
@@ -33,7 +33,7 @@ function AboutUs() {
             
             </LinkDivs>
             <p>Lucas Machado</p>
-            <p>Cargo:TL </p>
+            <p>Cargo:Tech Leader </p>
            </SecondDev>
            <ThirdDev>
            <DevImage src={"https://ca.slack-edge.com/TQZR39SET-U01R55T4552-5764ed1abc92-512"} alt= ""/>
@@ -45,7 +45,7 @@ function AboutUs() {
            
             </LinkDivs>
             <p>Kaio Takumi </p>
-            <p>Cargo:PO </p>
+            <p>Cargo:Product Owner </p>
            </ThirdDev>
            <FourthDev>
            <DevImage src={"https://ca.slack-edge.com/TQZR39SET-U01Q82C0C0Y-9e79cdd397d0-512"} alt= "" />
@@ -56,7 +56,7 @@ function AboutUs() {
             
             </LinkDivs>
             <p>Arthur Goulart </p>
-            <p>Cargo:QA </p>
+            <p>Cargo: Quality Assurance </p>
            </FourthDev>
          </UsContainer>
         </InitialContainer>
