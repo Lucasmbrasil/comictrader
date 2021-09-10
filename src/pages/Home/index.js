@@ -3,6 +3,7 @@ import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import { BlackTop, InitialBackground, InitialContainer } from "../../styles/globalComponents";
 import { MainImage } from "./styles";
+import Chat from "../../components/Chat"
 
 // import { Container } from './styles';
 
@@ -16,7 +17,7 @@ function Home() {
             <h2>Bem-vindo ao ComicTrader!</h2>
           </MainImage>
           <div>
-            <p></p>
+            <Chat/>
             <p></p>
             <button></button>
           </div>

@@ -11,7 +11,6 @@ export const MainImage = styled.div`
     background-image: url(${main_img});
     background-size: cover;
     background-repeat: no-repeat;
-    .backImage {
-        width: 100%;
-    }
+    
+    
 `
