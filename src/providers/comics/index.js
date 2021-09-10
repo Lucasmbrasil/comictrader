@@ -75,7 +75,7 @@ export const ComicsProvider = ({ children }) => {
       .then((response) => setComicsList(response.data.results))
       .catch((e) => console.log(e));
   };
-  const getComic = (id) => {
+  const getComic = useCallback((id) => {
     comic
       .get(
         `issue/4000-${id}/?api_key=bf2d39824c84c5c81e7f1adcabea036406aff8e9&format=json`
@@ -85,7 +85,7 @@ export const ComicsProvider = ({ children }) => {
         // console.log(response.data.results);
       })
       .catch((e) => console.log(e));
-  };
+  }, []);
 
   return (
     <ComicsContext.Provider

@@ -1,20 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
+import { useHistory } from "react-router";
 import { useComics } from "../../providers/comics";
-import comic from "../../services/comic";
-import { Card } from "../Dashboard-Main/styled";
 
-// import { Container } from './styles';
 function DashboardComic() {
-  const { id, specificComic, getComic } = useComics();
-  const [descricao, setDescricao] = useState("");
-
+  const { specificComic, getComic, id } = useComics();
+  const history = useHistory();
   useEffect(() => {
     getComic(id);
-  }, []);
-
-  // if (specificComic.aliases !== undefined) {
-  //   setDescricao(specificComic.description);
-  // }
+  }, [getComic, id]);
 
   return (
     <div>
@@ -25,9 +18,15 @@ function DashboardComic() {
             src={specificComic.image.thumb_url}
             alt={specificComic.volume.name}
           />
-          <p>{specificComic.description.replace(/<.*?>/g, "")}</p>
+          <p>
+            {specificComic !== undefined &&
+              specificComic.description
+                .slice(0, specificComic.description.indexOf("<h4>"))
+                .replace(/<.*?>/g, " ")}
+          </p>
         </>
       )}
+      <button onClick={() => history.push("/main")}>voltar</button>
     </div>
   );
 }
