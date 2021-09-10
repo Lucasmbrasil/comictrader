@@ -58,10 +58,11 @@ export const ComicsProvider = ({ children }) => {
   };
 
   const getComicsList = () => {
+    const url = {
+      url: "http://comicvine.gamespot.com/api/issues/?api_key=bf2d39824c84c5c81e7f1adcabea036406aff8e9&format=json&sort=cover_date:desc",
+    };
     comic
-      .get(
-        "/issues/?api_key=bf2d39824c84c5c81e7f1adcabea036406aff8e9&format=json&sort=cover_date:desc"
-      )
+      .post("get-data/", url)
       .then((response) => {
         setComicsList(response.data.results);
       })

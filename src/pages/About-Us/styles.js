@@ -1,6 +1,4 @@
-
 import styled from "styled-components";
-
 
 export const UsContainer = styled.div`
 background-color:black;
@@ -15,7 +13,6 @@ height: 389px;
     height: 1222px;
  }
 `;
-
 
 export const FirtsDev = styled.div`
        
@@ -33,7 +30,6 @@ export const FirtsDev = styled.div`
  }
 `;
 
-
 export const SecondDev = styled.div`
     
     border-radius: 5px;
@@ -49,7 +45,6 @@ export const SecondDev = styled.div`
  }
    
 `;
-
 
 export const ThirdDev = styled.div`
      
@@ -69,7 +64,6 @@ export const ThirdDev = styled.div`
    
 `;
 
-
 export const FourthDev = styled.div`
     
     border-radius: 5px;
@@ -86,7 +80,6 @@ export const FourthDev = styled.div`
      }
     
 `;
-
 
 export const LinkDivs = styled.div`
     display: flex;
@@ -107,7 +100,6 @@ export const LinkDivs = styled.div`
 
 
 `;
-
 
 export const DevImage = styled.img`
        width: 124px;

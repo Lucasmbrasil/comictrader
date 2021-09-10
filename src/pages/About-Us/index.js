@@ -2,17 +2,27 @@ import React from "react";
 
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
-import { BlackTop, InitialBackground, InitialContainer } from "../../styles/globalComponents";
+import {
+  BlackTop,
+  InitialBackground,
+  InitialContainer,
+} from "../../styles/globalComponents";
 
-import { UsContainer,FirtsDev ,SecondDev,ThirdDev,FourthDev,LinkDivs,DevImage} from "./styles";
-
+import {
+  UsContainer,
+  FirtsDev,
+  SecondDev,
+  ThirdDev,
+  FourthDev,
+  LinkDivs,
+  DevImage,
+} from "./styles";
 
 function AboutUs() {
- 
   return (
     <InitialBackground>
       <BlackTop>
-        <Header/>
+        <Header />
         <InitialContainer>
          <UsContainer>
            <FirtsDev>
@@ -60,10 +70,10 @@ function AboutUs() {
            </FourthDev>
          </UsContainer>
         </InitialContainer>
-        <Footer/>
+        <Footer />
       </BlackTop>
     </InitialBackground>
-  )
+  );
 }
 
 export default AboutUs;
