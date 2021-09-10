@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useCallback, useContext, useState } from "react";
 import comic from "../../services/comic";
 
 export const ComicsContext = createContext();
@@ -6,7 +6,9 @@ export const ComicsContext = createContext();
 export const ComicsProvider = ({ children }) => {
   const [comicsOwned, setComicsOwned] = useState([]);
   const [comicsWanted, setComicsWanted] = useState([]);
-
+  const [comicsList, setComicsList] = useState([]);
+  const [id, setId] = useState("");
+  const [specificComic, setSpecificComic] = useState([]);
   // const config = { headers: { Authorization: `Bearer ${token}`}}
   // const userid = numseioquelá
 
@@ -55,6 +57,36 @@ export const ComicsProvider = ({ children }) => {
     });
   };
 
+  const getComicsList = () => {
+    comic
+      .get(
+        "/issues/?api_key=bf2d39824c84c5c81e7f1adcabea036406aff8e9&format=json&sort=cover_date:desc"
+      )
+      .then((response) => {
+        setComicsList(response.data.results);
+      })
+      .catch((e) => console.log(e));
+  };
+  const searchComics = (input) => {
+    comic
+      .get(
+        `search/?api_key=bf2d39824c84c5c81e7f1adcabea036406aff8e9&format=json&sort=name:asc&resources=issue&query=${input}`
+      )
+      .then((response) => setComicsList(response.data.results))
+      .catch((e) => console.log(e));
+  };
+  const getComic = (id) => {
+    comic
+      .get(
+        `issue/4000-${id}/?api_key=bf2d39824c84c5c81e7f1adcabea036406aff8e9&format=json`
+      )
+      .then((response) => {
+        setSpecificComic(response.data.results);
+        // console.log(response.data.results);
+      })
+      .catch((e) => console.log(e));
+  };
+
   return (
     <ComicsContext.Provider
       value={{
@@ -64,6 +96,13 @@ export const ComicsProvider = ({ children }) => {
         removeWanted,
         comicsOwned,
         comicsWanted,
+        getComicsList,
+        searchComics,
+        comicsList,
+        setId,
+        id,
+        getComic,
+        specificComic,
       }}
     >
       {children}

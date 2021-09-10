@@ -11,4 +11,8 @@ export const Card = styled.div`
   flex-wrap: wrap;
   align-content: flex-end;
   margin: 5px;
+  p {
+    margin: 0;
+    font-size: 16px;
+  }
 `;
