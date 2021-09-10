@@ -1,9 +1,18 @@
 import React from "react";
-import axios from "axios";
+import Footer from "../../components/Footer";
+import Header from "../../components/Header";
+import {
+  BlackTop,
+  InitialBackground,
+  InitialContainer,
+} from "../../styles/globalComponents";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import fakeapi from "../../services/fakeapi";
+
 // import { useAuth } from "../../providers/auth";
 // import { Container } from './styles';
 
@@ -30,28 +39,41 @@ function Login() {
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
 
-  const SignIN = (data) => {
-    console.log(data);
-    axios
-      .post("http://localhost:3001/login", data)
-      .then((response) => console.log(response))
-      .then((error) => console.log(error));
+  const history = useHistory();
+
+  const onSubmitSignin = (data) => {
+    fakeapi
+      .post("login", data)
+      .then((res) => {
+        console.log("deu bom");
+        const { accessToken } = res.data;
+        localStorage.setItem("@comictrader:token", JSON.stringify(accessToken));
+        // setAuthenticated(true)
+      })
+      .then((_) => history.push("/main"))
+      .catch((error) => console.log(error));
   };
 
   return (
-    <>
-      <h1>Login</h1>
-      <form onSubmit={handleSubmit(SignIN)}>
-        <input {...register("email")} placeholder="Digite seu email" />
-        {errors.email?.message}
-        <input {...register("password")} placeholder="Digite sua senha" />
-        {errors.password?.message}
-        <button type="submit">Logar com a minha conta</button>
-      </form>
-      <p>
-        Não tem um cadastro? Faça seu <Link to="/signup">registro</Link>
-      </p>
-    </>
+    <InitialBackground>
+      <BlackTop>
+        <Header />
+        <InitialContainer>
+          <h1>Login</h1>
+          <form onSubmit={handleSubmit(onSubmitSignin)}>
+            <input {...register("email")} placeholder="Digite seu email" />
+            {errors.email?.message}
+            <input {...register("password")} placeholder="Digite sua senha" />
+            {errors.password?.message}
+            <button type="submit">Logar com a minha conta</button>
+          </form>
+          <p>
+            Não tem um cadastro? Faça seu <Link to="/signup">registro</Link>
+          </p>
+        </InitialContainer>
+        <Footer />
+      </BlackTop>
+    </InitialBackground>
   );
 }
 
