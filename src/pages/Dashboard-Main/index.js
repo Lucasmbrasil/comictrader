@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
 import comic from "../../services/comic";
-import { Card, Container } from "./styled";
 import { useHistory } from "react-router-dom";
 import { useComics } from "../../providers/comics";
+import { DashboardContainer } from "../../styles/globalComponents";
+import HQCard from "../../components/HQCards";
+import Header from "../../components/Header"
 // import { Container } from './styles';
 function DashboardMain() {
   const [input, setInput] = useState("");
   const { comicsList, searchComics, getComicsList, setId } = useComics();
+
   const history = useHistory();
   useEffect(() => {
     getComicsList();
@@ -30,28 +33,28 @@ function DashboardMain() {
   // console.log(typeof hqs);
   // console.log(hqs);
   return (
-    <>
+    <DashboardContainer>
+      <Header/>
       <input
         placeholder="Pesquise uma hq"
         onChange={(e) => setInput(e.target.value)}
       />
       <button onClick={() => searchComics(input)}>Pesquisar</button>
       {comicsList.length === 0 && <p>Hq não encontrada</p>}
-      <Container>
+      <div>
+        
         {comicsList.map((item) => (
-          <Card
+          <HQCard
+            comic={item}
             key={item.id}
             onClick={() => {
               setId(item.id);
               history.push("/comic");
             }}
-          >
-            <p>{item.volume.name}</p>
-            <img src={item.image.thumb_url} alt={item} />
-          </Card>
+          />
         ))}
-      </Container>{" "}
-    </>
+      </div>
+    </DashboardContainer>
   );
 }
 export default DashboardMain;

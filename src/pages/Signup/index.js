@@ -56,6 +56,7 @@ function Signup() {
       .post("signup", data)
       .then((_) => {
         console.log("deu bom");
+        console.log(data)
       })
       .then((_) => history.push("/login"))
       .catch((err) => console.log(err));

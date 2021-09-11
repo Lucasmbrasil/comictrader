@@ -19,6 +19,7 @@ export const BlackTop = styled.div`
     font-size: calc(10px + 2vmin);
     color: white;
 `
+
 export const InitialContainer = styled.div`
     width: 80vw;
     min-height: 60vh;
@@ -28,4 +29,16 @@ export const InitialContainer = styled.div`
     align-items: center;
     justify content: stretch;
     padding: 15px 0;
+`
+
+export const DashboardContainer = styled.div`
+    background-color: gray;
+    min-height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    font-size: calc(10px + 2vmin);
+    color: white;
 `

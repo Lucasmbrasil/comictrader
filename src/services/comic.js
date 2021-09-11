@@ -2,7 +2,7 @@ import axios from "axios";
 
 const comic = axios.create({
   baseURL:
-    "https://cors-anywhere.herokuapp.com/https://comicvine.gamespot.com/api",
+    "https://node-no-cors.herokuapp.com/get-data/",
 });
 
 export default comic;

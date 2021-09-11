@@ -59,12 +59,15 @@ export const ComicsProvider = ({ children }) => {
 
   const getComicsList = () => {
     comic
-      .get(
-        "/issues/?api_key=bf2d39824c84c5c81e7f1adcabea036406aff8e9&format=json&sort=cover_date:desc"
+      .post(
+        {
+          "url":"http://comicvine.gamespot.com/api/issues/?api_key=e0240c902e8c43c50db1c50099fe9aa9c328103c&format=json&filter=cover_date:1999-01-01%7C2020-12-12"
+        }
       )
       .then((response) => {
         setComicsList(response.data.results);
       })
+      
       .catch((e) => console.log(e));
   };
   const searchComics = (input) => {
