@@ -13,6 +13,9 @@ import { useHistory } from "react-router-dom";
 import fakeapi from "../../services/fakeapi";
 import { AnimationContainer, LoginBackground } from "./styles";
 import loginTitle from "../../assets/login-title.png";
+import axios from "axios";
+
+import { useUser } from "../../providers/user";
 
 // import { useAuth } from "../../providers/auth";
 // import { Container } from './styles';
@@ -41,16 +44,22 @@ function Login() {
   } = useForm({ resolver: yupResolver(schema) });
 
   const history = useHistory();
+  
 
   const onSubmitSignin = (data) => {
+
+
     fakeapi
       .post("login", data)
       .then((res) => {
-        console.log("deu bom");
+      
         const { accessToken } = res.data;
         localStorage.setItem("@comictrader:token", JSON.stringify(accessToken));
-        // setAuthenticated(true)
+        localStorage.setItem("ID", JSON.stringify(res.data.user.id));
+      
+        
       })
+      
       .then((_) => history.push("/main"))
       .catch((error) => console.log(error));
   };

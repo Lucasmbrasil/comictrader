@@ -12,7 +12,7 @@ export const UserProvider = ({ children }) => {
   const [rating, setRating] = useState();
   const [trades, setTrades] = useState();
   const token = JSON.parse(localStorage.getItem("@comictrader:token")) || "";
-  // const config = { headers: { Authorization: `Bearer ${token}`}}
+  
 
   const { setAuthenticated } = useAuth();
 
