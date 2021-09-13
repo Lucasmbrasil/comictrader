@@ -1,73 +1,67 @@
 import React, { useEffect } from "react";
 
-import comic from "../../services/comic"
+import comic from "../../services/comic";
 import axios from "axios";
-import { FatherContainer,Image,PageContent,ImageContainer,ContentContainer,TextContainer,TopBar ,WebSiteName,SearchDiv,SearchInput} from "./styles";
-import SearchIcon from '@material-ui/icons/Search';
+import {
+  FatherContainer,
+  Image,
+  PageContent,
+  ImageContainer,
+  ContentContainer,
+  TextContainer,
+  TopBar,
+  WebSiteName,
+  SearchDiv,
+  SearchInput,
+} from "./styles";
+import SearchIcon from "@material-ui/icons/Search";
 import { useState } from "react";
+import { useComics } from "../../providers/comics";
+import Header from "../../components/Header";
 
 function DashboardComic() {
- const [comicObject,setComicImage]= useState([]);
- const [description,setDescrition] = useState();
- const [image,setImage] = useState();
- 
+  const [comicObject, setComicImage] = useState([]);
+  // const [description, setDescrition] = useState();
+  // const [image, setImage] = useState();
+  const { getComic, id, specificComic } = useComics();
+
   useEffect(() => {
-    comic
-      .get(
-        "/issues/?api_key=bf2d39824c84c5c81e7f1adcabea036406aff8e9&format=json"
-      )
-      .then((response) => setComicImage([response.data.results[0]]))
-      .catch((e) => console.log(e));
-  }, []);
+    getComic(id);
+  }, [id]);
 
-useEffect(()=>{
-
-  
-  setDescrition(comicObject[0]?.description.replace(/<p>/g,"").replaceAll("</p>",""));
- 
-
-  
-  
-},[comicObject])
-
-
-
-
-
-
-  return <>
-    <FatherContainer>
-      <TopBar>
-        <WebSiteName>
-          teste
-          <p>subtitulo</p>
-        </WebSiteName>
-            <div>Home</div>
-            <div>texto</div>
-            <div>texto</div>
-            <div>Lançamentos</div>
-            <SearchDiv>
-              <SearchIcon/><SearchInput/>
-            </SearchDiv>
+  return (
+    <>
+      <FatherContainer>
+        <TopBar>
+          <Header />
         </TopBar>
         <PageContent>
           <ContentContainer>
-            <TextContainer>
-              {comicObject?.map((titulo,index)=>(<h1 key={index}>{titulo.name}</h1>))}
-                <p>{description}</p>              
-              <div>
-              <button>Eu quero</button>
-              <button>Eu tenho</button>
-              </div>
-            </TextContainer>
-            <ImageContainer>
-              <Image src={comicObject[0]?.image?.small_url} alt=""/>
-              imagem aqui
-            </ImageContainer>
+            {specificComic.aliases !== undefined && (
+              <>
+                <TextContainer>
+                  <h1> {specificComic.volume.name}</h1>
+                  <p>
+                    {specificComic.description !== null &&
+                      specificComic.description
+                        .slice(0, specificComic.description.indexOf("<h4>"))
+                        .replace(/<.*?>/g, " ")}
+                  </p>
+                  <div>
+                    <button>Eu quero</button>
+                    <button>Eu tenho</button>
+                  </div>
+                </TextContainer>
+                <ImageContainer>
+                  <Image src={specificComic.image.small_url} alt="" />
+                </ImageContainer>
+              </>
+            )}
           </ContentContainer>
         </PageContent>
-    </FatherContainer>
-  </>;
+      </FatherContainer>
+    </>
+  );
 }
 
 export default DashboardComic;

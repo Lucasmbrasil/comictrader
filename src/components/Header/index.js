@@ -25,19 +25,25 @@ const Header = ({ setShowDrawer }) => {
         <h1 className="Logo1">COMIC</h1>
         <h1 className="Logo2">TRADER</h1>
       </div>
-      {authenticated ?
-      <div className="HeaderButtons">
-        <HeaderButton onClick={() => history.push("/main")}>HQs</HeaderButton>
-        <HeaderButton onClick={() => history.push("/profile")}>Perfil</HeaderButton>
-        <HeaderButton onClick={handleLogout}>Sair</HeaderButton>
-      </div>
-      :
-      <div className="HeaderButtons">
-        <HeaderButton onClick={() => history.push("/main")}>HQs</HeaderButton>
-        <HeaderButton onClick={() => history.push("/signup")}>Cadastro</HeaderButton>
-        <HeaderButton onClick={() => history.push("/login")}>Login</HeaderButton>
-      </div>
-      }
+      {authenticated ? (
+        <div className="HeaderButtons">
+          <HeaderButton onClick={() => history.push("/main")}>HQs</HeaderButton>
+          <HeaderButton onClick={() => history.push("/profile")}>
+            Perfil
+          </HeaderButton>
+          <HeaderButton onClick={handleLogout}>Sair</HeaderButton>
+        </div>
+      ) : (
+        <div className="HeaderButtons">
+          <HeaderButton onClick={() => history.push("/main")}>HQs</HeaderButton>
+          <HeaderButton onClick={() => history.push("/signup")}>
+            Cadastro
+          </HeaderButton>
+          <HeaderButton onClick={() => history.push("/login")}>
+            Login
+          </HeaderButton>
+        </div>
+      )}
     </HeaderMain>
   );
 };
