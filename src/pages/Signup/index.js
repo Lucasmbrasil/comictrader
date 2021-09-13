@@ -4,15 +4,14 @@ import Header from "../../components/Header";
 import {
   BlackTop,
   InitialBackground,
-  InitialContainer,
 } from "../../styles/globalComponents";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
-import { TextField, Button, FormGroup } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 import fakeapi from "../../services/fakeapi";
+import { AnimationContainer, SignUpBackground } from "./styles";
 // import { useAuth } from "../../providers/auth";
 
 // import { Container } from './styles';
@@ -66,35 +65,39 @@ function Signup() {
     <InitialBackground>
       <BlackTop>
         <Header />
-        <InitialContainer>
-          <FormGroup onSubmit={handleSubmit(onSubmitSignup)}>
-            <h1>Cadastrar</h1>
-            <TextField
+        <AnimationContainer>
+          <SignUpBackground>
+            <h1>CADASTRO</h1>
+          </SignUpBackground>
+          <form onSubmit={handleSubmit(onSubmitSignup)}>
+            <input
               {...register("name")}
-              placeholder="name"
-              helperText={errors.name?.message}
+              placeholder="Nome"
             />
-            <TextField
+            <span>{errors.name?.message}</span>
+            <input
               {...register("email")}
-              placeholder="email"
-              helperText={errors.email?.message}
+              placeholder="E-mail"
             />
-            <TextField
+            <span>{errors.email?.message}</span>
+            <input
               {...register("password")}
-              placeholder="password"
-              helperText={errors.password?.message}
+              type="password"
+              placeholder="Senha"
             />
-            <TextField
+            <span>{errors.password?.message}</span>
+            <input
               {...register("state")}
-              placeholder="state"
-              helperText={errors.state?.message}
+              type="password"
+              placeholder="Estado"
             />
-            <Button type="submit">Cadastrar</Button>
+            <span>{errors.state?.message}</span>
+            <button type="submit">Cadastrar</button>
             <p>
-              Já é cadastrado? Faça seu <Link to="/login">login</Link>{" "}
+              Já é cadastrado? Faça seu <Link to="/login">login</Link>.
             </p>
-          </FormGroup>
-        </InitialContainer>
+          </form>
+        </AnimationContainer>
         <Footer />
       </BlackTop>
     </InitialBackground>

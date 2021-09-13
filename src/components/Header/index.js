@@ -27,13 +27,13 @@ const Header = ({ setShowDrawer }) => {
       </div>
       {authenticated ?
       <div className="HeaderButtons">
-        <HeaderButton onClick={() => history.push("/")}>HQs</HeaderButton>
-        <HeaderButton onClick={() => history.push("/")}>Perfil</HeaderButton>
+        <HeaderButton onClick={() => history.push("/main")}>HQs</HeaderButton>
+        <HeaderButton onClick={() => history.push("/profile")}>Perfil</HeaderButton>
         <HeaderButton onClick={handleLogout}>Sair</HeaderButton>
       </div>
       :
       <div className="HeaderButtons">
-        <HeaderButton onClick={() => history.push("/")}>HQs</HeaderButton>
+        <HeaderButton onClick={() => history.push("/main")}>HQs</HeaderButton>
         <HeaderButton onClick={() => history.push("/signup")}>Cadastro</HeaderButton>
         <HeaderButton onClick={() => history.push("/login")}>Login</HeaderButton>
       </div>

@@ -87,9 +87,10 @@ export const HeaderButton = styled.button`
     outline: none;
     border: none;
     color: white;
-    margin-inline: 10px;
+    margin-inline-start: 15px;
     font-size: 18px;
     cursor: pointer;
+    font-family: 'Urbanist', sans-serif;
 
     &&:hover {
         color: red;

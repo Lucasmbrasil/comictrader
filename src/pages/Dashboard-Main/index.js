@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
-import comic from "../../services/comic";
 import { useHistory } from "react-router-dom";
 import { useComics } from "../../providers/comics";
-import { DashboardContainer } from "../../styles/globalComponents";
+import { DashboardBackground } from "../../styles/globalComponents";
 import HQCard from "../../components/HQCards";
 import Header from "../../components/Header"
-// import { Container } from './styles';
+import { ComicListContainer, ComicSearchBar } from "./styles";
+import Footer from "../../components/Footer";
+
 function DashboardMain() {
+
   const [input, setInput] = useState("");
   const { comicsList, searchComics, getComicsList, setId } = useComics();
 
@@ -14,6 +16,7 @@ function DashboardMain() {
   useEffect(() => {
     getComicsList();
   }, []);
+
 
   // &resources=character&query=${input}
   // api_key=bf2d39824c84c5c81e7f1adcabea036406aff8e9&format=json
@@ -33,16 +36,13 @@ function DashboardMain() {
   // console.log(typeof hqs);
   // console.log(hqs);
   return (
-    <DashboardContainer>
+    <DashboardBackground>
       <Header/>
-      <input
-        placeholder="Pesquise uma hq"
-        onChange={(e) => setInput(e.target.value)}
-      />
-      <button onClick={() => searchComics(input)}>Pesquisar</button>
-      {comicsList.length === 0 && <p>Hq não encontrada</p>}
-      <div>
-        
+      <ComicSearchBar>        
+          <input type="text" value={input} onChange={(e)=> {setInput(e.target.value)}} placeholder="Pesquisar..." />
+          <button onClick={() => searchComics(input)}>Encontrar HQs</button>        
+      </ComicSearchBar>
+      <ComicListContainer>        
         {comicsList.map((item) => (
           <HQCard
             comic={item}
@@ -53,8 +53,9 @@ function DashboardMain() {
             }}
           />
         ))}
-      </div>
-    </DashboardContainer>
+      </ComicListContainer>
+      <Footer/>
+    </DashboardBackground>
   );
 }
 export default DashboardMain;

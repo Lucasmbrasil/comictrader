@@ -23,7 +23,7 @@ const Routes = () => {
       <Route path="/main">
         <DashboardMain />
       </Route>
-      <Route path="/comic">
+      <Route path="/comic/:comicId">
         <DashboardComic />
       </Route>
       <Route path="/profile">
