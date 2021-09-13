@@ -1,5 +1,4 @@
 import { createContext, useCallback, useContext, useState } from "react";
-import { useHistory } from "react-router-dom";
 import comic from "../../services/comic";
 
 export const ComicsContext = createContext();

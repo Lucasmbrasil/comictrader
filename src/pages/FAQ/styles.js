@@ -2,52 +2,38 @@ import styled from "styled-components";
 
 
 export const QuestionContainer = styled.div`
-   background-color:black;
-   overflow-y:scroll;
-    height: 80%;
+    background-color: rgb(0,0,0,0.7);
+    overflow: auto;
+    height: 60vh;
     width: 100%;
     display: flex;
-    justify-content:space-between;
+    justify-content: flex-start;
     flex-direction: column;
     align-items: center;
 `;
 
-export const FirtsBlock = styled.div`
-    border:1px solid black;
-    height: 67%;
-    width: 68%;
-    margin-bottom:1rem;
-    margin-top:1rem;
-    h1{
-        color:white;
-    }
-    p{
-        color:white;
-    }
-`;
+export const QuestionBlock = styled.div`
+    width: 90%;
 
-export const SecondBlock = styled.div`
-    border:1px solid black;
-    height: 67%;
-    width: 68%;
-    margin-bottom:1rem;
-    h1{
+    h1 {
+        font-family: 'Staatliches', cursive;
+        font-size: 28px;
+        font-weight: 300;
         color:white;
     }
-    p{
-        color:white
-    }
-`;
 
-
-export const ThirdBlock = styled.div`
-    border:1px solid black;
-    height: 67%;
-    width: 68%;
-    h1{
+    p {
+        font-family: 'Urbanist', sans-serif;  
+        font-size: 18px;
         color:white;
     }
-    p{
-        color:white;
+
+    @media(max-width: 600px) {
+        h1 {
+            font-size: 24px;
+        }
+        p {
+            font-size: 14px;
+        }
     }
 `;

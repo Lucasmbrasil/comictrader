@@ -66,7 +66,7 @@ function Login() {
           <form onSubmit={handleSubmit(onSubmitSignin)}>
             <input {...register("email")} placeholder="Digite seu email" />
             <span>{errors.email?.message}</span>
-            <input {...register("password")} placeholder="Digite sua senha" />
+            <input {...register("password")} type="password" placeholder="Digite sua senha" />
             <span>{errors.password?.message}</span>
             <button type="submit">Entrar</button>
             <p>

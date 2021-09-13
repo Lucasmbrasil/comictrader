@@ -79,7 +79,6 @@ function Signup() {
             <span>{errors.password?.message}</span>
             <input
               {...register("state")}
-              type="password"
               placeholder="Estado"
             />
             <span>{errors.state?.message}</span>
