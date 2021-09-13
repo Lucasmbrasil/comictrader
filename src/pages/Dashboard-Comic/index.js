@@ -1,13 +1,18 @@
 import React, { useEffect } from "react";
-import { useHistory } from "react-router";
+import { useHistory, useParams } from "react-router";
 import { useComics } from "../../providers/comics";
 
 function DashboardComic() {
+
   const { specificComic, getComic, id } = useComics();
+  const { comicId } = useParams();
+
+  useEffect(()=> {
+    getComic(id)
+    console.log()
+  }, [getComic, id])
+  
   const history = useHistory();
-  useEffect(() => {
-    getComic(id);
-  }, [getComic, id]);
 
   return (
     <div>

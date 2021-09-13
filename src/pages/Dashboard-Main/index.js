@@ -1,16 +1,22 @@
 import { useEffect, useState } from "react";
-import comic from "../../services/comic";
-import { Card, Container } from "./styled";
 import { useHistory } from "react-router-dom";
 import { useComics } from "../../providers/comics";
-// import { Container } from './styles';
+import { DashboardBackground } from "../../styles/globalComponents";
+import HQCard from "../../components/HQCards";
+import Header from "../../components/Header"
+import { ComicListContainer, ComicSearchBar } from "./styles";
+import Footer from "../../components/Footer";
+
 function DashboardMain() {
+
   const [input, setInput] = useState("");
   const { comicsList, searchComics, getComicsList, setId } = useComics();
+
   const history = useHistory();
   useEffect(() => {
     getComicsList();
   }, []);
+
 
   // &resources=character&query=${input}
   // api_key=bf2d39824c84c5c81e7f1adcabea036406aff8e9&format=json
@@ -30,28 +36,26 @@ function DashboardMain() {
   // console.log(typeof hqs);
   // console.log(hqs);
   return (
-    <>
-      <input
-        placeholder="Pesquise uma hq"
-        onChange={(e) => setInput(e.target.value)}
-      />
-      <button onClick={() => searchComics(input)}>Pesquisar</button>
-      {comicsList.length === 0 && <p>Hq não encontrada</p>}
-      <Container>
+    <DashboardBackground>
+      <Header/>
+      <ComicSearchBar>        
+          <input type="text" value={input} onChange={(e)=> {setInput(e.target.value)}} placeholder="Pesquisar..." />
+          <button onClick={() => searchComics(input)}>Encontrar HQs</button>        
+      </ComicSearchBar>
+      <ComicListContainer>        
         {comicsList.map((item) => (
-          <Card
+          <HQCard
+            comic={item}
             key={item.id}
             onClick={() => {
               setId(item.id);
               history.push("/comic");
             }}
-          >
-            <p>{item.volume.name}</p>
-            <img src={item.image.thumb_url} alt={item} />
-          </Card>
+          />
         ))}
-      </Container>{" "}
-    </>
+      </ComicListContainer>
+      <Footer/>
+    </DashboardBackground>
   );
 }
 export default DashboardMain;

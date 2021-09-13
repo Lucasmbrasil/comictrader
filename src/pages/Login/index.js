@@ -4,7 +4,6 @@ import Header from "../../components/Header";
 import {
   BlackTop,
   InitialBackground,
-  InitialContainer,
 } from "../../styles/globalComponents";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -12,6 +11,8 @@ import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import fakeapi from "../../services/fakeapi";
+import { AnimationContainer, LoginBackground } from "./styles";
+import loginTitle from "../../assets/login-title.png";
 
 // import { useAuth } from "../../providers/auth";
 // import { Container } from './styles';
@@ -58,19 +59,21 @@ function Login() {
     <InitialBackground>
       <BlackTop>
         <Header />
-        <InitialContainer>
-          <h1>Login</h1>
+        <AnimationContainer>
+          <LoginBackground>
+            <h1>LOGIN</h1>
+          </LoginBackground>
           <form onSubmit={handleSubmit(onSubmitSignin)}>
             <input {...register("email")} placeholder="Digite seu email" />
-            {errors.email?.message}
+            <span>{errors.email?.message}</span>
             <input {...register("password")} placeholder="Digite sua senha" />
-            {errors.password?.message}
-            <button type="submit">Logar com a minha conta</button>
+            <span>{errors.password?.message}</span>
+            <button type="submit">Entrar</button>
+            <p>
+            Não tem um cadastro? Faça seu <Link to="/signup">registro</Link>!
+            </p>
           </form>
-          <p>
-            Não tem um cadastro? Faça seu <Link to="/signup">registro</Link>
-          </p>
-        </InitialContainer>
+          </AnimationContainer>
         <Footer />
       </BlackTop>
     </InitialBackground>
