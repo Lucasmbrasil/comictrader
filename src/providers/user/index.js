@@ -52,7 +52,7 @@ export const UserProvider = ({ children }) => {
         name,
         location,
         rating,
-        trades
+        trades,
       }}
     >
       {children}

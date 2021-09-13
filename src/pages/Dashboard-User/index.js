@@ -6,10 +6,6 @@ import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import { Box, Typography } from "@material-ui/core";
-import Reviews from "../../components/Profile/Reviews";
-import Owned from "../../components/Profile/Owned";
-import Wanted from "../../components/Profile/Wanted";
-import Transactions from "../../components/Profile/Transactions";
 import {
   DashboardBackground,
   DashboardContainer,

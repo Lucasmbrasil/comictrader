@@ -1,6 +1,6 @@
 import { createContext, useCallback, useContext, useState } from "react";
-import { useHistory } from "react-router-dom";
 import comic from "../../services/comic";
+import fakeapi from "../../services/fakeapi";
 
 export const ComicsContext = createContext();
 
@@ -10,12 +10,14 @@ export const ComicsProvider = ({ children }) => {
   const [comicsList, setComicsList] = useState([]);
   const [id, setId] = useState(0);
   const [specificComic, setSpecificComic] = useState([]);
-  
-  // const config = { headers: { Authorization: `Bearer ${token}`}}
+
+  const token = localStorage.getItem("@comictrader:token");
+
+  const config = { headers: { Authorization: `Bearer ${token}` } };
   // const userid = numseioquelá
 
-  const updateOwned = (userid, config) => {
-    comic.get(`users/${userid}`, config).then((response) => {
+  const updateOwned = (userid) => {
+    fakeapi.get(`users/${userid}`, config).then((response) => {
       setComicsOwned(response.data.comics_owned);
       setComicsWanted(response.data.comics_wanted);
     });
@@ -68,23 +70,22 @@ export const ComicsProvider = ({ children }) => {
       .then((response) => {
         setComicsList(response.data.results);
       })
-      
+
       .catch((e) => console.log(e));
   };
-  
+
   const searchComics = (input) => {
-      const url = {
-        url: `https://comicvine.gamespot.com/api/search/?api_key=e0240c902e8c43c50db1c50099fe9aa9c328103c&format=json&query=${input}&resources=issue`,
-      };
-      comic
-        .post("get-data/", url)
-        .then((response) => {
-          input.length < 1 ?
-          getComicsList()
-          :
-          setComicsList(response.data.results)
-          })
-        .catch((e) => console.log(e));
+    const url = {
+      url: `https://comicvine.gamespot.com/api/search/?api_key=e0240c902e8c43c50db1c50099fe9aa9c328103c&format=json&query=${input}&resources=issue`,
+    };
+    comic
+      .post("get-data/", url)
+      .then((response) => {
+        input.length < 1
+          ? getComicsList()
+          : setComicsList(response.data.results);
+      })
+      .catch((e) => console.log(e));
   };
 
   const getComic = (id) => {
@@ -95,7 +96,7 @@ export const ComicsProvider = ({ children }) => {
       .post("get-data/", url)
       .then((response) => {
         setSpecificComic(response.data.results);
-        setId(response.data.results.id)
+        setId(response.data.results.id);
       })
       .catch((e) => console.log(e));
   };
@@ -103,6 +104,7 @@ export const ComicsProvider = ({ children }) => {
   return (
     <ComicsContext.Provider
       value={{
+        updateOwned,
         addOwned,
         addWanted,
         removeOwned,
