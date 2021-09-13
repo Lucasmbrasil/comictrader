@@ -1,7 +1,9 @@
 import { Route, Switch } from "react-router";
+import AboutUs from "../pages/About-Us";
 import DashboardComic from "../pages/Dashboard-Comic";
 import DashboardMain from "../pages/Dashboard-Main";
 import DashboardUser from "../pages/Dashboard-User";
+import FAQ from "../pages/FAQ";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
 import Signup from "../pages/Signup";
@@ -12,20 +14,26 @@ const Routes = () => {
       <Route exact path="/">
         <Home />
       </Route>
-      <Route exact path="/login">
+      <Route path="/login">
         <Login />
       </Route>
-      <Route exact path="/signup">
+      <Route path="/signup">
         <Signup />
       </Route>
-      <Route exact path="/main">
+      <Route path="/main">
         <DashboardMain />
       </Route>
-      <Route exact path="/comic">
+      <Route path="/comic/:comicId">
         <DashboardComic />
       </Route>
-      <Route exact path="/profile">
+      <Route path="/profile">
         <DashboardUser />
+      </Route>
+      <Route exact path="/faq">
+        <FAQ />
+      </Route>
+      <Route exact path="/about">
+        <AboutUs />
       </Route>
     </Switch>
   );
