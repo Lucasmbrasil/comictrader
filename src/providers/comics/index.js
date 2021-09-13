@@ -11,34 +11,45 @@ export const ComicsProvider = ({ children }) => {
   const [id, setId] = useState(0);
   const [specificComic, setSpecificComic] = useState([]);
 
-  const token = localStorage.getItem("@comictrader:token");
-
-  const config = { headers: { Authorization: `Bearer ${token}` } };
-  // const userid = numseioquelá
-
-  const updateOwned = (userid) => {
-    fakeapi.get(`users/${userid}`, config).then((response) => {
-      setComicsOwned(response.data.comics_owned);
-      setComicsWanted(response.data.comics_wanted);
-    });
+  const updateUserComics = (userid, config) => {
+    fakeapi
+      .get(`users/${userid}`, config)
+      .then((response) => {
+        console.log(response);
+        setComicsOwned(response.data.comics_owned);
+        setComicsWanted(response.data.comics_wanted);
+      })
+      .catch((e) => console.log(e));
   };
 
-  const addOwned = (data, userid, config) => {
-    comic
-      .patch(`users/${userid}`, data, config)
+  const addOwned = (userid, config) => {
+    const data = specificComic;
+    fakeapi
+      .patch(
+        `users/${userid}`,
+        { comics_owned: [...comicsOwned, data] },
+        config
+      )
       .then((e) => {
-        //   toast que deu certo
+        console.log(data);
+        setComicsOwned([...comicsOwned, data]);
       })
       .catch((e) => {
         console.log(e);
       });
   };
 
-  const addWanted = (data, userid, config) => {
-    comic
-      .patch(`users/${userid}`, data, config)
+  const addWanted = (userid, config) => {
+    const data = specificComic;
+    fakeapi
+      .patch(
+        `users/${userid}`,
+        { comics_wanted: [...comicsWanted, data] },
+        config
+      )
       .then((e) => {
-        setComicsWanted([...comicsWanted, e.data]);
+        console.log(data);
+        setComicsWanted([...comicsWanted, data]);
       })
       .catch((e) => {
         console.log(e);
@@ -90,7 +101,7 @@ export const ComicsProvider = ({ children }) => {
 
   const getComic = (id) => {
     const url = {
-      url: `https://comicvine.gamespot.com/api/volume/4050-${id}/?api_key=e0240c902e8c43c50db1c50099fe9aa9c328103c&format=json`,
+      url: `https://comicvine.gamespot.com/api/issue/4000-${id}/?api_key=e0240c902e8c43c50db1c50099fe9aa9c328103c&format=json`,
     };
     comic
       .post("get-data/", url)
@@ -104,7 +115,7 @@ export const ComicsProvider = ({ children }) => {
   return (
     <ComicsContext.Provider
       value={{
-        updateOwned,
+        updateUserComics,
         addOwned,
         addWanted,
         removeOwned,

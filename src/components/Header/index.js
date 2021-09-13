@@ -2,6 +2,7 @@ import { HeaderButton, HeaderMain } from "./styles";
 import { useHistory } from "react-router";
 import { AiOutlineMenu } from "react-icons/ai";
 import { useAuth } from "../../providers/auth";
+import { useEffect, useState } from "react";
 
 const Header = ({ setShowDrawer }) => {
   const { authenticated, setAuthenticated } = useAuth();

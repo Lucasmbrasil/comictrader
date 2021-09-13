@@ -6,12 +6,12 @@ import { useAuth } from "../auth";
 export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
-  const [userId, setUserId] = useState(0);
+  const [userId, setUserId] = useState();
   const [name, setName] = useState("");
   const [location, setLocation] = useState();
   const [rating, setRating] = useState();
   const [trades, setTrades] = useState();
-  const token = JSON.parse(localStorage.getItem("@comictrader:token")) || "";
+  const token = localStorage.getItem("@comictrader:token") || "";
   // const config = { headers: { Authorization: `Bearer ${token}`}}
 
   const { setAuthenticated } = useAuth();
@@ -20,7 +20,7 @@ export const UserProvider = ({ children }) => {
     if (token) {
       const decoderId = jwtDecode(token);
       setUserId(decoderId.sub);
-      fakeapi.get(`users/${userId}/`).then((response) => {
+      fakeapi.get(`users/${userId}`).then((response) => {
         setName(response.data.name);
         setLocation([response.data.state, response.data.country]);
         setRating(response.data.rating);
@@ -31,7 +31,7 @@ export const UserProvider = ({ children }) => {
 
   useEffect(() => {
     getId();
-  }, [token]);
+  }, []);
 
   const addRating = (data, config) => {
     fakeapi
@@ -48,6 +48,7 @@ export const UserProvider = ({ children }) => {
     <UserContext.Provider
       value={{
         addRating,
+        getId,
         userId,
         name,
         location,

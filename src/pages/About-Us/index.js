@@ -1,5 +1,3 @@
-import React from "react";
-
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import {
@@ -15,8 +13,12 @@ import {
 } from "./styles";
 
 import { AiOutlineLinkedin, AiOutlineGitlab } from "react-icons/ai"
+import { useHistory } from "react-router";
 
 function AboutUs() {
+
+  const history = useHistory();
+
   return (
     <InitialBackground>
       <BlackTop>
@@ -60,7 +62,9 @@ function AboutUs() {
            </DevInfo>
           </DevContainer>
          </UsContainer>
+         <button className="backButton" onClick={()=> history.push("/")}>Voltar</button>
         </InitialContainer>
+        
         <Footer />
       </BlackTop>
     </InitialBackground>

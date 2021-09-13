@@ -39,7 +39,7 @@ export const HQCardContainer = styled.div`
         .hqInfo {
             display: flex;
             flex-direction: column;
-            width: 100%;
+            width: 130px;
 
             h3 {
             font-family: 'Staatliches', cursive;

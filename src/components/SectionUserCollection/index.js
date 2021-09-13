@@ -3,11 +3,16 @@ import { useComics } from "../../providers/comics";
 import HQCard from "../HQCards";
 
 const SectionUserCollection = () => {
-  const { comicsOwned, comicsWanted, updateOwned } = useComics();
+  const { comicsOwned, comicsWanted, updateUserComics } = useComics();
+
+  const token = localStorage.getItem("@comictrader:token");
+  const config = { headers: { Authorization: `Bearer ${token}` } };
 
   useEffect(() => {
     const id = localStorage.getItem("@comictrader:id");
-    updateOwned(id);
+    if (id && id !== 0) {
+      updateUserComics(id, config);
+    }
   }, []);
 
   return (
@@ -16,13 +21,13 @@ const SectionUserCollection = () => {
         <div>
           <h2>Quadrinhos que tenho</h2>
           {comicsOwned?.map((comicOwned, index) => (
-            <HQCard comic={comicOwned} id="qualquer porra" />
+            <HQCard comic={comicOwned} id={comicOwned.id} />
           ))}
         </div>
         <div>
           <h2>Quadrinhos que quero</h2>
           {comicsWanted?.map((comicWanted, index) => (
-            <HQCard comic={comicWanted} />
+            <HQCard comic={comicWanted} id={comicWanted.id} />
           ))}
         </div>
       </div>

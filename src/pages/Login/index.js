@@ -10,12 +10,12 @@ import { useHistory } from "react-router-dom";
 import fakeapi from "../../services/fakeapi";
 import { AnimationContainer, LoginBackground } from "./styles";
 import loginTitle from "../../assets/login-title.png";
+import { useAuth } from "../../providers/auth";
 
-// import { useAuth } from "../../providers/auth";
 // import { Container } from './styles';
 
 function Login() {
-  // const { authenticated, setAuthenticated } = useAuth(); // sera utilizado para proteção de rotas futuramente
+  const { setAuthenticated } = useAuth();
   const schema = yup.object().shape({
     email: yup
       .string()
@@ -43,12 +43,11 @@ function Login() {
     fakeapi
       .post("login", data)
       .then((res) => {
-        console.log("deu bom");
         const { accessToken } = res.data;
         const id = res.data.user.id;
-        localStorage.setItem("@comictrader:id", JSON.stringify(id));
-        localStorage.setItem("@comictrader:token", JSON.stringify(accessToken));
-        // setAuthenticated(true)
+        localStorage.setItem("@comictrader:id", id);
+        localStorage.setItem("@comictrader:token", accessToken);
+        setAuthenticated(true);
       })
       .then((_) => history.push("/main"))
       .catch((error) => console.log(error));
@@ -65,7 +64,11 @@ function Login() {
           <form onSubmit={handleSubmit(onSubmitSignin)}>
             <input {...register("email")} placeholder="Digite seu email" />
             <span>{errors.email?.message}</span>
-            <input {...register("password")} placeholder="Digite sua senha" />
+            <input
+              {...register("password")}
+              type="password"
+              placeholder="Digite sua senha"
+            />
             <span>{errors.password?.message}</span>
             <button type="submit">Entrar</button>
             <p>
