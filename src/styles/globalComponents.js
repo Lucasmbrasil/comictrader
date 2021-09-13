@@ -57,6 +57,8 @@ export const InitialContainer = styled.div`
 
 export const DashboardBackground = styled.div`
     background-color: #E1E1E1;
+    margin-inline: 0;
+    padding: 0;
     min-height: 100vh;
     width: 100vw;
     display: flex;

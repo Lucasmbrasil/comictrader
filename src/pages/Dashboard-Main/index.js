@@ -52,10 +52,6 @@ function DashboardMain() {
             comic={item}
             key={item.id}
             id={item.id}
-            // onClick={() => {
-            //   setId(item.id);
-            //   history.push("/comic");
-            // }}
           />
         ))}
       </ComicListContainer>

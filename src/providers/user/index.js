@@ -6,7 +6,9 @@ import { useAuth } from "../auth";
 export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
-  const [userId, setUserId] = useState();
+  const [userId, setUserId] = useState(
+    localStorage.getItem("@comictrader:id") || ""
+  );
   const [name, setName] = useState("");
   const [location, setLocation] = useState();
   const [rating, setRating] = useState();
