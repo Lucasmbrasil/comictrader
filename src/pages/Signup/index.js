@@ -1,10 +1,7 @@
 import React from "react";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
-import {
-  BlackTop,
-  InitialBackground,
-} from "../../styles/globalComponents";
+import { BlackTop, InitialBackground } from "../../styles/globalComponents";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
@@ -55,7 +52,7 @@ function Signup() {
       .post("signup", data)
       .then((_) => {
         console.log("deu bom");
-        console.log(data)
+        console.log(data);
       })
       .then((_) => history.push("/login"))
       .catch((err) => console.log(err));
@@ -70,15 +67,9 @@ function Signup() {
             <h1>CADASTRO</h1>
           </SignUpBackground>
           <form onSubmit={handleSubmit(onSubmitSignup)}>
-            <input
-              {...register("name")}
-              placeholder="Nome"
-            />
+            <input {...register("name")} placeholder="Nome" />
             <span>{errors.name?.message}</span>
-            <input
-              {...register("email")}
-              placeholder="E-mail"
-            />
+            <input {...register("email")} placeholder="E-mail" />
             <span>{errors.email?.message}</span>
             <input
               {...register("password")}
