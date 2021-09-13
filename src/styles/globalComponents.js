@@ -19,6 +19,7 @@ export const BlackTop = styled.div`
     font-size: calc(10px + 2vmin);
     color: white;
 `
+
 export const InitialContainer = styled.div`
     width: 80vw;
     min-height: 60vh;
@@ -27,5 +28,28 @@ export const InitialContainer = styled.div`
     flex-wrap: wrap;
     align-items: center;
     justify content: stretch;
+    padding: 15px 0;
+`
+
+export const DashboardBackground = styled.div`
+    background-color: #E1E1E1;
+    min-height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+`
+
+export const DashboardContainer = styled.div`
+    width: 80vw;
+    min-height: 60vh;
+    display: flex;
+    flex: 1 0 auto;
+    flex-wrap: wrap;
+    align-items: center;
+    justify content: center;
     padding: 15px 0;
 `

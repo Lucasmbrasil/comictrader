@@ -10,6 +10,7 @@ export const UserProvider = ({ children }) => {
   const [name, setName] = useState("");
   const [location, setLocation] = useState();
   const [rating, setRating] = useState();
+  const [trades, setTrades] = useState();
   const token = JSON.parse(localStorage.getItem("@comictrader:token")) || "";
   // const config = { headers: { Authorization: `Bearer ${token}`}}
 
@@ -23,6 +24,7 @@ export const UserProvider = ({ children }) => {
         setName(response.data.name);
         setLocation([response.data.state, response.data.country]);
         setRating(response.data.rating);
+        setTrades(response.data.trades);
       });
     }
   };
@@ -50,6 +52,7 @@ export const UserProvider = ({ children }) => {
         name,
         location,
         rating,
+        trades
       }}
     >
       {children}

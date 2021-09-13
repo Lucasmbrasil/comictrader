@@ -1,117 +1,81 @@
-
 import styled from "styled-components";
-
+import devBackground from "../../assets/small-background.jpg"
 
 export const UsContainer = styled.div`
-background-color:black;
-height: 389px;
-    width: 1205px;
- display: flex;
- justify-content:space-evenly;
- flex-direction: row;
- align-items: center;
- @media screen and (max-width:768px){
-    flex-direction:column;
-    height: 1222px;
- }
+    display: flex;
+    flex-wrap: wrap;
+    min-height: 60vh;
+    width: 80vw;
+    justify-content:center;
+    align-items: center;
 `;
 
-
-export const FirtsDev = styled.div`
-       
-    border-radius: 5px;
-    height: 99%;
-    width: 20%;
-    flex-direction: column;
+export const DevContainer = styled.div`
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-   
-    @media screen and (max-width:768px){
-        height: 214px;
-    width: 204px;
- }
+    border-radius: 5px;
+    border: 2px solid black;
+    background: url(${devBackground}) no-repeat center;
+    width: 200px;
+    margin: 15px;
+
+    img {
+        width: 150px;
+        margin-block: 10px;
+        border-radius: 100%;
+        border: 2px solid black;
+    }
 `;
 
-
-export const SecondDev = styled.div`
-    
-    border-radius: 5px;
-    height: 99%;
-    width: 20%;
-    flex-direction: column;
+export const DevInfo = styled.div`
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    @media screen and (max-width:768px){
-        height: 264px;
-    width: 249px;
- }
-   
-`;
-
-
-export const ThirdDev = styled.div`
-     
-    border-radius: 5px;
-    height: 99%;
-    width: 20%;
-    flex-direction: column;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    @media screen and (max-width:768px){
-        
-    height: 272px;
-    width: 252px;
-
- }
-   
-`;
-
-
-export const FourthDev = styled.div`
-    
-    border-radius: 5px;
-    height: 99%;
-    width: 20%;
-    flex-direction: column;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    @media screen and (max-width:768px){
-        
-        height: 241px;
-    width: 211px;
-     }
-    
-`;
-
-
-export const LinkDivs = styled.div`
-    display: flex;
-    justify-content: space-evenly;
-    height: 6%;
     width: 100%;
-    .icons{
-        width: 36px;
-        height: 23px;
-        cursor:pointer;
+    background-color: rgb(0,0,0,0.8);
+    
+    a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: white;
+        color: black;
+        text-decoration: none;
+        padding: 5px;
+        width: 120px;
+        border-radius: 5px;
+        border: 2px solid black;
+        margin-block-start: 10px;
+        font-size: 14px;
+        font-family: 'Urbanist', sans-serif;
+    }
+
+    a:hover {
+        background-color: red;
+        color: white;
+        transition: 0.3s;
+    }
+
+        svg {
+            font-size: 20px;
+            margin-inline-end: 5px;
         }
+    }
 
-        a{
-            color:white;
-            width: 67px;
-        }
+    h2 {
+        font-family: 'Staatliches', cursive;
+        font-size: 26px;
+        font-weight: 200;
+        margin-block-end: 0;
+    }
 
-
-
-`;
-
-
-export const DevImage = styled.img`
-       width: 124px;
-    height: 125px;
-    border-radius: 100%;
-
+    h3 {
+        font-family: 'Urbanist', sans-serif;
+        font-size: 16px;
+        font-weight: 400;
+        margin-block-start: 0;
+    }
 `;

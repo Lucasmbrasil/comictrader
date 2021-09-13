@@ -10,7 +10,7 @@ export const FooterMain = styled.div`
   width: 100vw;
   padding: 10px 0;
   background-color: black;
-  font-family: "Nunito", sans-serif;
+  font-family: 'Urbanist', sans-serif;
   margin-block-end: 0px;
 
   .FooterSignature {

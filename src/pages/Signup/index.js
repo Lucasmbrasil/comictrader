@@ -1,18 +1,14 @@
 import React from "react";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
-import {
-  BlackTop,
-  InitialBackground,
-  InitialContainer,
-} from "../../styles/globalComponents";
+import { BlackTop, InitialBackground } from "../../styles/globalComponents";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
-import { TextField, Button, FormGroup } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 import fakeapi from "../../services/fakeapi";
+import { AnimationContainer, SignUpBackground } from "./styles";
 // import { useAuth } from "../../providers/auth";
 
 // import { Container } from './styles';
@@ -56,6 +52,7 @@ function Signup() {
       .post("signup", data)
       .then((_) => {
         console.log("deu bom");
+        console.log(data);
       })
       .then((_) => history.push("/login"))
       .catch((err) => console.log(err));
@@ -65,35 +62,33 @@ function Signup() {
     <InitialBackground>
       <BlackTop>
         <Header />
-        <InitialContainer>
+        <AnimationContainer>
+          <SignUpBackground>
+            <h1>CADASTRO</h1>
+          </SignUpBackground>
           <form onSubmit={handleSubmit(onSubmitSignup)}>
-            <h1>Cadastrar</h1>
-            <TextField
-              {...register("name")}
-              placeholder="name"
-              helperText={errors.name?.message}
-            />
-            <TextField
-              {...register("email")}
-              placeholder="email"
-              helperText={errors.email?.message}
-            />
-            <TextField
+            <input {...register("name")} placeholder="Nome" />
+            <span>{errors.name?.message}</span>
+            <input {...register("email")} placeholder="E-mail" />
+            <span>{errors.email?.message}</span>
+            <input
               {...register("password")}
-              placeholder="password"
-              helperText={errors.password?.message}
+              type="password"
+              placeholder="Senha"
             />
-            <TextField
+            <span>{errors.password?.message}</span>
+            <input
               {...register("state")}
-              placeholder="state"
-              helperText={errors.state?.message}
+              type="password"
+              placeholder="Estado"
             />
+            <span>{errors.state?.message}</span>
             <button type="submit">Cadastrar</button>
             <p>
-              Já é cadastrado? Faça seu <Link to="/login">login</Link>{" "}
+              Já é cadastrado? Faça seu <Link to="/login">login</Link>.
             </p>
           </form>
-        </InitialContainer>
+        </AnimationContainer>
         <Footer />
       </BlackTop>
     </InitialBackground>

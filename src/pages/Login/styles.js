@@ -1,5 +1,5 @@
 import styled, { keyframes } from "styled-components";
-import mainImg from "../../assets/main-img.png";
+import loginBack from "../../assets/balloon-img.png";
 
 const appearFromBack = keyframes`
 from{
@@ -22,39 +22,37 @@ to{
 }
 `;
 
-export const HomeBackground = styled.div`
+export const LoginBackground = styled.div`
   display:flex;
   justify-content: center;
   align-items: center;
-  width: 280px;
-  height: 280px;
-  background: url(${mainImg}) no-repeat center;
+  width: 200px;
+  height: 200px;
+  background: url(${loginBack}) no-repeat center;
   background-size: contain;
   animation: ${showUp} 0.3s;
 
   h1 {
-    margin-block: 10px;
-    max-width: 60%;
-    font-size: 24px;
+    margin-block: 20px;
+    font-size: 40px;
     font-family: 'Staatliches', cursive;
     color: black;
   }
 
   @media (min-width: 600px) {
-    width: 380px;
-    height: 380px;
+    width: 300px;
+    height: 300px;
 
     h1 {
-        font-size: 30px;
+        font-size: 50px;
     }
   }
 
   @media (min-width: 800px) {
-    background-size: cover;
-    min-width: 450px;
+    width: 400px;
     height: 400px;
     h1 {
-        font-size: 40px;
+        font-size: 70px;
     }
   }
 `;
@@ -67,6 +65,30 @@ export const AnimationContainer = styled.div`
   align-items: center;
   justify-content: center;
   animation: ${appearFromBack} 0.3s;
+
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  input {
+    width: 200px;
+    padding: 10px;
+    border-radius: 5px;
+    outline: none;
+    border: 2px solid black;
+    margin-block-end: 2px;
+    font-family: 'Urbanist', sans-serif;  
+  }
+  
+  span {
+    font-size: 14px;
+    font-family: 'Urbanist', sans-serif;
+    font-weight: 600; 
+    margin-block-end: 12px;
+    margin-inline-start: 5px;
+    text-align: left;
+  }
 
   button {
     padding: 10px 15px;
@@ -92,13 +114,18 @@ export const AnimationContainer = styled.div`
     color: black;
   }
 
-  .presentation {
+  p {
     font-size: 12px;
     font-family: 'Urbanist', sans-serif;
     font-weight: 600; 
-    max-width: 500px;
-    min-width: 30vw;
-    margin-block: 0;
+  }
+
+  a {
+    color: yellow;
+  }
+
+  a:active {
+    color: red;
   }
 
   @media(min-width: 800px) {
@@ -106,7 +133,12 @@ export const AnimationContainer = styled.div`
     width: 75vw;
     justify-content: space-around;
 
-    h3 {
+    input {
+        width: 280px;
+        padding: 15px;
+    }
+
+    p {
         font-size: 16px;
     }
   }
