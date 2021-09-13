@@ -10,7 +10,7 @@ export const ComicsProvider = ({ children }) => {
   const [comicsList, setComicsList] = useState([]);
   const [id, setId] = useState(0);
   const [specificComic, setSpecificComic] = useState([]);
-  
+
   // const config = { headers: { Authorization: `Bearer ${token}`}}
   // const userid = numseioquelá
 
@@ -68,34 +68,32 @@ export const ComicsProvider = ({ children }) => {
       .then((response) => {
         setComicsList(response.data.results);
       })
-      
+
       .catch((e) => console.log(e));
   };
-  
+
   const searchComics = (input) => {
-      const url = {
-        url: `https://comicvine.gamespot.com/api/search/?api_key=e0240c902e8c43c50db1c50099fe9aa9c328103c&format=json&query=${input}&resources=issue`,
-      };
-      comic
-        .post("get-data/", url)
-        .then((response) => {
-          input.length < 1 ?
-          getComicsList()
-          :
-          setComicsList(response.data.results)
-          })
-        .catch((e) => console.log(e));
+    const url = {
+      url: `https://comicvine.gamespot.com/api/search/?api_key=e0240c902e8c43c50db1c50099fe9aa9c328103c&format=json&query=${input}&resources=issue`,
+    };
+    comic
+      .post("get-data/", url)
+      .then((response) => {
+        input.length < 1
+          ? getComicsList()
+          : setComicsList(response.data.results);
+      })
+      .catch((e) => console.log(e));
   };
 
   const getComic = (id) => {
     const url = {
-      url: `https://comicvine.gamespot.com/api/volume/4050-${id}/?api_key=e0240c902e8c43c50db1c50099fe9aa9c328103c&format=json`,
+      url: `https://comicvine.gamespot.com/api/issue/4000-${id}/?api_key=e0240c902e8c43c50db1c50099fe9aa9c328103c&format=json`,
     };
     comic
       .post("get-data/", url)
       .then((response) => {
         setSpecificComic(response.data.results);
-        setId(response.data.results.id)
       })
       .catch((e) => console.log(e));
   };
