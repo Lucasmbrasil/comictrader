@@ -27,8 +27,32 @@ export const InitialContainer = styled.div`
     flex: 1 0 auto;
     flex-wrap: wrap;
     align-items: center;
-    justify content: stretch;
+    justify-content: center;
     padding: 15px 0;
+
+    .backButton {
+        padding: 10px 15px;
+        border-radius: 5px;
+        background-color: black;
+        color: white;
+        cursor: pointer;
+        outline: none;
+        border: none;
+        font-size: 16px;
+        font-family: 'Urbanist', sans-serif;
+        margin-block: 10px;
+    }
+
+    .backButton:hover {
+       background-color: red;
+        transition:0.3s;
+    }
+
+    .backButton:active {
+        background-color: white;
+        transition:0.3s;
+        color: black;
+    }
 `
 
 export const DashboardBackground = styled.div`

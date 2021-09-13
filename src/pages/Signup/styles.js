@@ -122,6 +122,7 @@ export const AnimationContainer = styled.div`
 
   a {
     color: yellow;
+    text-decoration: none;
   }
 
   a:active {

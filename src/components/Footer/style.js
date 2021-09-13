@@ -28,20 +28,20 @@ export const FooterMain = styled.div`
     margin-inline-end: 15px;
   }
 
-  a {
-    margin-inline: 5px;
-    font-size: 10px;
-  }
-
   p {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-inline-end: 15px;
+    margin-inline: 10px;
     font-size: 10px;
     cursor: pointer;
-    text-decoration: underline;
-    color: #2073c3;
+    text-decoration: none;
+    color: white;
+  }
+
+  p:hover {
+    color: red;
+    transition: 0.3s;
   }
 
   @media (min-width: 600px) {
