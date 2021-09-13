@@ -66,7 +66,7 @@ function Signup() {
       <BlackTop>
         <Header />
         <InitialContainer>
-          <FormGroup onSubmit={handleSubmit(onSubmitSignup)}>
+          <form onSubmit={handleSubmit(onSubmitSignup)}>
             <h1>Cadastrar</h1>
             <TextField
               {...register("name")}
@@ -88,11 +88,11 @@ function Signup() {
               placeholder="state"
               helperText={errors.state?.message}
             />
-            <Button type="submit">Cadastrar</Button>
+            <button type="submit">Cadastrar</button>
             <p>
               Já é cadastrado? Faça seu <Link to="/login">login</Link>{" "}
             </p>
-          </FormGroup>
+          </form>
         </InitialContainer>
         <Footer />
       </BlackTop>
