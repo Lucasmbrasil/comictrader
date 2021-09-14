@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+// import { useHistory } from "react-router-dom";
 import { useComics } from "../../providers/comics";
 import { DashboardBackground } from "../../styles/globalComponents";
 import HQCard from "../../components/HQCards";
@@ -48,11 +48,7 @@ function DashboardMain() {
       </ComicSearchBar>
       <ComicListContainer>
         {comicsList.map((item) => (
-          <HQCard
-            comic={item}
-            key={item.id}
-            id={item.id}
-          />
+          <HQCard comic={item} key={item.id} comicID={item.id} />
         ))}
       </ComicListContainer>
       <Footer />

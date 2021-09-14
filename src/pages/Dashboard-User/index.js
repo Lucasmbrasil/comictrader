@@ -1,15 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import { useUser } from "../../providers/user";
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
-import { Box, Typography } from "@material-ui/core";
-import Reviews from "../../components/Profile/Reviews";
-import Owned from "../../components/Profile/Owned";
-import Wanted from "../../components/Profile/Wanted";
-import Transactions from "../../components/Profile/Transactions";
+import { Box } from "@material-ui/core";
+// import Reviews from "../../components/Profile/Reviews";
+// import Owned from "../../components/Profile/Owned";
+// import Wanted from "../../components/Profile/Wanted";
+// import Transactions from "../../components/Profile/Transactions";
 import {
   DashboardBackground,
   DashboardContainer,
@@ -19,9 +19,13 @@ import SectionUserRates from "../../components/SectionUserRates";
 import SectionUserTrades from "../../components/SectionUserTrades";
 
 const DashboardUser = () => {
+  const { getId } = useUser();
   function TabPanel(props) {
     const { children, value, index, ...other } = props;
 
+    // useEffect(() => {
+    //   getId();
+    // }, []);
     return (
       <div
         role="tabpanel"
@@ -32,14 +36,14 @@ const DashboardUser = () => {
       >
         {value === index && (
           <Box p={3}>
-            <Typography>{children}</Typography>
+            <div>{children}</div>
           </Box>
         )}
       </div>
     );
   }
 
-  const { userId, getId, name, location, rating } = useUser();
+  const { name, location } = useUser();
   const [selectedTab, setSelectedTab] = useState(0);
 
   const handleChange = (event, newValue) => {

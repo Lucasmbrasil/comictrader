@@ -5,7 +5,7 @@ const SectionUserRates = () => {
 
   return (
     <div>
-      {rating?.map((rate, index) => {
+      {rating?.map((rate) => {
         return (
           <div>
             <p>{rate.comment}</p>
