@@ -7,12 +7,12 @@ import {
   // ComicMainContainer,
   InfoContainer,
 } from "./styles";
-// import { useState } from "react";
 import { useComics } from "../../providers/comics";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import { DashboardBackground } from "../../styles/globalComponents";
 import UserCardList from "../../components/UserCardList";
+import fakeapi from "../../services/fakeapi";
 
 function DashboardComic() {
   // const [comicObject, setComicImage] = useState([]);
@@ -28,6 +28,16 @@ function DashboardComic() {
     const comicID = localStorage.getItem("@comictrader:comicID");
     getComic(comicID);
   }, []);
+
+  const updatingOwners = () => {
+    fakeapi
+      .get(`users`, config)
+      .then((res) => {
+        console.log(res.data);
+        // setUserList(res.data);
+      })
+      .catch((e) => console.log(e));
+  };
 
   return (
     <DashboardBackground>

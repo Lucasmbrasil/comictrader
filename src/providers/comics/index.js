@@ -117,6 +117,7 @@ export const ComicsProvider = ({ children }) => {
       .post("get-data/", url)
       .then((response) => {
         setSpecificComic(response.data.results);
+        setId(response.data.results.id);
       })
       .catch((e) => console.log(e));
   };
@@ -124,6 +125,7 @@ export const ComicsProvider = ({ children }) => {
   return (
     <ComicsContext.Provider
       value={{
+        updateUserComics,
         addOwned,
         addWanted,
         removeOwned,
@@ -137,7 +139,6 @@ export const ComicsProvider = ({ children }) => {
         id,
         getComic,
         specificComic,
-        updateUserComics,
       }}
     >
       {children}

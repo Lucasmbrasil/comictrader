@@ -6,6 +6,7 @@ import HQCard from "../../components/HQCards";
 import Header from "../../components/Header";
 import { ComicListContainer, ComicSearchBar } from "./styles";
 import Footer from "../../components/Footer";
+import { useUser } from "../../providers/user";
 
 function DashboardMain() {
   const [input, setInput] = useState("");

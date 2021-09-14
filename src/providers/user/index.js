@@ -56,7 +56,6 @@ export const UserProvider = ({ children }) => {
         location,
         rating,
         trades,
-        getId,
       }}
     >
       {children}
