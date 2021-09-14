@@ -1,5 +1,6 @@
 import { createContext, useCallback, useContext, useState } from "react";
 import comic from "../../services/comic";
+import fakeapi from "../../services/fakeapi";
 
 export const ComicsContext = createContext();
 
@@ -7,38 +8,54 @@ export const ComicsProvider = ({ children }) => {
   const [comicsOwned, setComicsOwned] = useState([]);
   const [comicsWanted, setComicsWanted] = useState([]);
   const [comicsList, setComicsList] = useState([]);
-  const [id, setId] = useState(0);
+  // const [comicId, setComicId] = useState(0);
   const [specificComic, setSpecificComic] = useState([]);
 
   // const config = { headers: { Authorization: `Bearer ${token}`}}
   // const userid = numseioquelá
 
-  const updateOwned = (userid, config) => {
-    comic.get(`users/${userid}`, config).then((response) => {
-      setComicsOwned(response.data.comics_owned);
-      setComicsWanted(response.data.comics_wanted);
-    });
+  const updateUserComics = (userid, config) => {
+    fakeapi
+      .get(`users/${userid}`, config)
+      .then((response) => {
+        console.log(response);
+        setComicsOwned(response.data.comics_owned);
+        setComicsWanted(response.data.comics_wanted);
+      })
+      .catch((e) => console.log("aquiporra"));
   };
 
-  const addOwned = (data, userid, config) => {
-    comic
-      .patch(`users/${userid}`, data, config)
+  const addOwned = (userid, config) => {
+    const data = specificComic;
+    fakeapi
+      .patch(
+        `users/${userid}`,
+        { comics_owned: [...comicsOwned, data] },
+        config
+      )
       .then((e) => {
-        //   toast que deu certo
+        console.log(data);
+        setComicsOwned([...comicsOwned, data]);
       })
       .catch((e) => {
-        console.log(e);
+        console.log("disgraça add owned", e);
       });
   };
 
-  const addWanted = (data, userid, config) => {
-    comic
-      .patch(`users/${userid}`, data, config)
+  const addWanted = (userid, config) => {
+    const data = specificComic;
+    fakeapi
+      .patch(
+        `users/${userid}`,
+        { comics_wanted: [...comicsWanted, data] },
+        config
+      )
       .then((e) => {
-        setComicsWanted([...comicsWanted, e.data]);
+        console.log(data);
+        setComicsWanted([...comicsWanted, data]);
       })
       .catch((e) => {
-        console.log(e);
+        console.log("disgraça add wanted", e);
       });
   };
 
@@ -85,9 +102,9 @@ export const ComicsProvider = ({ children }) => {
       .catch((e) => console.log(e));
   };
 
-  const getComic = (id) => {
+  const getComic = (comicId) => {
     const url = {
-      url: `https://comicvine.gamespot.com/api/issue/4000-${id}/?api_key=e0240c902e8c43c50db1c50099fe9aa9c328103c&format=json`,
+      url: `https://comicvine.gamespot.com/api/issue/4000-${comicId}/?api_key=e0240c902e8c43c50db1c50099fe9aa9c328103c&format=json`,
     };
     comic
       .post("get-data/", url)
@@ -96,6 +113,16 @@ export const ComicsProvider = ({ children }) => {
       })
       .catch((e) => console.log(e));
   };
+
+  // const updatingOwners = (config) => {
+  //   fakeapi
+  //     .get(`users`, config)
+  //     .then((res) => {
+  //       console.log(res.data);
+  //       setUserList(res.data);
+  //     })
+  //     .catch((e) => console.log(e));
+  // };
 
   return (
     <ComicsContext.Provider
@@ -109,10 +136,11 @@ export const ComicsProvider = ({ children }) => {
         getComicsList,
         searchComics,
         comicsList,
-        setId,
-        id,
+        // setComicId,
+        // comicId,
         getComic,
         specificComic,
+        updateUserComics,
       }}
     >
       {children}

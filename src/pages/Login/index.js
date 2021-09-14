@@ -1,10 +1,7 @@
 import React from "react";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
-import {
-  BlackTop,
-  InitialBackground,
-} from "../../styles/globalComponents";
+import { BlackTop, InitialBackground } from "../../styles/globalComponents";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
@@ -48,7 +45,10 @@ function Login() {
       .then((res) => {
         console.log("deu bom");
         const { accessToken } = res.data;
-        localStorage.setItem("@comictrader:token", JSON.stringify(accessToken));
+        const id = res.data.user.id;
+
+        localStorage.setItem("@comictrader:id", id);
+        localStorage.setItem("@comictrader:token", accessToken);
         // setAuthenticated(true)
       })
       .then((_) => history.push("/main"))
@@ -66,14 +66,18 @@ function Login() {
           <form onSubmit={handleSubmit(onSubmitSignin)}>
             <input {...register("email")} placeholder="Digite seu email" />
             <span>{errors.email?.message}</span>
-            <input {...register("password")} type="password" placeholder="Digite sua senha" />
+            <input
+              {...register("password")}
+              type="password"
+              placeholder="Digite sua senha"
+            />
             <span>{errors.password?.message}</span>
             <button type="submit">Entrar</button>
             <p>
-            Não tem um cadastro? Faça seu <Link to="/signup">registro</Link>!
+              Não tem um cadastro? Faça seu <Link to="/signup">registro</Link>!
             </p>
           </form>
-          </AnimationContainer>
+        </AnimationContainer>
         <Footer />
       </BlackTop>
     </InitialBackground>

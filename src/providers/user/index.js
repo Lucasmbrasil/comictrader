@@ -11,22 +11,25 @@ export const UserProvider = ({ children }) => {
   const [location, setLocation] = useState();
   const [rating, setRating] = useState();
   const [trades, setTrades] = useState();
-  const token = JSON.parse(localStorage.getItem("@comictrader:token")) || "";
+  const token = localStorage.getItem("@comictrader:token");
   // const config = { headers: { Authorization: `Bearer ${token}`}}
 
   const { setAuthenticated } = useAuth();
 
   const getId = () => {
-    if (token) {
-      const decoderId = jwtDecode(token);
-      setUserId(decoderId.sub);
-      fakeapi.get(`users/${userId}/`).then((response) => {
+    const userId = localStorage.getItem("@comictrader:id");
+    const token = localStorage.getItem("@comictrader:token");
+    const config = { headers: { Authorization: `Bearer ${token}` } };
+
+    fakeapi
+      .get(`users/${userId}/`, config)
+      .then((response) => {
         setName(response.data.name);
         setLocation([response.data.state, response.data.country]);
         setRating(response.data.rating);
         setTrades(response.data.trades);
-      });
-    }
+      })
+      .catch((e) => "disgraça");
   };
 
   useEffect(() => {
@@ -40,7 +43,7 @@ export const UserProvider = ({ children }) => {
         setRating(data);
       })
       .catch((e) => {
-        console.log(e);
+        console.log("disgraça de rating", e);
       });
   };
 
@@ -52,7 +55,7 @@ export const UserProvider = ({ children }) => {
         name,
         location,
         rating,
-        trades
+        trades,
       }}
     >
       {children}

@@ -12,7 +12,7 @@ const HQCard = ({ comic, id }) => {
   return (
     <HQCardContainer
       onClick={() => {
-        setId(id);
+        localStorage.setItem("@comictrader:comicId", id);
         history.push(`/comic/${comic.id}`);
       }}
     >
