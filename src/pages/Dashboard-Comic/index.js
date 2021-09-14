@@ -16,17 +16,21 @@ import {
   DashboardContainer,
 } from "../../styles/globalComponents";
 import fakeapi from "../../services/fakeapi";
+import UserCardList from "../../components/UserCardList";
 
 function DashboardComic() {
   const [comicObject, setComicImage] = useState([]);
   // const [description, setDescrition] = useState();
   // const [image, setImage] = useState();
   const { getComic, id, specificComic, addWanted, addOwned } = useComics();
-  const [ownerList, setOwnerList] = useState([]);
+  const [userList, setUserList] = useState([]);
 
   const token = localStorage.getItem("@comictrader:token");
   const config = { headers: { Authorization: `Bearer ${token}` } };
   const userId = localStorage.getItem("@comictrader:id");
+
+  const [ownerList, setOwnerList] = useState([]);
+  const [wanterList, setWanterList] = useState([]);
 
   useEffect(() => {
     getComic(id);
@@ -37,7 +41,7 @@ function DashboardComic() {
       .get(`users`, config)
       .then((res) => {
         console.log(res.data);
-        setOwnerList(res.data);
+        setUserList(res.data);
       })
       .catch((e) => console.log(e));
   };
@@ -81,10 +85,12 @@ function DashboardComic() {
             <div className="WhoHas">
               <h3>Quem tem esta HQ:</h3>
               <div>
-                <button onClick={updatingOwners}>chama</button>
-                {ownerList.map((owners, id) => (
-                  <div>{owners.id}</div>
-                ))}
+                <button onClick={updatingOwners}>Chama</button>
+                {setOwnerList(
+                  userList.map((obj1) =>
+                    obj1.comics_owned.filter((obj2) => obj2.id === id)
+                  )
+                )}
               </div>
             </div>
             <div className="WhoWants">
