@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   // Image,
   // ImageContainer,
@@ -23,21 +23,60 @@ function DashboardComic() {
   const token = localStorage.getItem("@comictrader:token");
   const userId = localStorage.getItem("@comictrader:userID");
   const config = { headers: { Authorization: `Bearer ${token}` } };
+  const [ownersList, setOwnersList] = useState();
+  const [wantersList, setWantersList] = useState();
+  const [userList, setUserList] = useState();
 
   useEffect(() => {
     const comicID = localStorage.getItem("@comictrader:comicID");
     getComic(comicID);
   }, []);
 
-  const updatingOwners = () => {
-    fakeapi
-      .get(`users`, config)
-      .then((res) => {
-        console.log(res.data);
-        // setUserList(res.data);
-      })
-      .catch((e) => console.log(e));
+  // const updatingOwners = () => {
+  //   fakeapi
+  //     .get(`users`, config)
+  //     .then((res) => {
+  //       console.log(res.data);
+  //       // setOwnerList(res.data);
+  //     })
+  //     .catch((e) => console.log(e));
+  // };
+
+  const getUserList = () => {
+    const token = localStorage.getItem("@comictrader:token");
+    const config = { headers: { Authorization: `Bearer ${token}` } };
+
+    fakeapi.get("users", config).then((res) => {
+      console.log("requisição", res.data);
+      setUserList(res.data);
+    });
   };
+
+  useEffect(() => {
+    getUserList();
+  }, []);
+
+  console.log("pq", userList);
+  console.log("especific", specificComic.id);
+
+  const wanterList = userList?.map(
+    (user) => {
+      if (
+        user.comics_wanted.filter((comic) => comic.id === specificComic.id) !==
+        undefined
+      ) {
+        return user;
+      }
+    }
+
+    // user.comics_wanted.filter((comic) => comic.id === specificComic.id)
+  );
+
+  const ownerList = userList?.filter((user) =>
+    user.comics_owned.filter((comic) => comic.id === specificComic.id)
+  );
+  console.log("wanter", wanterList);
+  console.log("owner", ownerList);
 
   return (
     <DashboardBackground>
@@ -77,11 +116,19 @@ function DashboardComic() {
           <InfoContainer>
             <div className="WhoHas">
               <h3>Quem tem esta HQ:</h3>
-              <div></div>
+              <div>
+                {ownerList?.map((user) => (
+                  <UserCardList user={user} />
+                ))}
+              </div>
             </div>
             <div className="WhoWants">
               <h3>Quem também quer:</h3>
-              <div></div>
+              <div>
+                {wanterList?.map((user) => (
+                  <UserCardList user={user} />
+                ))}
+              </div>
             </div>
           </InfoContainer>
         </DashboardComicContainer>

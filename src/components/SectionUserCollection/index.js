@@ -5,13 +5,13 @@ import HQCard from "../HQCards";
 
 const SectionUserCollection = () => {
   const { comicsOwned, comicsWanted, updateUserComics } = useComics();
-  const token = localStorage.getItem("@comictrader:token");
 
   useEffect(() => {
-    const config = { headers: { Authorization: `Bearer ${token}` } };
+    // const token = localStorage.getItem("@comictrader:token");
     const id = localStorage.getItem("@comictrader:userID");
+    // const config = { headers: { Authorization: `Bearer ${token}` } };
     if (id && id !== 0) {
-      updateUserComics(id, config);
+      updateUserComics(id);
     }
   }, []);
 

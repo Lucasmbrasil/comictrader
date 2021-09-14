@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import { useUser } from "../../providers/user";
@@ -44,12 +44,16 @@ const DashboardUser = () => {
     );
   }
 
-  const { name, location, userID } = useUser();
+  const { name, location, userId, getId } = useUser();
   const [selectedTab, setSelectedTab] = useState(0);
   const avatarURL = `https://ui-avatars.com/api/?length=2&rounded=true&background=random&name=${name}`;
   const handleChange = (event, newValue) => {
     setSelectedTab(newValue);
   };
+
+  useEffect(() => {
+    getId();
+  }, []);
 
   return (
     <>
@@ -62,7 +66,7 @@ const DashboardUser = () => {
           <div className="userProfileInfo">
             <h1>{name}</h1>
             <h2>{location}, Brasil</h2>
-            {userID === localStorage.getItem("@comictrader:userID") ? (
+            {userId === localStorage.getItem("@comictrader:userID") ? (
               <button>Editar perfil</button>
             ) : (
               <div className="visitorButtons">

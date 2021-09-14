@@ -11,11 +11,11 @@ export const UserProvider = ({ children }) => {
   const [location, setLocation] = useState();
   const [rating, setRating] = useState();
   const [trades, setTrades] = useState();
-  const token = localStorage.getItem("@comictrader:token") || "";
 
   // const { setAuthenticated } = useAuth();
 
   const getId = () => {
+    const token = localStorage.getItem("@comictrader:token") || "";
     const userId = localStorage.getItem("@comictrader:userID");
     const config = { headers: { Authorization: `Bearer ${token}` } };
     if (token) {
@@ -51,6 +51,7 @@ export const UserProvider = ({ children }) => {
     <UserContext.Provider
       value={{
         addRating,
+        getId,
         userId,
         name,
         location,
