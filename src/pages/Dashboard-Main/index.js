@@ -6,6 +6,7 @@ import HQCard from "../../components/HQCards";
 import Header from "../../components/Header";
 import { ComicListContainer, ComicSearchBar } from "./styles";
 import Footer from "../../components/Footer";
+import { useUser } from "../../providers/user";
 
 function DashboardMain() {
   const [input, setInput] = useState("");
@@ -48,11 +49,7 @@ function DashboardMain() {
       </ComicSearchBar>
       <ComicListContainer>
         {comicsList.map((item) => (
-          <HQCard
-            comic={item}
-            key={item.id}
-            id={item.id}
-          />
+          <HQCard comic={item} key={item.id} id={item.id} />
         ))}
       </ComicListContainer>
       <Footer />

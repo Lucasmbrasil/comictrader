@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useComics } from "../../providers/comics";
+import { useUser } from "../../providers/user";
 import HQCard from "../HQCards";
 
 const SectionUserCollection = () => {
@@ -7,9 +8,10 @@ const SectionUserCollection = () => {
 
   const token = localStorage.getItem("@comictrader:token");
   const config = { headers: { Authorization: `Bearer ${token}` } };
+  const { userId } = useUser();
 
   useEffect(() => {
-    const id = localStorage.getItem("@comictrader:id");
+    const id = localStorage.getItem("@comictrader:id") || userId;
     if (id && id !== 0) {
       updateUserComics(id, config);
     }

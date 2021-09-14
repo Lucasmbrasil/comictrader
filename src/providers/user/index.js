@@ -14,7 +14,7 @@ export const UserProvider = ({ children }) => {
   const [rating, setRating] = useState();
   const [trades, setTrades] = useState();
   const token = localStorage.getItem("@comictrader:token") || "";
-  // const config = { headers: { Authorization: `Bearer ${token}`}}
+  const config = { headers: { Authorization: `Bearer ${token}` } };
 
   const { setAuthenticated } = useAuth();
 
@@ -22,7 +22,7 @@ export const UserProvider = ({ children }) => {
     if (token) {
       const decoderId = jwtDecode(token);
       setUserId(decoderId.sub);
-      fakeapi.get(`users/${userId}`).then((response) => {
+      fakeapi.get(`users/${userId}`, config).then((response) => {
         setName(response.data.name);
         setLocation([response.data.state, response.data.country]);
         setRating(response.data.rating);
@@ -51,6 +51,7 @@ export const UserProvider = ({ children }) => {
       value={{
         addRating,
         getId,
+        setUserId,
         userId,
         name,
         location,

@@ -19,7 +19,7 @@ export const ComicsProvider = ({ children }) => {
         setComicsOwned(response.data.comics_owned);
         setComicsWanted(response.data.comics_wanted);
       })
-      .catch((e) => console.log(e));
+      .catch((e) => console.log("aquiporra", e));
   };
 
   const addOwned = (userid, config) => {

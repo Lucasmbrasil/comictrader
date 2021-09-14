@@ -11,11 +11,13 @@ import fakeapi from "../../services/fakeapi";
 import { AnimationContainer, LoginBackground } from "./styles";
 import loginTitle from "../../assets/login-title.png";
 import { useAuth } from "../../providers/auth";
+import { useUser } from "../../providers/user";
 
 // import { Container } from './styles';
 
 function Login() {
   const { setAuthenticated } = useAuth();
+  const { setUserId } = useUser();
   const schema = yup.object().shape({
     email: yup
       .string()
@@ -45,6 +47,7 @@ function Login() {
       .then((res) => {
         const { accessToken } = res.data;
         const id = res.data.user.id;
+        setUserId(id);
         localStorage.setItem("@comictrader:id", id);
         localStorage.setItem("@comictrader:token", accessToken);
         setAuthenticated(true);
