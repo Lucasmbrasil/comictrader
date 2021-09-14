@@ -7,11 +7,13 @@ import { ChatEngine, getOrCreateChat } from "react-chat-engine";
 import { MainContainer } from "./styles";
 
 const Chat = () => {
-  const token = JSON.parse(localStorage.getItem("@comictrader:token")) || "";
+  const token = localStorage.getItem("@comictrader:token");
+  
 
-  const id = JSON.parse(localStorage.getItem("ID")) || "";
+  const id =  localStorage.getItem("@comictrader:userID");;
 
-  // const [owner,setOwner]= useState("");
+
+  
 
   const [FriendsList, setFriendsList] = useState(
     JSON.parse(localStorage.getItem("lista de amigos")) || ""
