@@ -1,4 +1,4 @@
-import { createContext, useCallback, useContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 import comic from "../../services/comic";
 import fakeapi from "../../services/fakeapi";
 
@@ -11,6 +11,16 @@ export const ComicsProvider = ({ children }) => {
   const [id, setId] = useState(0);
   const [specificComic, setSpecificComic] = useState([]);
 
+  // const config = { headers: { Authorization: `Bearer ${token}`}}
+  // const userid = numseioquelá
+
+  // const updateOwned = (userid, config) => {
+  //   comic.get(`users/${userid}`, config).then((response) => {
+  //     setComicsOwned(response.data.comics_owned);
+  //     setComicsWanted(response.data.comics_wanted);
+  //   });
+  // };
+
   const updateUserComics = (userid, config) => {
     fakeapi
       .get(`users/${userid}`, config)
@@ -19,7 +29,7 @@ export const ComicsProvider = ({ children }) => {
         setComicsOwned(response.data.comics_owned);
         setComicsWanted(response.data.comics_wanted);
       })
-      .catch((e) => console.log("aquiporra", e));
+      .catch((e) => console.log(e));
   };
 
   const addOwned = (userid, config) => {

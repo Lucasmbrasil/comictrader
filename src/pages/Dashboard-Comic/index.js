@@ -1,13 +1,12 @@
 import React, { useEffect } from "react";
 import {
-  Image,
-  ImageContainer,
+  // Image,
+  // ImageContainer,
   ComicBackground,
   DashboardComicContainer,
-  ComicMainContainer,
+  // ComicMainContainer,
   InfoContainer,
 } from "./styles";
-import { useState } from "react";
 import { useComics } from "../../providers/comics";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
@@ -19,21 +18,18 @@ import fakeapi from "../../services/fakeapi";
 import UserCardList from "../../components/UserCardList";
 
 function DashboardComic() {
-  const [comicObject, setComicImage] = useState([]);
+  // const [comicObject, setComicImage] = useState([]);
   // const [description, setDescrition] = useState();
   // const [image, setImage] = useState();
-  const { getComic, id, specificComic, addWanted, addOwned } = useComics();
-  const [userList, setUserList] = useState([]);
+  const { getComic, specificComic, addWanted, addOwned } = useComics();
 
   const token = localStorage.getItem("@comictrader:token");
+  const userId = localStorage.getItem("@comictrader:userID");
   const config = { headers: { Authorization: `Bearer ${token}` } };
-  const userId = localStorage.getItem("@comictrader:id");
-
-  const [ownerList, setOwnerList] = useState([]);
-  const [wanterList, setWanterList] = useState([]);
 
   useEffect(() => {
-    getComic(id);
+    const comicID = localStorage.getItem("@comictrader:comicID");
+    getComic(comicID);
   }, []);
 
   const updatingOwners = () => {
@@ -41,7 +37,7 @@ function DashboardComic() {
       .get(`users`, config)
       .then((res) => {
         console.log(res.data);
-        setUserList(res.data);
+        // setUserList(res.data);
       })
       .catch((e) => console.log(e));
   };
@@ -84,14 +80,7 @@ function DashboardComic() {
           <InfoContainer>
             <div className="WhoHas">
               <h3>Quem tem esta HQ:</h3>
-              <div>
-                <button onClick={updatingOwners}>Chama</button>
-                {setOwnerList(
-                  userList.map((obj1) =>
-                    obj1.comics_owned.filter((obj2) => obj2.id === id)
-                  )
-                )}
-              </div>
+              <div></div>
             </div>
             <div className="WhoWants">
               <h3>Quem também quer:</h3>

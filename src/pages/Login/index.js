@@ -46,12 +46,13 @@ function Login() {
       .post("login", data)
       .then((res) => {
         const { accessToken } = res.data;
-        const id = res.data.user.id;
-        setUserId(id);
-        localStorage.setItem("@comictrader:id", id);
+        const userId = res.data.user.id;
+        setUserId(userId);
+        localStorage.setItem("@comictrader:userID", userId);
         localStorage.setItem("@comictrader:token", accessToken);
         setAuthenticated(true);
       })
+
       .then((_) => history.push("/main"))
       .catch((error) => console.log(error));
   };

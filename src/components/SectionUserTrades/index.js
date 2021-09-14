@@ -5,7 +5,7 @@ const SectionUserTrades = () => {
 
   return (
     <div>
-      {trades?.map((trade, index) => {
+      {trades?.map((trade) => {
         return (
           <div>
             <div>

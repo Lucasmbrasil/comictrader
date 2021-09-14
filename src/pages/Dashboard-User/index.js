@@ -5,7 +5,7 @@ import { useUser } from "../../providers/user";
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
-import { Box, Typography } from "@material-ui/core";
+import { Box } from "@material-ui/core";
 import {
   DashboardBackground,
   DashboardContainer,
@@ -15,11 +15,12 @@ import SectionUserRates from "../../components/SectionUserRates";
 import SectionUserTrades from "../../components/SectionUserTrades";
 
 const DashboardUser = () => {
+  const { getId } = useUser();
   function TabPanel(props) {
     const { children, value, index, ...other } = props;
 
     return (
-      <div
+      <divuserId
         role="tabpanel"
         hidden={value !== index}
         id={`simple-tabpanel-${index}`}
@@ -28,14 +29,14 @@ const DashboardUser = () => {
       >
         {value === index && (
           <Box p={3}>
-            <Typography>{children}</Typography>
+            <div>{children}</div>
           </Box>
         )}
-      </div>
+      </divuserId>
     );
   }
 
-  const { userId, getId, name, location, rating } = useUser();
+  const { name, location } = useUser();
   const [selectedTab, setSelectedTab] = useState(0);
 
   const handleChange = (event, newValue) => {

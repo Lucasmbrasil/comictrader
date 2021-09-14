@@ -48,6 +48,10 @@ function Signup() {
     data.comcis_wanted = [];
     data.rating = [];
 
+  const {name} = data;
+  const userName = name;
+  
+
     fakeapi
       .post("signup", data)
       .then((_) => {
@@ -56,6 +60,31 @@ function Signup() {
       })
       .then((_) => history.push("/login"))
       .catch((err) => console.log(err));
+
+    let axios = require('axios');
+    let values = {
+      "username": `${userName}`, 
+      "secret": `123`, 
+    };
+
+    
+    
+    let config = {
+      method: 'post',
+      url: 'https://api.chatengine.io/users/',
+      headers: {
+        'PRIVATE-KEY': '{{1b8dc6f9-1ebd-4b08-a01a-44441efbc356}}'
+      },
+      data : values
+    };
+    
+    axios(config)
+    .then(function (response) {
+      console.log(JSON.stringify(response.data));
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
   };
 
   return (

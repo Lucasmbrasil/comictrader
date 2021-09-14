@@ -1,7 +1,7 @@
 import jwtDecode from "jwt-decode";
 import { createContext, useContext, useEffect, useState } from "react";
 import fakeapi from "../../services/fakeapi";
-import { useAuth } from "../auth";
+// import { useAuth } from "../auth";
 
 export const UserContext = createContext();
 
@@ -14,20 +14,24 @@ export const UserProvider = ({ children }) => {
   const [rating, setRating] = useState();
   const [trades, setTrades] = useState();
   const token = localStorage.getItem("@comictrader:token") || "";
-  const config = { headers: { Authorization: `Bearer ${token}` } };
 
-  const { setAuthenticated } = useAuth();
+  // const { setAuthenticated } = useAuth();
 
   const getId = () => {
+    const userId = localStorage.getItem("@comictrader:userID");
+    const config = { headers: { Authorization: `Bearer ${token}` } };
     if (token) {
       const decoderId = jwtDecode(token);
       setUserId(decoderId.sub);
-      fakeapi.get(`users/${userId}`, config).then((response) => {
-        setName(response.data.name);
-        setLocation([response.data.state, response.data.country]);
-        setRating(response.data.rating);
-        setTrades(response.data.trades);
-      });
+      fakeapi
+        .get(`users/${userId}`, config)
+        .then((response) => {
+          setName(response.data.name);
+          setLocation([response.data.state, response.data.country]);
+          setRating(response.data.rating);
+          setTrades(response.data.trades);
+        })
+        .catch((e) => console.log(e));
     }
   };
 
@@ -36,6 +40,8 @@ export const UserProvider = ({ children }) => {
   }, []);
 
   const addRating = (data, config) => {
+    const userId = localStorage.getItem("@comictrader:userID");
+
     fakeapi
       .patch(`users/${userId}`, data, config)
       .then((e) => {
