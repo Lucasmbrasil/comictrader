@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useComics } from "../../providers/comics";
+import { PanelContainer } from "../../styles/globalComponents";
 import HQCard from "../HQCards";
 
 const SectionUserCollection = () => {
@@ -15,7 +16,7 @@ const SectionUserCollection = () => {
   }, []);
 
   return (
-    <div>
+    <PanelContainer>
       <div>
         <div>
           <h2>Quadrinhos que tenho</h2>
@@ -38,7 +39,7 @@ const SectionUserCollection = () => {
           ))}
         </div>
       </div>
-    </div>
+    </PanelContainer>
   );
 };
 

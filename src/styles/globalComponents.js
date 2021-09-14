@@ -79,3 +79,19 @@ export const DashboardContainer = styled.div`
     justify content: center;
     padding: 15px 0;
 `
+
+export const PanelContainer = styled.div`
+    display: flex;
+    flex: 1 0 auto;
+    min-width: 70vw;
+    width: 80vw;
+    min-height: 60vh;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    padding: 15px 0;
+    margin-block: 20px;
+    margin-inline: 0;
+    box-shadow: 2px 2px 6px 0px rgba(0,0,0,0.5);
+    color: black;   
+`

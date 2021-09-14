@@ -11,10 +11,8 @@ import {
 import { useComics } from "../../providers/comics";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
-import {
-  DashboardBackground,
-  // DashboardContainer,
-} from "../../styles/globalComponents";
+import { DashboardBackground } from "../../styles/globalComponents";
+import UserCardList from "../../components/UserCardList";
 
 function DashboardComic() {
   // const [comicObject, setComicImage] = useState([]);

@@ -1,22 +1,17 @@
 import styled from "styled-components";
 import background from "../../assets/small-background.jpg";
 
-export const UserCardContainer = styled.div`
-    background: url(${background}) no-repeat center;
+export const RatingsCardContainer = styled.div`
+    background-color: #E1E1E1;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    color: white;
-    border-radius: 5px;
-
-    img {
-        border: 2px solid black;
-        border-radius: 100%;
-        width: 40px;
-        margin-inline: 5px;
-    }
-
-    .userCardInfo {
+    width: 200px;
+    color: black;
+    border-radius: 5px;#E1E1E1;
+    border: 2px solid black;
+    
+    .commenterInfo {
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -31,7 +26,7 @@ export const UserCardContainer = styled.div`
             margin-block: 2px;
             font-family: "Urbanist", sans-serif;
             text-align: left;
-            text-transform: uppercase;
+            text-transform: uppercase;user.name
             font-size: 15px;
         }
 
