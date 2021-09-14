@@ -22,7 +22,7 @@ export const UserProvider = ({ children }) => {
       setUserId(decoderId.sub);
       fakeapi.get(`users/${userId}/`).then((response) => {
         setName(response.data.name);
-        setLocation([response.data.state, response.data.country]);
+        setLocation(response.data.state);
         setRating(response.data.rating);
         setTrades(response.data.trades);
       });

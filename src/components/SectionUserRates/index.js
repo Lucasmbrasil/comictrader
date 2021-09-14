@@ -1,10 +1,11 @@
 import { useUser } from "../../providers/user";
+import { PanelContainer } from "../../styles/globalComponents";
 
 const SectionUserRates = () => {
   const { rating } = useUser();
 
   return (
-    <div>
+    <PanelContainer>
       {rating?.map((rate, index) => {
         return (
           <div>
@@ -14,7 +15,7 @@ const SectionUserRates = () => {
           </div>
         );
       })}
-    </div>
+    </PanelContainer>
   );
 };
 

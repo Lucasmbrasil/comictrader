@@ -1,11 +1,9 @@
-import { UserCardContainer } from "./styles";
-
-const UserCardList = ({user}) => {
+const RatingsCard = ({user}) => {
 
     const avatarURL = `https://ui-avatars.com/api/?length=2&rounded=true&background=random&name=${user.name}`
 
     return (
-        <UserCardContainer>
+        <RatingsCardContainer>
             <div>
                 <img src={avatarURL} alt={user.name}/>
             </div>
@@ -13,8 +11,8 @@ const UserCardList = ({user}) => {
                 <h5>{user.name}</h5>
                 <h6>{user.state}, Brasil</h6>
             </div>
-        </UserCardContainer>
+        </RatingsCardContainer>
     )
 }
 
-export default UserCardList;
+export default RatingsCard;

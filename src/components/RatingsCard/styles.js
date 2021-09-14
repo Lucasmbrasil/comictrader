@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import background from "../../assets/small-background.jpg";
 
-export const UserCardContainer = styled.div`
+export const RatingsCardContainer = styled.div`
     background: url(${background}) no-repeat center;
     display: flex;
     align-items: center;
