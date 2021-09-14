@@ -41,7 +41,7 @@ const classes = useStyles();
     );
   }
 
-  const { name, location } = useUser();
+  const { name, location, userID } = useUser();
   const [selectedTab, setSelectedTab] = useState(0);
   const avatarURL = `https://ui-avatars.com/api/?length=2&rounded=true&background=random&name=${name}`
   const handleChange = (event, newValue) => {
@@ -59,6 +59,15 @@ const classes = useStyles();
             <div className="userProfileInfo">
                 <h1>{name}</h1>
                 <h2>{location}, Brasil</h2>
+                {
+                  userID === localStorage.getItem("@comictrader:userID") ?
+                  <button>Editar perfil</button>
+                  :
+                  <div className="visitorButtons">
+                  <button>Avaliar</button>
+                  <button>Chat</button>
+                  </div>
+                }
             </div>
           </UserInfoBar> 
           <AppBar position="static"  className={classes.root}>

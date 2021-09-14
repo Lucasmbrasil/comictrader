@@ -51,6 +51,7 @@ export const UserProvider = ({ children }) => {
     <UserContext.Provider
       value={{
         addRating,
+        userId,
         name,
         location,
         rating,
