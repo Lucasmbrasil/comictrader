@@ -11,15 +11,13 @@ export const UserProvider = ({ children }) => {
   const [location, setLocation] = useState();
   const [rating, setRating] = useState();
   const [trades, setTrades] = useState();
-  const token = JSON.parse(localStorage.getItem("@comictrader:token")) || "";
+  const token = localStorage.getItem("@comictrader:token") || "";
   
 
   const { setAuthenticated } = useAuth();
 
   const getId = () => {
-    if (token) {
-      const decoderId = jwtDecode(token);
-      setUserId(decoderId.sub);
+    
       fakeapi.get(`users/${userId}/`).then((response) => {
         setName(response.data.name);
         setLocation([response.data.state, response.data.country]);
