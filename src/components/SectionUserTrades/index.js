@@ -1,11 +1,12 @@
 import { useUser } from "../../providers/user";
+import { PanelContainer } from "../../styles/globalComponents";
 
 const SectionUserTrades = () => {
   const { trades } = useUser();
 
   return (
-    <div>
-      {trades?.map((trade) => {
+    <PanelContainer>
+      {trades?.map((trade, index) => {
         return (
           <div>
             <div>
@@ -19,7 +20,7 @@ const SectionUserTrades = () => {
           </div>
         );
       })}
-    </div>
+    </PanelContainer>
   );
 };
 

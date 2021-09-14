@@ -19,7 +19,6 @@ export const ComicBackground = styled.div`
     align-items: center;
     min-width: 40vw;
     max-width: 400px;
-    background-size: cover;
     
     .ComicBlackTop{
         display: flex;

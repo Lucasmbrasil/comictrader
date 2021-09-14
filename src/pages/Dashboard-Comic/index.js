@@ -10,12 +10,9 @@ import {
 import { useComics } from "../../providers/comics";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
-import {
-  DashboardBackground,
-  DashboardContainer,
-} from "../../styles/globalComponents";
-import fakeapi from "../../services/fakeapi";
+import { DashboardBackground } from "../../styles/globalComponents";
 import UserCardList from "../../components/UserCardList";
+import fakeapi from "../../services/fakeapi";
 
 function DashboardComic() {
   // const [comicObject, setComicImage] = useState([]);

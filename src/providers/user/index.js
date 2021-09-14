@@ -6,9 +6,7 @@ import fakeapi from "../../services/fakeapi";
 export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
-  const [userId, setUserId] = useState(
-    localStorage.getItem("@comictrader:id") || ""
-  );
+  const [userId, setUserId] = useState(0);
   const [name, setName] = useState("");
   const [location, setLocation] = useState();
   const [rating, setRating] = useState();
@@ -23,15 +21,12 @@ export const UserProvider = ({ children }) => {
     if (token) {
       const decoderId = jwtDecode(token);
       setUserId(decoderId.sub);
-      fakeapi
-        .get(`users/${userId}`, config)
-        .then((response) => {
-          setName(response.data.name);
-          setLocation([response.data.state, response.data.country]);
-          setRating(response.data.rating);
-          setTrades(response.data.trades);
-        })
-        .catch((e) => console.log(e));
+      fakeapi.get(`users/${userId}/`, config).then((response) => {
+        setName(response.data.name);
+        setLocation(response.data.state);
+        setRating(response.data.rating);
+        setTrades(response.data.trades);
+      });
     }
   };
 
@@ -56,8 +51,6 @@ export const UserProvider = ({ children }) => {
     <UserContext.Provider
       value={{
         addRating,
-        getId,
-        setUserId,
         userId,
         name,
         location,
