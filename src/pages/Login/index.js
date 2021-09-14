@@ -1,10 +1,7 @@
 import React from "react";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
-import {
-  BlackTop,
-  InitialBackground,
-} from "../../styles/globalComponents";
+import { BlackTop, InitialBackground } from "../../styles/globalComponents";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
@@ -12,10 +9,10 @@ import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import fakeapi from "../../services/fakeapi";
 import { AnimationContainer, LoginBackground } from "./styles";
-import loginTitle from "../../assets/login-title.png";
-import axios from "axios";
+// import loginTitle from "../../assets/login-title.png";
+// import axios from "axios";
 
-import { useUser } from "../../providers/user";
+// import { useUser } from "../../providers/user";
 
 // import { useAuth } from "../../providers/auth";
 // import { Container } from './styles';
@@ -44,22 +41,17 @@ function Login() {
   } = useForm({ resolver: yupResolver(schema) });
 
   const history = useHistory();
-  
 
   const onSubmitSignin = (data) => {
-
-
     fakeapi
       .post("login", data)
       .then((res) => {
-      
+        const userID = res.data.user.id;
         const { accessToken } = res.data;
-        localStorage.setItem("@comictrader:token", JSON.stringify(accessToken));
-        localStorage.setItem("ID", JSON.stringify(res.data.user.id));
-      
-        
+        localStorage.setItem("@comictrader:token", accessToken);
+        localStorage.setItem("@comictrader:userID", userID);
       })
-      
+
       .then((_) => history.push("/main"))
       .catch((error) => console.log(error));
   };
@@ -75,14 +67,18 @@ function Login() {
           <form onSubmit={handleSubmit(onSubmitSignin)}>
             <input {...register("email")} placeholder="Digite seu email" />
             <span>{errors.email?.message}</span>
-            <input {...register("password")} type="password" placeholder="Digite sua senha" />
+            <input
+              {...register("password")}
+              type="password"
+              placeholder="Digite sua senha"
+            />
             <span>{errors.password?.message}</span>
             <button type="submit">Entrar</button>
             <p>
-            Não tem um cadastro? Faça seu <Link to="/signup">registro</Link>!
+              Não tem um cadastro? Faça seu <Link to="/signup">registro</Link>!
             </p>
           </form>
-          </AnimationContainer>
+        </AnimationContainer>
         <Footer />
       </BlackTop>
     </InitialBackground>
