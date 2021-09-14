@@ -5,7 +5,6 @@ import { useUser } from "../../providers/user";
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
-import { Box, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core";
 import { DashboardBackground } from "../../styles/globalComponents";
 import SectionUserCollection from "../../components/SectionUserCollection";
@@ -23,7 +22,7 @@ const useStyles = makeStyles({
 
 const DashboardUser = () => {
 
-  const classes = useStyles();
+const classes = useStyles();
 
   function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -42,7 +41,7 @@ const DashboardUser = () => {
     );
   }
 
-  const { userId, getId, name, location, rating } = useUser();
+  const { name, location } = useUser();
   const [selectedTab, setSelectedTab] = useState(0);
   const avatarURL = `https://ui-avatars.com/api/?length=2&rounded=true&background=random&name=${name}`
   const handleChange = (event, newValue) => {

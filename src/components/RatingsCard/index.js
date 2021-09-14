@@ -1,3 +1,5 @@
+import { RatingsCardContainer } from "./styles";
+
 const RatingsCard = ({user}) => {
 
     const avatarURL = `https://ui-avatars.com/api/?length=2&rounded=true&background=random&name=${user.name}`

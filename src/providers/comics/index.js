@@ -1,5 +1,6 @@
-import { createContext, useCallback, useContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 import comic from "../../services/comic";
+import fakeapi from "../../services/fakeapi";
 
 export const ComicsContext = createContext();
 
@@ -13,29 +14,52 @@ export const ComicsProvider = ({ children }) => {
   // const config = { headers: { Authorization: `Bearer ${token}`}}
   // const userid = numseioquelá
 
-  const updateOwned = (userid, config) => {
-    comic.get(`users/${userid}`, config).then((response) => {
-      setComicsOwned(response.data.comics_owned);
-      setComicsWanted(response.data.comics_wanted);
-    });
+  // const updateOwned = (userid, config) => {
+  //   comic.get(`users/${userid}`, config).then((response) => {
+  //     setComicsOwned(response.data.comics_owned);
+  //     setComicsWanted(response.data.comics_wanted);
+  //   });
+  // };
+
+  const updateUserComics = (userid, config) => {
+    fakeapi
+      .get(`users/${userid}`, config)
+      .then((response) => {
+        console.log(response);
+        setComicsOwned(response.data.comics_owned);
+        setComicsWanted(response.data.comics_wanted);
+      })
+      .catch((e) => console.log(e));
   };
 
-  const addOwned = (data, userid, config) => {
-    comic
-      .patch(`users/${userid}`, data, config)
+  const addOwned = (userid, config) => {
+    const data = specificComic;
+    fakeapi
+      .patch(
+        `users/${userid}`,
+        { comics_owned: [...comicsOwned, data] },
+        config
+      )
       .then((e) => {
-        //   toast que deu certo
+        console.log(data);
+        setComicsOwned([...comicsOwned, data]);
       })
       .catch((e) => {
         console.log(e);
       });
   };
 
-  const addWanted = (data, userid, config) => {
-    comic
-      .patch(`users/${userid}`, data, config)
+  const addWanted = (userid, config) => {
+    const data = specificComic;
+    fakeapi
+      .patch(
+        `users/${userid}`,
+        { comics_wanted: [...comicsWanted, data] },
+        config
+      )
       .then((e) => {
-        setComicsWanted([...comicsWanted, e.data]);
+        console.log(data);
+        setComicsWanted([...comicsWanted, data]);
       })
       .catch((e) => {
         console.log(e);
@@ -113,6 +137,7 @@ export const ComicsProvider = ({ children }) => {
         id,
         getComic,
         specificComic,
+        updateUserComics,
       }}
     >
       {children}

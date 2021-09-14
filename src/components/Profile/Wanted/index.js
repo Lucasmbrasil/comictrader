@@ -1,10 +1,10 @@
 import React from "react";
-import { useComics } from "../../../providers/comics";
+// import { useComics } from "../../../providers/comics";
 
 // import { Container } from './styles';
 
 function Wanted() {
-  const { comicsWanted } = useComics();
+  // const { comicsWanted } = useComics();
 
   return (
     <>

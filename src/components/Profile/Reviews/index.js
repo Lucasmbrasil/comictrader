@@ -1,9 +1,9 @@
 // import { Container } from './styles';
 
-import { useUser } from "../../../providers/user";
+// import { useUser } from "../../../providers/user";
 
 function Reviews() {
-  const { rating } = useUser();
+  // const { rating } = useUser();
 
   return (
     <>
