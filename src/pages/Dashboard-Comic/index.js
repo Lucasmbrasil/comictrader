@@ -18,55 +18,49 @@ function DashboardComic() {
   const userId = localStorage.getItem("@comictrader:userID");
   const config = { headers: { Authorization: `Bearer ${token}` } };
 
-  const [userList, setUserList] = useState([]);
-  const [wanterList, setWanterList] = useState();
-  const [ownerList, setOwnerList] = useState();
-
-  const getUserList = () => {
-    const token = localStorage.getItem("@comictrader:token");
-    const config = { headers: { Authorization: `Bearer ${token}` } };
-
-    fakeapi.get("users", config).then((res) => {
-      setUserList(res.data);
-    });
-  };
+  // const [userList, setUserList] = useState([]);
 
   useEffect(() => {
     const comicID = localStorage.getItem("@comictrader:comicID");
     getComic(comicID);
   }, []);
+  const [wanterList, setWanterList] = useState();
+  const [ownerList, setOwnerList] = useState();
 
+  const usersList = JSON.parse(
+    localStorage.getItem("@comictrader:usersList") || "[]"
+  );
   useEffect(() => {
-    getUserList();
-  }, []);
-
-  useEffect(() => {
-    if (userList.length > 0)
+    if (usersList.length > 0)
       setWanterList(
-        userList.filter((user) => {
-          for (let i = 0; i < user.comics_wanted.length; i++) {
-            if (user.comics_wanted[i].id === specificComic.id) {
-              return true;
+        usersList.filter((user) => {
+          if (user.comics_wanted !== undefined) {
+            for (let i = 0; i < user.comics_wanted.length; i++) {
+              if (user.comics_wanted[i].id === specificComic.id) {
+                return true;
+              }
             }
           }
           return false;
         })
       );
-  }, [userList]);
+  }, [specificComic]);
 
   useEffect(() => {
-    if (userList.length > 0)
+    if (usersList.length > 0)
       setOwnerList(
-        userList.filter((user) => {
-          for (let i = 0; i < user.comics_owned.length; i++) {
-            if (user.comics_owned[i].id === specificComic.id) {
-              return true;
+        usersList.filter((user) => {
+          if (user.comics_owned !== undefined) {
+            for (let i = 0; i < user.comics_owned.length; i++) {
+              if (user.comics_owned[i].id === specificComic.id) {
+                return true;
+              }
             }
           }
           return false;
         })
       );
-  }, [userList]);
+  }, [specificComic]);
 
   return (
     <DashboardBackground>

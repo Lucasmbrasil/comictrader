@@ -15,8 +15,21 @@ export const UserProvider = ({ children }) => {
   const [profileLocation, setProfileLocation] = useState();
   const [profileRating, setProfileRating] = useState();
   const [profileTrades, setProfileTrades] = useState();
+  const [comicsOwned, setComicsOwned] = useState();
+  const [comicsWanted, setComicsWanted] = useState();
 
   // const { setAuthenticated } = useAuth();
+  const getUsersList = () => {
+    const token = localStorage.getItem("@comictrader:token");
+    const config = { headers: { Authorization: `Bearer ${token}` } };
+
+    fakeapi.get("users", config).then((res) => {
+      localStorage.setItem(
+        "@comictrader:usersList",
+        JSON.stringify(res.data || [])
+      );
+    });
+  };
 
   const getId = () => {
     const token = localStorage.getItem("@comictrader:token") || "";
@@ -34,6 +47,24 @@ export const UserProvider = ({ children }) => {
     }
   };
 
+  const updateUserComics = () => {
+    const token = localStorage.getItem("@comictrader:token");
+    const userId = localStorage.getItem("@comictrader:userID");
+    const config = { headers: { Authorization: `Bearer ${token}` } };
+    fakeapi
+      .get(`users/${userId}`, config)
+      .then((response) => {
+        localStorage.setItem(
+          "@comictrader:ownedList",
+          JSON.stringify(response.data.comics_owned || [])
+        );
+        localStorage.setItem(
+          "@comictrader:wantedList",
+          JSON.stringify(response.data.comics_wanted || [])
+        );
+      })
+      .catch((e) => console.log(e));
+  };
   useEffect(() => {
     getId();
   }, []);
@@ -79,6 +110,8 @@ export const UserProvider = ({ children }) => {
         location,
         rating,
         trades,
+        updateUserComics,
+        getUsersList,
       }}
     >
       {children}

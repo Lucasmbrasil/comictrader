@@ -53,7 +53,7 @@ const DashboardUser = () => {
   function TabPanel(props) {
     const { children, value, index, ...other } = props;
     return (
-      <divuserId
+      <div
         role="tabpanel"
         hidden={value !== index}
         id={`simple-tabpanel-${index}`}
@@ -61,7 +61,7 @@ const DashboardUser = () => {
         {...other}
       >
         {value === index && <div>{children}</div>}
-      </divuserId>
+      </div>
     );
   }
 
@@ -99,7 +99,7 @@ const DashboardUser = () => {
               >
                 <Tab className={classes.tab} label="Avaliações" />
                 <Tab className={classes.tab} label="Coleção" />
-                <Tab className={classes.tab} label="Minhas transações" />
+                {/* <Tab className={classes.tab} label="Minhas transações" /> */}
               </Tabs>
             </AppBar>
             <TabPanel value={selectedTab} index={0}>
@@ -109,9 +109,9 @@ const DashboardUser = () => {
               <SectionUserCollection />
             </TabPanel>
 
-            <TabPanel value={selectedTab} index={2}>
+            {/* <TabPanel value={selectedTab} index={2}>
               <SectionUserTrades />
-            </TabPanel>
+            </TabPanel> */}
           </>
         ) : (
           <>
@@ -137,7 +137,7 @@ const DashboardUser = () => {
               >
                 <Tab className={classes.tab} label="Avaliações" />
                 <Tab className={classes.tab} label="Coleção" />
-                <Tab className={classes.tab} label="Minhas transações" />
+                {/* <Tab className={classes.tab} label="Minhas transações" /> */}
               </Tabs>
             </AppBar>
             <TabPanel value={selectedTab} index={0}>
@@ -147,9 +147,9 @@ const DashboardUser = () => {
               <SectionUserCollection />
             </TabPanel>
 
-            <TabPanel value={selectedTab} index={2}>
+            {/* <TabPanel value={selectedTab} index={2}>
               <SectionUserTrades />
-            </TabPanel>
+            </TabPanel> */}
           </>
         )}
         <Footer />
