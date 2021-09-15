@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {
-  // Image,
-  // ImageContainer,
   ComicBackground,
   DashboardComicContainer,
-  // ComicMainContainer,
   InfoContainer,
 } from "./styles";
 import { useComics } from "../../providers/comics";
@@ -15,68 +12,61 @@ import UserCardList from "../../components/UserCardList";
 import fakeapi from "../../services/fakeapi";
 
 function DashboardComic() {
-  // const [comicObject, setComicImage] = useState([]);
-  // const [description, setDescrition] = useState();
-  // const [image, setImage] = useState();
   const { getComic, specificComic, addWanted, addOwned } = useComics();
 
   const token = localStorage.getItem("@comictrader:token");
   const userId = localStorage.getItem("@comictrader:userID");
   const config = { headers: { Authorization: `Bearer ${token}` } };
-  const [ownersList, setOwnersList] = useState();
-  const [wantersList, setWantersList] = useState();
-  const [userList, setUserList] = useState();
 
-  useEffect(() => {
-    const comicID = localStorage.getItem("@comictrader:comicID");
-    getComic(comicID);
-  }, []);
-
-  // const updatingOwners = () => {
-  //   fakeapi
-  //     .get(`users`, config)
-  //     .then((res) => {
-  //       console.log(res.data);
-  //       // setOwnerList(res.data);
-  //     })
-  //     .catch((e) => console.log(e));
-  // };
+  const [userList, setUserList] = useState([]);
+  const [wanterList, setWanterList] = useState();
+  const [ownerList, setOwnerList] = useState();
 
   const getUserList = () => {
     const token = localStorage.getItem("@comictrader:token");
     const config = { headers: { Authorization: `Bearer ${token}` } };
 
     fakeapi.get("users", config).then((res) => {
-      console.log("requisição", res.data);
       setUserList(res.data);
     });
   };
 
   useEffect(() => {
+    const comicID = localStorage.getItem("@comictrader:comicID");
+    getComic(comicID);
+  }, []);
+
+  useEffect(() => {
     getUserList();
   }, []);
 
-  console.log("pq", userList);
-  console.log("especific", specificComic.id);
+  useEffect(() => {
+    if (userList.length > 0)
+      setWanterList(
+        userList.filter((user) => {
+          for (let i = 0; i < user.comics_wanted.length; i++) {
+            if (user.comics_wanted[i].id === specificComic.id) {
+              return true;
+            }
+          }
+          return false;
+        })
+      );
+  }, [userList]);
 
-  const wanterList = userList?.map(
-    (user) => {
-      if (
-        user.comics_wanted.filter((comic) => comic.id === specificComic.id) !==
-        undefined
-      ) {
-        return user;
-      }
-    }
-
-    // user.comics_wanted.filter((comic) => comic.id === specificComic.id)
-  );
-
-  const ownerList = userList?.filter((user) =>
-    user.comics_owned.filter((comic) => comic.id === specificComic.id)
-  );
-  console.log("wanter", wanterList);
-  console.log("owner", ownerList);
+  useEffect(() => {
+    if (userList.length > 0)
+      setOwnerList(
+        userList.filter((user) => {
+          for (let i = 0; i < user.comics_owned.length; i++) {
+            if (user.comics_owned[i].id === specificComic.id) {
+              return true;
+            }
+          }
+          return false;
+        })
+      );
+  }, [userList]);
 
   return (
     <DashboardBackground>

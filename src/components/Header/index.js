@@ -8,6 +8,7 @@ const Header = ({ setShowDrawer }) => {
   const { authenticated, setAuthenticated } = useAuth();
 
   const history = useHistory();
+  const userId = localStorage.getItem("@comictrader:userID");
 
   const handleLogout = () => {
     localStorage.clear();
@@ -29,7 +30,7 @@ const Header = ({ setShowDrawer }) => {
       {authenticated ? (
         <div className="HeaderButtons">
           <HeaderButton onClick={() => history.push("/main")}>HQs</HeaderButton>
-          <HeaderButton onClick={() => history.push("/profile")}>
+          <HeaderButton onClick={() => history.push(`/profile/${userId}`)}>
             Perfil
           </HeaderButton>
           <HeaderButton onClick={handleLogout}>Sair</HeaderButton>

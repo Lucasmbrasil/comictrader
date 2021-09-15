@@ -11,6 +11,7 @@ import SectionUserCollection from "../../components/SectionUserCollection";
 import SectionUserRates from "../../components/SectionUserRates";
 import SectionUserTrades from "../../components/SectionUserTrades";
 import { UserInfoBar } from "./styles";
+import { useParams } from "react-router";
 
 const useStyles = makeStyles({
   root: {
@@ -28,6 +29,26 @@ const useStyles = makeStyles({
 
 const DashboardUser = () => {
   const classes = useStyles();
+  const profileID = localStorage.getItem("@comictrader:profileID") || "";
+  const userId = localStorage.getItem("@comictrader:userID") || "";
+
+  const {
+    name,
+    location,
+    getId,
+    getProfile,
+    profileName,
+    profileLocation,
+    profileRating,
+    profileTrades,
+  } = useUser();
+  const [selectedTab, setSelectedTab] = useState(0);
+  const avatarURL = `https://ui-avatars.com/api/?length=2&rounded=true&background=random&name=${name}`;
+  const profileAvatarURL = `https://ui-avatars.com/api/?length=2&rounded=true&background=random&name=${profileName}`;
+
+  const handleChange = (event, newValue) => {
+    setSelectedTab(newValue);
+  };
 
   function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -44,60 +65,93 @@ const DashboardUser = () => {
     );
   }
 
-  const { name, location, userId, getId } = useUser();
-  const [selectedTab, setSelectedTab] = useState(0);
-  const avatarURL = `https://ui-avatars.com/api/?length=2&rounded=true&background=random&name=${name}`;
-  const handleChange = (event, newValue) => {
-    setSelectedTab(newValue);
-  };
+  const params = useParams();
 
   useEffect(() => {
-    getId();
+    if (params.userId === userId) {
+      getId();
+    }
+    getProfile(profileID);
   }, []);
 
   return (
     <>
       <DashboardBackground>
         <Header />
-        <UserInfoBar>
-          <div className="userImageContainer">
-            <img src={avatarURL} alt={name} />
-          </div>
-          <div className="userProfileInfo">
-            <h1>{name}</h1>
-            <h2>{location}, Brasil</h2>
-            {userId === localStorage.getItem("@comictrader:userID") ? (
-              <button>Editar perfil</button>
-            ) : (
-              <div className="visitorButtons">
-                <button>Avaliar</button>
-                <button>Chat</button>
+        {params.userId === userId ? (
+          <>
+            <UserInfoBar>
+              <div className="userImageContainer">
+                <img src={avatarURL} alt={name} />
               </div>
-            )}
-          </div>
-        </UserInfoBar>
-        <AppBar position="static" className={classes.root}>
-          <Tabs
-            value={selectedTab}
-            onChange={handleChange}
-            centered
-            aria-label="coisa"
-          >
-            <Tab className={classes.tab} label="Avaliações" />
-            <Tab className={classes.tab} label="Coleção" />
-            <Tab className={classes.tab} label="Minhas transações" />
-          </Tabs>
-        </AppBar>
-        <TabPanel value={selectedTab} index={0}>
-          <SectionUserRates />
-        </TabPanel>
-        <TabPanel value={selectedTab} index={1}>
-          <SectionUserCollection />
-        </TabPanel>
+              <div className="userProfileInfo">
+                <h1>{name}</h1>
+                <h2>{location}, Brasil</h2>
+                <button>Editar perfil</button>
+              </div>
+            </UserInfoBar>
+            <AppBar position="static" className={classes.root}>
+              <Tabs
+                value={selectedTab}
+                onChange={handleChange}
+                centered
+                aria-label="coisa"
+              >
+                <Tab className={classes.tab} label="Avaliações" />
+                <Tab className={classes.tab} label="Coleção" />
+                <Tab className={classes.tab} label="Minhas transações" />
+              </Tabs>
+            </AppBar>
+            <TabPanel value={selectedTab} index={0}>
+              <SectionUserRates />
+            </TabPanel>
+            <TabPanel value={selectedTab} index={1}>
+              <SectionUserCollection />
+            </TabPanel>
 
-        <TabPanel value={selectedTab} index={2}>
-          <SectionUserTrades />
-        </TabPanel>
+            <TabPanel value={selectedTab} index={2}>
+              <SectionUserTrades />
+            </TabPanel>
+          </>
+        ) : (
+          <>
+            <UserInfoBar>
+              <div className="userImageContainer">
+                <img src={profileAvatarURL} alt={profileName} />
+              </div>
+              <div className="userProfileInfo">
+                <h1>{profileName}</h1>
+                <h2>{profileLocation}, Brasil</h2>
+                <div className="visitorButtons">
+                  <button>Avaliar</button>
+                  <button>Chat</button>
+                </div>
+              </div>
+            </UserInfoBar>
+            <AppBar position="static" className={classes.root}>
+              <Tabs
+                value={selectedTab}
+                onChange={handleChange}
+                centered
+                aria-label="coisa"
+              >
+                <Tab className={classes.tab} label="Avaliações" />
+                <Tab className={classes.tab} label="Coleção" />
+                <Tab className={classes.tab} label="Minhas transações" />
+              </Tabs>
+            </AppBar>
+            <TabPanel value={selectedTab} index={0}>
+              <SectionUserRates />
+            </TabPanel>
+            <TabPanel value={selectedTab} index={1}>
+              <SectionUserCollection />
+            </TabPanel>
+
+            <TabPanel value={selectedTab} index={2}>
+              <SectionUserTrades />
+            </TabPanel>
+          </>
+        )}
         <Footer />
       </DashboardBackground>
     </>
