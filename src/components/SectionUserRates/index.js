@@ -1,28 +1,15 @@
-import { useState } from "react";
 import { useUser } from "../../providers/user";
-import fakeapi from "../../services/fakeapi";
 import { PanelContainer } from "../../styles/globalComponents";
+import RatingsCard from "../RatingsCard";
 
 const SectionUserRates = () => {
   const { rating } = useUser();
-  const [commenter, setCommenter] = useState("")
-
-  const getCommenterInfo = (id) => {
-    fakeapi
-    .get(`/users/${id}`)
-    .then((response) => setCommenter(response.data.name))
-  }
 
   return (
     <PanelContainer>
-      {rating?.map((rate, index) => {
-        return (
-          <div onLoadStart={() => getCommenterInfo(rate.user_id)}>
-            <p>{rate.comment}</p>
-            <h6>{commenter}</h6>{" "}
-          </div>
-        );
-      })}
+      {rating?.map((rate, index) => (
+        <RatingsCard rate={rate} />
+      ))}
     </PanelContainer>
   );
 };

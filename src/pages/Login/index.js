@@ -47,7 +47,7 @@ function Login() {
       .then((res) => {
         const { accessToken } = res.data;
         const userId = res.data.user.id;
-        setUserId(userId);
+        // setUserId(userId);
         localStorage.setItem("@comictrader:userID", userId);
         localStorage.setItem("@comictrader:token", accessToken);
         setAuthenticated(true);

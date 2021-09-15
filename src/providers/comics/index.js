@@ -1,16 +1,19 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import comic from "../../services/comic";
 import fakeapi from "../../services/fakeapi";
 
 export const ComicsContext = createContext();
 
 export const ComicsProvider = ({ children }) => {
-  const [comicsOwned, setComicsOwned] = useState([]);
-  const [comicsWanted, setComicsWanted] = useState([]);
+  const [comicsOwned, setComicsOwned] = useState();
+  const [comicsWanted, setComicsWanted] = useState();
   const [comicsList, setComicsList] = useState([]);
   const [id, setId] = useState(0);
   const [specificComic, setSpecificComic] = useState([]);
 
+  useEffect(() => {
+    updateUserComics();
+  }, []);
   // const config = { headers: { Authorization: `Bearer ${token}`}}
   // const userid = numseioquelá
 
@@ -21,11 +24,13 @@ export const ComicsProvider = ({ children }) => {
   //   });
   // };
 
-  const updateUserComics = (userid, config) => {
+  const updateUserComics = () => {
+    const token = localStorage.getItem("@comictrader:token");
+    const userId = localStorage.getItem("@comictrader:userID");
+    const config = { headers: { Authorization: `Bearer ${token}` } };
     fakeapi
-      .get(`users/${userid}`, config)
+      .get(`users/${userId}`, config)
       .then((response) => {
-        console.log(response);
         setComicsOwned(response.data.comics_owned);
         setComicsWanted(response.data.comics_wanted);
       })
