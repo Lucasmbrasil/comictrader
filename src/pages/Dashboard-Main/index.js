@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useComics } from "../../providers/comics";
+import { useUser } from "../../providers/user";
+
 import { DashboardBackground } from "../../styles/globalComponents";
 import HQCard from "../../components/HQCards";
 import Header from "../../components/Header";
@@ -10,8 +12,11 @@ function DashboardMain() {
   const [input, setInput] = useState("");
   const { comicsList, searchComics, getComicsList } = useComics();
 
+  const { updateUserComics, getUsersList } = useUser();
   useEffect(() => {
     getComicsList();
+    updateUserComics();
+    getUsersList();
   }, []);
 
   return (
