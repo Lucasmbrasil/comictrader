@@ -17,7 +17,7 @@ const SectionUserCollection = () => {
 
   return (
     <PanelContainer>
-      <div>
+      <div className="ComicListsContainer">
         <div>
           <h2>Quadrinhos que tenho</h2>
           {comicsOwned?.map((comicOwned) => (

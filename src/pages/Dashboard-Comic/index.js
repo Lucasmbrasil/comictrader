@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   // Image,
   // ImageContainer,
@@ -13,21 +13,33 @@ import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import { DashboardBackground } from "../../styles/globalComponents";
 import UserCardList from "../../components/UserCardList";
+import fakeapi from "../../services/fakeapi";
 
 function DashboardComic() {
-  // const [comicObject, setComicImage] = useState([]);
-  // const [description, setDescrition] = useState();
-  // const [image, setImage] = useState();
-  const { getComic, specificComic, addWanted, addOwned } = useComics();
 
+  const { getComic, specificComic, addWanted, addOwned } = useComics();
   const token = localStorage.getItem("@comictrader:token");
   const userId = localStorage.getItem("@comictrader:userID");
   const config = { headers: { Authorization: `Bearer ${token}` } };
+  const [userList, setUserList] = useState()
+
+  const getUserList = () => {
+    fakeapi
+    .get("users", config)
+    .then((response) => setUserList(response.data))
+    .catch((e) => console.log("deu ruim", e))
+  }
+  console.log(userList);
 
   useEffect(() => {
     const comicID = localStorage.getItem("@comictrader:comicID");
     getComic(comicID);
+    getUserList();
   }, []);
+
+  const wantersList = userList?.filter((user) => user.comics_wanted.includes(specificComic))
+
+  const ownersList = userList?.filter((user) => user.comics_owned.includes(specificComic))
 
   return (
     <DashboardBackground>
@@ -67,11 +79,17 @@ function DashboardComic() {
           <InfoContainer>
             <div className="WhoHas">
               <h3>Quem tem esta HQ:</h3>
-              <div></div>
+              <div>
+                {ownersList?.map((owner) =>
+                <UserCardList user={owner}/>)}
+              </div>
             </div>
             <div className="WhoWants">
               <h3>Quem também quer:</h3>
-              <div></div>
+              <div>
+              {wantersList?.map((wanter) =>
+                <UserCardList user={wanter}/>)}
+              </div>
             </div>
           </InfoContainer>
         </DashboardComicContainer>

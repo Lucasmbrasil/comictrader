@@ -79,7 +79,7 @@ const classes = useStyles();
             >
               <Tab className={classes.tab} label="Avaliações" />
               <Tab className={classes.tab} label="Coleção" />
-              <Tab className={classes.tab} label="Minhas transações" />
+              <Tab className={classes.tab} label="Trocas" />
             </Tabs>
           </AppBar>
           <TabPanel value={selectedTab} index={0}>
