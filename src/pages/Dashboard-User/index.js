@@ -123,7 +123,7 @@ const DashboardUser = () => {
                 <h1>{profileName}</h1>
                 <h2>{profileLocation}, Brasil</h2>
                 <div className="visitorButtons">
-                  <button>Avaliar</button>
+                  <button onClick>Avaliar</button>
                   <button onClick={() => history.push("/test")}>Chat</button>
                 </div>
               </div>
