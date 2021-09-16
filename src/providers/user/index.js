@@ -16,6 +16,7 @@ export const UserProvider = ({ children }) => {
   const [profileTrades, setProfileTrades] = useState();
   const [comicsOwned, setComicsOwned] = useState();
   const [comicsWanted, setComicsWanted] = useState();
+  const [openRating, setOpenRating] = useState(false);
 
   // const { setAuthenticated } = useAuth();
   const getUsersList = () => {
@@ -93,6 +94,8 @@ export const UserProvider = ({ children }) => {
         console.log(e);
       });
   };
+  const handleOpenRating = () => setOpenRating(true);
+  const handleCloseRating = () => setOpenRating(false);
 
   return (
     <UserContext.Provider
@@ -111,6 +114,10 @@ export const UserProvider = ({ children }) => {
         trades,
         updateUserComics,
         getUsersList,
+        handleOpenRating,
+        handleCloseRating,
+        setOpenRating,
+        openRating,
       }}
     >
       {children}
