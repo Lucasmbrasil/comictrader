@@ -28,7 +28,11 @@ function Signup() {
         "uma letra maiuscula, uma letra minuscula e um numero"
       )
       .required("Senha inválida"),
+    passwordConfirm: yup
+      .string()
+      .oneOf([yup.ref("password"), null], "As senhas devem ser iguais"),
     state: yup.string().required("Informe seu Estado"),
+    cellphone: yup.string().required("Número de contato"),
   });
 
   const {
@@ -49,9 +53,8 @@ function Signup() {
     data.comcis_wanted = [];
     data.rating = [];
 
-  const {name} = data;
-  const userName = name;
-  
+    const { name } = data;
+    const userName = name;
 
     fakeapi
       .post("signup", data)
@@ -62,30 +65,28 @@ function Signup() {
       .then((_) => history.push("/login"))
       .catch((err) => toast.error("Algo deu errado. Tente novamente"));
 
-    let axios = require('axios');
+    let axios = require("axios");
     let values = {
-      "username": `${userName}`, 
-      "secret": `123`, 
+      username: `${userName}`,
+      secret: `123`,
     };
 
-    
-    
     let config = {
-      method: 'post',
-      url: 'https://api.chatengine.io/users/',
+      method: "post",
+      url: "https://api.chatengine.io/users/",
       headers: {
-        'PRIVATE-KEY': '{{1b8dc6f9-1ebd-4b08-a01a-44441efbc356}}'
+        "PRIVATE-KEY": "{{1b8dc6f9-1ebd-4b08-a01a-44441efbc356}}",
       },
-      data : values
+      data: values,
     };
-    
+
     axios(config)
-    .then(function (response) {
-      console.log(JSON.stringify(response.data));
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
 
   return (
@@ -108,10 +109,17 @@ function Signup() {
             />
             <span>{errors.password?.message}</span>
             <input
-              {...register("state")}
-              placeholder="Estado"
+              {...register("passwordConfirm")}
+              type="password"
+              placeholder="Confirmar senha"
             />
+            <span>{errors.passwordConfirm?.message}</span>
+            <input {...register("state")} placeholder="Estado" />
             <span>{errors.state?.message}</span>
+
+            <input {...register("cellphone")} placeholder="Celular" />
+            <span>{errors.cellphone?.message}</span>
+
             <button type="submit">Cadastrar</button>
             <p>
               Já é cadastrado? Faça seu <Link to="/login">login</Link>.

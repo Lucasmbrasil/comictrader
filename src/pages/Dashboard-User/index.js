@@ -14,7 +14,7 @@ import { useHistory, useParams } from "react-router";
 import { Modal } from "@material-ui/core";
 import RatingInput from "../../components/RatingInput";
 import EditProfile from "../../components/EditProfile";
-
+import { FaWhatsapp } from "react-icons/fa";
 const useStyles = makeStyles({
   root: {
     width: "100vw",
@@ -44,6 +44,7 @@ const DashboardUser = () => {
     handleCloseRating,
     handleOpenRating,
     openRating,
+    cellphone,
   } = useUser();
   const [selectedTab, setSelectedTab] = useState(0);
   const avatarURL = `https://ui-avatars.com/api/?length=2&rounded=true&background=random&name=${name}`;
@@ -57,6 +58,7 @@ const DashboardUser = () => {
   const handleCloseEdit = () => setOpenEdit(false);
   const handleOpenChat = () => setOpenChat(true);
   const handleCloseChat = () => setOpenChat(false);
+  const chamanozap = `https://api.whatsapp.com/send?phone=55${cellphone}&text=Ol%C3%A1%2C%20${profileName}!%20Encontrei%20seu%20perfil%20no%20comictrade%2C%20gostaria%20de%20trocar%20um%20quadrinho%3F`;
 
   const handleChange = (event, newValue) => {
     setSelectedTab(newValue);
@@ -136,7 +138,12 @@ const DashboardUser = () => {
                 <h2>{profileLocation}, Brasil</h2>
                 <div className="visitorButtons">
                   <button onClick={handleOpenRating}>Avaliar</button>
-                  <button onClick={() => history.push("/test")}>Chat</button>
+
+                  <a href={chamanozap} target="_blank">
+                    <button>
+                      <FaWhatsapp />
+                    </button>
+                  </a>
                 </div>
               </div>
             </UserInfoBar>
