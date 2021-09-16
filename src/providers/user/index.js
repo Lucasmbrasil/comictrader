@@ -17,6 +17,7 @@ export const UserProvider = ({ children }) => {
   const [comicsOwned, setComicsOwned] = useState();
   const [comicsWanted, setComicsWanted] = useState();
   const [openRating, setOpenRating] = useState(false);
+  const [cellphone, setCellphone] = useState();
 
   // const { setAuthenticated } = useAuth();
   const getUsersList = () => {
@@ -78,6 +79,7 @@ export const UserProvider = ({ children }) => {
         setProfileName(res.data.name);
         setProfileRating(res.data.rating);
         setProfileTrades(res.data.trades);
+        setCellphone(res.data.cellphone);
       });
     }
   };
@@ -112,6 +114,7 @@ export const UserProvider = ({ children }) => {
         location,
         rating,
         trades,
+        cellphone,
         updateUserComics,
         getUsersList,
         handleOpenRating,
