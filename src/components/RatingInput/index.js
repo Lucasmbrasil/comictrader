@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { toast } from "react-toastify";
 import fakeapi from "../../services/fakeapi";
 import { PanelContainer } from "../../styles/globalComponents"
 
@@ -24,7 +25,7 @@ const RatingInput = () => {
         }
         fakeapi.patch(`users/${profileID}`,
         { rating: [...profileRating, data] }, config)
-        .catch((err) => console.log(err))
+        .catch((err) => toast.error("Algo deu errado. Tente novamente."))
     }
 
     return (

@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import fakeapi from "../../services/fakeapi";
 import { AnimationContainer, SignUpBackground } from "./styles";
+import { toast } from "react-toastify";
 // import { useAuth } from "../../providers/auth";
 
 // import { Container } from './styles';
@@ -59,7 +60,7 @@ function Signup() {
         console.log(data);
       })
       .then((_) => history.push("/login"))
-      .catch((err) => console.log(err));
+      .catch((err) => toast.error("Algo deu errado. Tente novamente"));
 
     let axios = require('axios');
     let values = {
