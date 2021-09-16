@@ -18,12 +18,13 @@ const SectionUserCollection = () => {
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     const profileID = localStorage.getItem("@comictrader:profileID") || "[]";
-
-    fakeapi.get(`users/${profileID}`, config).then((res) => {
-      setProfileOwned(res.data.comics_owned);
-      setProfileWanted(res.data.comics_wanted);
-      setLoading(false);
-    });
+    if (profileID !== "[]") {
+      fakeapi.get(`users/${profileID}`, config).then((res) => {
+        setProfileOwned(res.data.comics_owned);
+        setProfileWanted(res.data.comics_wanted);
+        setLoading(false);
+      });
+    }
   }, []);
 
   const comicsOwned = JSON.parse(
@@ -32,7 +33,6 @@ const SectionUserCollection = () => {
   const comicsWanted = JSON.parse(
     localStorage.getItem("@comictrader:wantedList") || "[]"
   );
-  console.log(comicsWanted);
 
   // useEffect(() => {
   //   // const token = localStorage.getItem("@comictrader:token");

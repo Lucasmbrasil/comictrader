@@ -17,18 +17,18 @@ const SectionUserRates = () => {
 
   useEffect(() => {
     const profileID = localStorage.getItem("@comictrader:profileID") || "[]";
-    fakeapi
-      .get(`users/${profileID}`, config)
-      .then((res) => {
-        setLoading(false);
-        setProfileRating(res.data.rating);
-      })
-      .catch((e) => {
-        setLoading(false);
-        console.log(e);
-      });
+    if (profileID !== "[]") {
+      fakeapi
+        .get(`users/${profileID}`, config)
+        .then((res) => {
+          setLoading(false);
+          setProfileRating(res.data.rating);
+        })
+        .catch((e) => {
+          setLoading(false);
+        });
+    }
   }, []);
-  console.log(loading);
 
   return params.userId === userID ? (
     <PanelContainer>

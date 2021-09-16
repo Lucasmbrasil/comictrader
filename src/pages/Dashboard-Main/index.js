@@ -10,7 +10,6 @@ import {
   StyledCircularProgress,
 } from "./styles";
 import Footer from "../../components/Footer";
-import CircularProgress from "@mui/material/CircularProgress";
 
 function DashboardMain() {
   const [input, setInput] = useState("");

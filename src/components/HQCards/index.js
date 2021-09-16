@@ -27,7 +27,7 @@ const HQCard = ({ comic, comicID }) => {
           <p>{formatedDate}</p>
         </div>
         <div className="hqRating">
-          <Rating name="read-only" value={value} readOnly />
+          <Rating name="read-only" value={value} readOnly size="small" />
         </div>
       </div>
     </HQCardContainer>

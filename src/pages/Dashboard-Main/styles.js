@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import main_background from "../../assets/main-background.jpg";
-import CircularProgress from "@mui/material/CircularProgress";
+import { CircularProgress } from "@material-ui/core";
 
 export const ComicListContainer = styled.div`
   display: flex;
