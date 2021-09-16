@@ -9,16 +9,15 @@ import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import fakeapi from "../../services/fakeapi";
 import { AnimationContainer, LoginBackground } from "./styles";
-// import loginTitle from "../../assets/login-title.png";
-// import axios from "axios";
+import { useAuth } from "../../providers/auth";
+import { useUser } from "../../providers/user";
+import { toast } from "react-toastify";
 
-// import { useUser } from "../../providers/user";
-
-// import { useAuth } from "../../providers/auth";
 // import { Container } from './styles';
 
 function Login() {
-  // const { authenticated, setAuthenticated } = useAuth(); // sera utilizado para proteção de rotas futuramente
+  const { setAuthenticated } = useAuth();
+  const { setUserId } = useUser();
   const schema = yup.object().shape({
     email: yup
       .string()
@@ -46,14 +45,16 @@ function Login() {
     fakeapi
       .post("login", data)
       .then((res) => {
-        const userID = res.data.user.id;
         const { accessToken } = res.data;
+        const userId = res.data.user.id;
+        // setUserId(userId);
+        localStorage.setItem("@comictrader:userID", userId);
         localStorage.setItem("@comictrader:token", accessToken);
-        localStorage.setItem("@comictrader:userID", userID);
+        setAuthenticated(true);
       })
 
-      .then((_) => history.push("/main"))
-      .catch((error) => console.log(error));
+      .then((_) => {history.push("/main")})
+      .catch((err) => toast.error('Oops! Algo deu errado'));
   };
 
   return (

@@ -1,33 +1,32 @@
 import styled from "styled-components";
-import background from "../../assets/small-background.jpg";
 
 export const RatingsCardContainer = styled.div`
-    background-color: #E1E1E1;
+    transition: 0.3s;
     display: flex;
+    max-width: 250px;
+    min-width: 250px;
     align-items: center;
-    justify-content: space-between;
-    width: 200px;
-    color: black;
-    border-radius: 5px;#E1E1E1;
-    border: 2px solid black;
-    
+    background-color: #E1E1E1;
+    margin: 15px;
+    padding: 5px;
+    box-shadow: 2px 2px 6px 0px rgba(0,0,0,0.5);
+
     .commenterInfo {
-        display: flex;
+        display:flex;
         flex-direction: column;
+        width: 90%;
+        color: black;
+        min-height: 120px;
+        margin-inline-start: 5px;
         justify-content: center;
         align-items: flex-start;
-        background-color: rgb(0,0,0,0.7);
-        border-radius: 0 5px 5px 0;
-        padding: 8px;
-        height: 100%;
-        width: 60%; 
-        
+       
         h5 {
             margin-block: 2px;
             font-family: "Urbanist", sans-serif;
             text-align: left;
-            text-transform: uppercase;user.name
-            font-size: 15px;
+            font-style: italic;
+            font-size: 18px;
         }
 
         h6 {

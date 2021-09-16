@@ -1,27 +1,27 @@
 import React, { useEffect, useState } from "react";
 import {
-  // Image,
-  // ImageContainer,
   ComicBackground,
+  ComicBlackTop,
+  ComicButtons,
   DashboardComicContainer,
-  // ComicMainContainer,
   InfoContainer,
 } from "./styles";
-// import { useState } from "react";
 import { useComics } from "../../providers/comics";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import { DashboardBackground } from "../../styles/globalComponents";
 import UserCardList from "../../components/UserCardList";
 import fakeapi from "../../services/fakeapi";
+import { useHistory } from "react-router";
 
 function DashboardComic() {
-
+  
   const { getComic, specificComic, addWanted, addOwned } = useComics();
   const token = localStorage.getItem("@comictrader:token");
   const userId = localStorage.getItem("@comictrader:userID");
   const config = { headers: { Authorization: `Bearer ${token}` } };
-  const [userList, setUserList] = useState()
+  const [userList, setUserList] = useState();
+  const history = useHistory();
 
   const getUserList = () => {
     fakeapi
@@ -36,23 +36,51 @@ function DashboardComic() {
     getComic(comicID);
     getUserList();
   }, []);
+  const [wanterList, setWanterList] = useState();
+  const [ownerList, setOwnerList] = useState();
 
-  const wantersList = userList?.filter((user) => user.comics_wanted.includes(specificComic))
+  const usersList = JSON.parse(
+    localStorage.getItem("@comictrader:usersList") || "[]"
+  );
+  useEffect(() => {
+    if (usersList.length > 0)
+      setWanterList(
+        usersList.filter((user) => {
+          if (user.comics_wanted !== undefined) {
+            for (let i = 0; i < user.comics_wanted.length; i++) {
+              if (user.comics_wanted[i].id === specificComic.id) {
+                return true;
+              }
+            }
+          }
+          return false;
+        })
+      );
+  }, [specificComic]);
 
-  const ownersList = userList?.filter((user) => user.comics_owned.includes(specificComic))
+  useEffect(() => {
+    if (usersList.length > 0)
+      setOwnerList(
+        usersList.filter((user) => {
+          if (user.comics_owned !== undefined) {
+            for (let i = 0; i < user.comics_owned.length; i++) {
+              if (user.comics_owned[i].id === specificComic.id) {
+                return true;
+              }
+            }
+          }
+          return false;
+        })
+      );
+  }, [specificComic]);
 
   return (
     <DashboardBackground>
       <Header />
       {specificComic.aliases !== undefined && (
         <DashboardComicContainer>
-          <ComicBackground
-            style={{
-              background: `url(${specificComic.image.small_url}) no-repeat center`,
-              backgroundSize: "cover",
-            }}
-          >
-            <div className="ComicBlackTop">
+          <ComicBackground image={specificComic.image.small_url}>
+            <ComicBlackTop>
               <img
                 src={specificComic.image.thumb_url}
                 alt={specificComic.volume.name}
@@ -66,29 +94,33 @@ function DashboardComic() {
                         .replace(/<.*?>/g, " ")
                     : specificComic.description.replace(/<.*?>/g, " "))}
               </p>
-              <div className="ComicButtons">
-                <button onClick={() => addWanted(userId, config)}>
+              <ComicButtons>
+                <button onClick={() => {addWanted(userId, config)
+                history.push(`/profile/${userId}`)}}>
                   Eu quero
                 </button>
-                <button onClick={() => addOwned(userId, config)}>
+                <button onClick={() => {addOwned(userId, config)
+                history.push(`/profile/${userId}`)}}>
                   Eu tenho
                 </button>
-              </div>
-            </div>
+              </ComicButtons>
+            </ComicBlackTop>
           </ComicBackground>
           <InfoContainer>
             <div className="WhoHas">
               <h3>Quem tem esta HQ:</h3>
               <div>
-                {ownersList?.map((owner) =>
-                <UserCardList user={owner}/>)}
+                {ownerList?.map((user) => (
+                  <UserCardList user={user} />
+                ))}
               </div>
             </div>
             <div className="WhoWants">
               <h3>Quem também quer:</h3>
               <div>
-              {wantersList?.map((wanter) =>
-                <UserCardList user={wanter}/>)}
+                {wanterList?.map((user) => (
+                  <UserCardList user={user} />
+                ))}
               </div>
             </div>
           </InfoContainer>

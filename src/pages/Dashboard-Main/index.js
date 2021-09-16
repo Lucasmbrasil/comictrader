@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-// import { useHistory } from "react-router-dom";
 import { useComics } from "../../providers/comics";
+import { useUser } from "../../providers/user";
 import { DashboardBackground } from "../../styles/globalComponents";
 import HQCard from "../../components/HQCards";
 import Header from "../../components/Header";
@@ -10,28 +10,14 @@ import Footer from "../../components/Footer";
 function DashboardMain() {
   const [input, setInput] = useState("");
   const { comicsList, searchComics, getComicsList } = useComics();
-
+  const { updateUserComics, getUsersList } = useUser();
+  
   useEffect(() => {
     getComicsList();
+    updateUserComics();
+    getUsersList();
   }, []);
 
-  // &resources=character&query=${input}
-  // api_key=bf2d39824c84c5c81e7f1adcabea036406aff8e9&format=json
-
-  // `https://comicvine.gamespot.com/api/issue/4000-${id}/?api_key=bf2d39824c84c5c81e7f1adcabea036406aff8e9&format=json`
-  // const handleHq = (id) => {
-  //   comic
-  //     .get(
-  //       `issue/4000-${id}/?api_key=bf2d39824c84c5c81e7f1adcabea036406aff8e9&format=json`
-  //     )
-  //     .then((response) => {
-  //       console.log(response.data.results);
-  //       console.log(hqs);
-  //     })
-  //     .catch((e) => console.log(e));
-  // };
-  // console.log(typeof hqs);
-  // console.log(hqs);
   return (
     <DashboardBackground>
       <Header />

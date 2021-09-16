@@ -1,4 +1,4 @@
-import { Route, Switch } from "react-router";
+import { Route, Switch, useParams } from "react-router";
 import AboutUs from "../pages/About-Us";
 import DashboardComic from "../pages/Dashboard-Comic";
 import DashboardMain from "../pages/Dashboard-Main";
@@ -27,7 +27,7 @@ const Routes = () => {
       <Route path="/comic/:comicId">
         <DashboardComic />
       </Route>
-      <Route path="/profile">
+      <Route path="/profile/:userId">
         <DashboardUser />
       </Route>
       <Route exact path="/faq">

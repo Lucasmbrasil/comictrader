@@ -1,28 +1,37 @@
-import { useState } from "react";
 import { useUser } from "../../providers/user";
-import fakeapi from "../../services/fakeapi";
 import { PanelContainer } from "../../styles/globalComponents";
+import RatingsCard from "../RatingsCard";
+import { useParams } from "react-router";
+import { useEffect, useState } from "react";
+import fakeapi from "../../services/fakeapi";
 
 const SectionUserRates = () => {
   const { rating } = useUser();
-  const [commenter, setCommenter] = useState("")
+  const params = useParams();
+  const userID = localStorage.getItem("@comictrader:userID");
+  const token = localStorage.getItem("@comictrader:token");
+  const config = { headers: { Authorization: `Bearer ${token}` } };
+  const [profileRating, setProfileRating] = useState();
 
-  const getCommenterInfo = (id) => {
-    fakeapi
-    .get(`/users/${id}`)
-    .then((response) => setCommenter(response.data.name))
-  }
+  useEffect(() => {
+    const profileID = localStorage.getItem("@comictrader:profileID") || "[]";
 
-  return (
+    fakeapi.get(`users/${profileID}`, config).then((res) => {
+      setProfileRating(res.data.rating);
+    });
+  }, []);
+
+  return params.userId === userID ? (
     <PanelContainer>
-      {rating?.map((rate, index) => {
-        return (
-          <div onLoadStart={() => getCommenterInfo(rate.user_id)}>
-            <p>{rate.comment}</p>
-            <h6>{commenter}</h6>{" "}
-          </div>
-        );
-      })}
+      {rating?.map((rate, index) => (
+        <RatingsCard rate={rate} key={index} />
+      ))}
+    </PanelContainer>
+  ) : (
+    <PanelContainer>
+      {profileRating?.map((rate, index) => (
+        <RatingsCard rate={rate} key={index} />
+      ))}
     </PanelContainer>
   );
 };

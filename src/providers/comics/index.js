@@ -1,16 +1,19 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import comic from "../../services/comic";
 import fakeapi from "../../services/fakeapi";
 
 export const ComicsContext = createContext();
 
 export const ComicsProvider = ({ children }) => {
-  const [comicsOwned, setComicsOwned] = useState([]);
-  const [comicsWanted, setComicsWanted] = useState([]);
+  // const [comicsOwned, setComicsOwned] = useState();
+  // const [comicsWanted, setComicsWanted] = useState();
   const [comicsList, setComicsList] = useState([]);
-  const [id, setId] = useState(0);
+  // const [id, setId] = useState(0);
   const [specificComic, setSpecificComic] = useState([]);
 
+  // useEffect(() => {
+  //   updateUserComics();
+  // }, []);
   // const config = { headers: { Authorization: `Bearer ${token}`}}
   // const userid = numseioquelá
 
@@ -21,18 +24,23 @@ export const ComicsProvider = ({ children }) => {
   //   });
   // };
 
-  const updateUserComics = (userid, config) => {
-    fakeapi
-      .get(`users/${userid}`, config)
-      .then((response) => {
-        console.log(response);
-        setComicsOwned(response.data.comics_owned);
-        setComicsWanted(response.data.comics_wanted);
-      })
-      .catch((e) => console.log(e));
-  };
+  // const updateUserComics = () => {
+  //   const token = localStorage.getItem("@comictrader:token");
+  //   const userId = localStorage.getItem("@comictrader:userID");
+  //   const config = { headers: { Authorization: `Bearer ${token}` } };
+  //   fakeapi
+  //     .get(`users/${userId}`, config)
+  //     .then((response) => {
+  //       setComicsOwned(response.data.comics_owned);
+  //       setComicsWanted(response.data.comics_wanted);
+  //     })
+  //     .catch((e) => console.log(e));
+  // };
 
   const addOwned = (userid, config) => {
+    const comicsOwned = JSON.parse(
+      localStorage.getItem("@comictrader:ownedList") || "[]"
+    );
     const data = specificComic;
     fakeapi
       .patch(
@@ -42,7 +50,11 @@ export const ComicsProvider = ({ children }) => {
       )
       .then((e) => {
         console.log(data);
-        setComicsOwned([...comicsOwned, data]);
+
+        localStorage.setItem(
+          "@comictrader:ownedList",
+          JSON.stringify([...comicsOwned, data] || [])
+        );
       })
       .catch((e) => {
         console.log(e);
@@ -50,6 +62,9 @@ export const ComicsProvider = ({ children }) => {
   };
 
   const addWanted = (userid, config) => {
+    const comicsWanted = JSON.parse(
+      localStorage.getItem("@comictrader:wantedList") || "[]"
+    );
     const data = specificComic;
     fakeapi
       .patch(
@@ -59,28 +74,32 @@ export const ComicsProvider = ({ children }) => {
       )
       .then((e) => {
         console.log(data);
-        setComicsWanted([...comicsWanted, data]);
+
+        localStorage.setItem(
+          "@comictrader:wantedList",
+          JSON.stringify([...comicsWanted, data] || [])
+        );
       })
       .catch((e) => {
         console.log(e);
       });
   };
 
-  const removeOwned = (data, userid, config, item) => {
-    const filteredOwned = comicsOwned.filter((comic) => comic.id !== item.id);
-    data = filteredOwned;
-    comic.patch(`users/${userid}`, data, config).then((e) => {
-      setComicsOwned([filteredOwned]);
-    });
-  };
+  // const removeOwned = (data, userid, config, item) => {
+  //   const filteredOwned = comicsOwned.filter((comic) => comic.id !== item.id);
+  //   data = filteredOwned;
+  //   comic.patch(`users/${userid}`, data, config).then((e) => {
+  //     setComicsOwned([filteredOwned]);
+  //   });
+  // };
 
-  const removeWanted = (data, userid, config, item) => {
-    const filteredWanted = comicsWanted.filter((comic) => comic.id !== item.id);
-    data = filteredWanted;
-    comic.patch(`users/${userid}`, data, config).then((e) => {
-      setComicsWanted([filteredWanted]);
-    });
-  };
+  // const removeWanted = (data, userid, config, item) => {
+  //   const filteredWanted = comicsWanted.filter((comic) => comic.id !== item.id);
+  //   data = filteredWanted;
+  //   comic.patch(`users/${userid}`, data, config).then((e) => {
+  //     setComicsWanted([filteredWanted]);
+  //   });
+  // };
 
   const getComicsList = () => {
     const url = {
@@ -117,6 +136,7 @@ export const ComicsProvider = ({ children }) => {
       .post("get-data/", url)
       .then((response) => {
         setSpecificComic(response.data.results);
+        // setId(response.data.results.id);
       })
       .catch((e) => console.log(e));
   };
@@ -124,20 +144,20 @@ export const ComicsProvider = ({ children }) => {
   return (
     <ComicsContext.Provider
       value={{
+        // updateUserComics,
         addOwned,
         addWanted,
-        removeOwned,
-        removeWanted,
-        comicsOwned,
-        comicsWanted,
+        // removeOwned,
+        // removeWanted,
+        // comicsOwned,
+        // comicsWanted,
         getComicsList,
         searchComics,
         comicsList,
-        setId,
-        id,
+        // setId,
+        // id,
         getComic,
         specificComic,
-        updateUserComics,
       }}
     >
       {children}

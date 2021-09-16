@@ -70,4 +70,8 @@ export const HQCardContainer = styled.div`
             color: white;
         }        
     }
+
+    .hqRating {
+        max-width: 90%;
+    }
 `
