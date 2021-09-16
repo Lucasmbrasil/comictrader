@@ -15,10 +15,11 @@ const SectionUserRates = () => {
 
   useEffect(() => {
     const profileID = localStorage.getItem("@comictrader:profileID") || "[]";
-
-    fakeapi.get(`users/${profileID}`, config).then((res) => {
-      setProfileRating(res.data.rating);
-    });
+    if (profileID !== "[]") {
+      fakeapi.get(`users/${profileID}`, config).then((res) => {
+        setProfileRating(res.data.rating);
+      });
+    }
   }, []);
 
   return params.userId === userID ? (

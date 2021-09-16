@@ -4,7 +4,7 @@ import { useComics } from "../../providers/comics";
 import fakeapi from "../../services/fakeapi";
 import { PanelContainer } from "../../styles/globalComponents";
 import HQCard from "../HQCards";
-import { ComicListsContainer } from "./styles.js"
+import { ComicListsContainer } from "./styles.js";
 
 const SectionUserCollection = () => {
   const [profileWanted, setProfileWanted] = useState([]);
@@ -17,11 +17,12 @@ const SectionUserCollection = () => {
 
   useEffect(() => {
     const profileID = localStorage.getItem("@comictrader:profileID") || "[]";
-
-    fakeapi.get(`users/${profileID}`, config).then((res) => {
-      setProfileOwned(res.data.comics_owned);
-      setProfileWanted(res.data.comics_wanted);
-    });
+    if (profileID !== "[]") {
+      fakeapi.get(`users/${profileID}`, config).then((res) => {
+        setProfileOwned(res.data.comics_owned);
+        setProfileWanted(res.data.comics_wanted);
+      });
+    }
   }, []);
 
   const comicsOwned = JSON.parse(
@@ -30,7 +31,6 @@ const SectionUserCollection = () => {
   const comicsWanted = JSON.parse(
     localStorage.getItem("@comictrader:wantedList") || "[]"
   );
-  console.log(comicsWanted);
 
   // useEffect(() => {
   //   // const token = localStorage.getItem("@comictrader:token");

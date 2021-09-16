@@ -5,13 +5,16 @@ import { useUser } from "../../providers/user";
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
-import { makeStyles } from "@material-ui/core";
+import { Box, makeStyles, Typography } from "@material-ui/core";
 import { DashboardBackground } from "../../styles/globalComponents";
 import SectionUserCollection from "../../components/SectionUserCollection";
 import SectionUserRates from "../../components/SectionUserRates";
 import SectionUserTrades from "../../components/SectionUserTrades";
 import { UserInfoBar } from "./styles";
 import { useHistory, useParams } from "react-router";
+import { Modal } from "@material-ui/core";
+import RatingInput from "../../components/RatingInput";
+import EditProfile from "../../components/EditProfile";
 
 const useStyles = makeStyles({
   root: {
@@ -32,19 +35,20 @@ const DashboardUser = () => {
   const profileID = localStorage.getItem("@comictrader:profileID") || "";
   const userId = localStorage.getItem("@comictrader:userID") || "";
   const history = useHistory();
-  const {
-    name,
-    location,
-    getId,
-    getProfile,
-    profileName,
-    profileLocation,
-    profileRating,
-    profileTrades,
-  } = useUser();
+  const { name, location, getId, getProfile, profileName, profileLocation } =
+    useUser();
   const [selectedTab, setSelectedTab] = useState(0);
   const avatarURL = `https://ui-avatars.com/api/?length=2&rounded=true&background=random&name=${name}`;
   const profileAvatarURL = `https://ui-avatars.com/api/?length=2&rounded=true&background=random&name=${profileName}`;
+  const [openRating, setOpenRating] = useState(false);
+  const [openEdit, setOpenEdit] = useState(false);
+  const [openChat, setOpenChat] = useState(false);
+  const handleOpenRating = () => setOpenRating(true);
+  const handleCloseRating = () => setOpenRating(false);
+  const handleOpenEdit = () => setOpenEdit(true);
+  const handleCloseEdit = () => setOpenEdit(false);
+  const handleOpenChat = () => setOpenChat(true);
+  const handleCloseChat = () => setOpenChat(false);
 
   const handleChange = (event, newValue) => {
     setSelectedTab(newValue);
@@ -87,7 +91,7 @@ const DashboardUser = () => {
               <div className="userProfileInfo">
                 <h1>{name}</h1>
                 <h2>{location}, Brasil</h2>
-                <button>Editar perfil</button>
+                <button onClick={handleOpenEdit}>Editar perfil</button>
               </div>
             </UserInfoBar>
             <AppBar position="static" className={classes.root}>
@@ -123,7 +127,7 @@ const DashboardUser = () => {
                 <h1>{profileName}</h1>
                 <h2>{profileLocation}, Brasil</h2>
                 <div className="visitorButtons">
-                  <button onClick>Avaliar</button>
+                  <button onClick={handleOpenRating}>Avaliar</button>
                   <button onClick={() => history.push("/test")}>Chat</button>
                 </div>
               </div>
@@ -152,8 +156,16 @@ const DashboardUser = () => {
             </TabPanel> */}
           </>
         )}
+
         <Footer />
       </DashboardBackground>
+      <Modal open={openEdit} onClose={handleCloseEdit}>
+        <EditProfile />
+      </Modal>
+      <Modal open={openRating} onClose={handleCloseRating}>
+        <RatingInput />
+      </Modal>
+      <Modal open={openChat} onClose={handleCloseChat}></Modal>
     </>
   );
 };
