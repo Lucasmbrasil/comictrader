@@ -9,15 +9,16 @@ import { StyledCircularProgress } from "../../pages/Dashboard-Main/styles";
 const SectionUserRates = () => {
   const { rating } = useUser();
   const params = useParams();
-  const userID = localStorage.getItem("@comictrader:userID");
   const token = localStorage.getItem("@comictrader:token");
   const config = { headers: { Authorization: `Bearer ${token}` } };
   const [profileRating, setProfileRating] = useState();
   const [loading, setLoading] = useState(true);
+  const userID = localStorage.getItem("@comictrader:userID");
 
   useEffect(() => {
-    const profileID = localStorage.getItem("@comictrader:profileID") || "[]";
-    if (profileID !== "[]") {
+    const profileID = localStorage.getItem("@comictrader:profileID");
+    console.log(profileID);
+    if (profileID) {
       fakeapi
         .get(`users/${profileID}`, config)
         .then((res) => {

@@ -14,8 +14,11 @@ const RatingsCard = ({ rate }) => {
   };
 
   useEffect(() => {
-    getCommenterInfo(rate.userId);
+    if (rate.userId) {
+      getCommenterInfo(rate.userId);
+    }
   }, []);
+
   return (
     <RatingsCardContainer>
       <div className="commenterInfo">

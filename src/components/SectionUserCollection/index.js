@@ -57,7 +57,7 @@ const SectionUserCollection = () => {
           ))}
         </div>
         <div className="ListContainer">
-          <h2>Lista de desejos</h2>
+          <h2>Quadrinhos que quero</h2>
           {comicsWanted?.map((comicWanted, index) => (
             <HQCard
               comic={comicWanted}
@@ -73,9 +73,9 @@ const SectionUserCollection = () => {
       {loading ? (
         <StyledCircularProgress />
       ) : (
-        <div>
-          <div>
-            <h2>Quadrinhos que tenho</h2>
+        <ComicListsContainer>
+          <div className="ListContainer">
+            <h2>Lista de quadrinhos</h2>
             {profileOwned?.map((comicOwned) => (
               <HQCard
                 comic={comicOwned}
@@ -84,8 +84,8 @@ const SectionUserCollection = () => {
               />
             ))}
           </div>
-          <div>
-            <h2>Quadrinhos que quero</h2>
+          <div className="ListContainer">
+            <h2>Lista de desejos</h2>
             {profileWanted?.map((comicWanted, index) => (
               <HQCard
                 comic={comicWanted}
@@ -94,7 +94,7 @@ const SectionUserCollection = () => {
               />
             ))}
           </div>
-        </div>
+        </ComicListsContainer>
       )}
     </PanelContainer>
   );

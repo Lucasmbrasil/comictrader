@@ -34,16 +34,25 @@ const DashboardUser = () => {
   const profileID = localStorage.getItem("@comictrader:profileID") || "";
   const userId = localStorage.getItem("@comictrader:userID") || "";
   const history = useHistory();
-  const { name, location, getId, getProfile, profileName, profileLocation } =
-    useUser();
+  const {
+    name,
+    location,
+    getId,
+    getProfile,
+    profileName,
+    profileLocation,
+    handleCloseRating,
+    handleOpenRating,
+    openRating,
+  } = useUser();
   const [selectedTab, setSelectedTab] = useState(0);
   const avatarURL = `https://ui-avatars.com/api/?length=2&rounded=true&background=random&name=${name}`;
   const profileAvatarURL = `https://ui-avatars.com/api/?length=2&rounded=true&background=random&name=${profileName}`;
-  const [openRating, setOpenRating] = useState(false);
+  // const [openRating, setOpenRating] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
   const [openChat, setOpenChat] = useState(false);
-  const handleOpenRating = () => setOpenRating(true);
-  const handleCloseRating = () => setOpenRating(false);
+  // const handleOpenRating = () => setOpenRating(true);
+  // const handleCloseRating = () => setOpenRating(false);
   const handleOpenEdit = () => setOpenEdit(true);
   const handleCloseEdit = () => setOpenEdit(false);
   const handleOpenChat = () => setOpenChat(true);
@@ -159,12 +168,12 @@ const DashboardUser = () => {
         <Footer />
       </DashboardBackground>
       <Modal open={openEdit} onClose={handleCloseEdit}>
-        <EditProfile />
+        <EditProfile handleCloseEdit={handleCloseEdit} />
       </Modal>
       <Modal open={openRating} onClose={handleCloseRating}>
-        <RatingInput />
+        <RatingInput onClose={handleCloseRating} />
       </Modal>
-      <Modal open={openChat} onClose={handleCloseChat}></Modal>
+      <Modal open={openChat}></Modal>
     </>
   );
 };
