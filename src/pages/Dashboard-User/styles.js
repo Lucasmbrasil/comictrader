@@ -13,17 +13,19 @@ export const UserInfoBar = styled.div`
   padding: 10px 0;
 
   .userImageContainer {
-    width: 30%;
+    width: 25%;
+    max-width: 200px;
     
     img {
-        width: 150px;
+        width: 120px;
         border: 2px solid black;
         border-radius: 100%;
     }
   }
 
   .userProfileInfo {
-      width: 60%;
+      width: 50%;
+      max-width: 400px;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -77,6 +79,49 @@ export const UserInfoBar = styled.div`
     .visitorButtons {
       display: flex;
       
+    }
+  }
+
+  @media(max-width: 750px) {
+    .userImageContainer {
+      img {
+          width: 100px;
+      }
+    }
+
+  .userProfileInfo {
+    h1 {
+        text-transform: none;
+        font-size: 40px;
+    }
+
+    h2 {
+        font-weight: 500;
+        font-size: 16px; 
+    }
+  }
+
+  @media(max-width: 500px) {
+    .userImageContainer {
+      img {
+          width: 60px;
+      }
+    }
+
+  .userProfileInfo {
+    h1 {
+        text-transform: none;
+        font-size: 25px;
+    }
+
+    h2 {
+        font-weight: 500;
+        font-size: 14px; 
+    }
+
+    button {
+      font-size: 12px;
+      margin-block-start: 5px;
     }
   }
 `;

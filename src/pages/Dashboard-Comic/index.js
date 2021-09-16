@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import {
   ComicBackground,
+  ComicBlackTop,
+  ComicButtons,
   DashboardComicContainer,
   InfoContainer,
 } from "./styles";
@@ -10,19 +12,29 @@ import Footer from "../../components/Footer";
 import { DashboardBackground } from "../../styles/globalComponents";
 import UserCardList from "../../components/UserCardList";
 import fakeapi from "../../services/fakeapi";
+import { useHistory } from "react-router";
 
 function DashboardComic() {
+  
   const { getComic, specificComic, addWanted, addOwned } = useComics();
-
   const token = localStorage.getItem("@comictrader:token");
   const userId = localStorage.getItem("@comictrader:userID");
   const config = { headers: { Authorization: `Bearer ${token}` } };
+  const [userList, setUserList] = useState();
+  const history = useHistory();
 
-  // const [userList, setUserList] = useState([]);
+  const getUserList = () => {
+    fakeapi
+    .get("users", config)
+    .then((response) => setUserList(response.data))
+    .catch((e) => console.log("deu ruim", e))
+  }
+  console.log(userList);
 
   useEffect(() => {
     const comicID = localStorage.getItem("@comictrader:comicID");
     getComic(comicID);
+    getUserList();
   }, []);
   const [wanterList, setWanterList] = useState();
   const [ownerList, setOwnerList] = useState();
@@ -67,13 +79,8 @@ function DashboardComic() {
       <Header />
       {specificComic.aliases !== undefined && (
         <DashboardComicContainer>
-          <ComicBackground
-            style={{
-              background: `url(${specificComic.image.small_url}) no-repeat center`,
-              backgroundSize: "cover",
-            }}
-          >
-            <div className="ComicBlackTop">
+          <ComicBackground image={specificComic.image.small_url}>
+            <ComicBlackTop>
               <img
                 src={specificComic.image.thumb_url}
                 alt={specificComic.volume.name}
@@ -87,15 +94,17 @@ function DashboardComic() {
                         .replace(/<.*?>/g, " ")
                     : specificComic.description.replace(/<.*?>/g, " "))}
               </p>
-              <div className="ComicButtons">
-                <button onClick={() => addWanted(userId, config)}>
+              <ComicButtons>
+                <button onClick={() => {addWanted(userId, config)
+                history.push(`/profile/${userId}`)}}>
                   Eu quero
                 </button>
-                <button onClick={() => addOwned(userId, config)}>
+                <button onClick={() => {addOwned(userId, config)
+                history.push(`/profile/${userId}`)}}>
                   Eu tenho
                 </button>
-              </div>
-            </div>
+              </ComicButtons>
+            </ComicBlackTop>
           </ComicBackground>
           <InfoContainer>
             <div className="WhoHas">

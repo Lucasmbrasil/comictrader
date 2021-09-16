@@ -2,11 +2,19 @@ import { HeaderButton, HeaderMain } from "./styles";
 import { useHistory } from "react-router";
 import { AiOutlineMenu } from "react-icons/ai";
 import { useAuth } from "../../providers/auth";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { makeStyles, Menu, MenuItem } from "@material-ui/core";
 
-const Header = ({ setShowDrawer }) => {
+const useStyles = makeStyles((theme) => ({
+  list:{
+    padding:0
+  }
+}));
+
+const Header = () => {
+  const classes = useStyles();
   const { authenticated, setAuthenticated } = useAuth();
-
+  const [openMenu, setOpenMenu] = useState(false);
   const history = useHistory();
   const userId = localStorage.getItem("@comictrader:userID");
 
@@ -16,12 +24,40 @@ const Header = ({ setShowDrawer }) => {
     history.push("/");
   };
 
+  const handleClose = () => {
+
+  }
+
   return (
     <HeaderMain>
-      {authenticated && (
-        <div className="MenuButton" onClick={() => setShowDrawer(true)}>
-          <AiOutlineMenu />
-        </div>
+      <div className="MenuButton" onClick={() => setOpenMenu(true)}>
+        <AiOutlineMenu />
+      </div>
+      {authenticated ? (
+        <Menu MenuListProps={{ classes: { list: classes.list } }}
+          className = {classes.list}
+          anchorEl={{ vertical: 'bottom',horizontal: 'left' }}
+          transformOrigin={{ vertical: 'top', horizontal: 'left' }}
+          open={openMenu}
+          onClose={handleClose}
+        >
+          <MenuItem className={classes.item} onClick={() => {handleClose(); history.push("/main")}}>HQs</MenuItem>
+          <MenuItem className={classes.item} onClick={() => {handleClose(); history.push(`/profile/${userId}`)}}>Perfil</MenuItem>
+          <MenuItem className={classes.item} onClick={handleLogout}>Sair</MenuItem>
+        </Menu>
+      ) : (
+        <Menu
+            anchorEl={{ vertical: 'bottom',horizontal: 'right' }}
+            transformOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+            getContentAnchorEl={null}
+            keepMounted
+            open={openMenu}
+            onClose={handleClose}
+        >
+            <MenuItem onClick={() => {handleClose(); history.push("/login")}}>Login</MenuItem>
+            <MenuItem onClick={() => {handleClose(); history.push("/signup")}}>Cadastro</MenuItem>
+            <MenuItem onClick={() => {handleClose(); history.push("/main")}}>HQs</MenuItem>
+        </Menu>
       )}
       <div onClick={() => history.push("/")} className="HeaderLogo">
         <h1 className="Logo1">COMIC</h1>

@@ -4,6 +4,7 @@ import { useComics } from "../../providers/comics";
 import fakeapi from "../../services/fakeapi";
 import { PanelContainer } from "../../styles/globalComponents";
 import HQCard from "../HQCards";
+import { ComicListsContainer } from "./styles.js"
 
 const SectionUserCollection = () => {
   const [profileWanted, setProfileWanted] = useState([]);
@@ -42,9 +43,9 @@ const SectionUserCollection = () => {
 
   return params.userId === userID ? (
     <PanelContainer>
-      <div>
-        <div>
-          <h2>Quadrinhos que tenho</h2>
+      <ComicListsContainer>
+        <div className="ListContainer">
+          <h2>Meus quadrinhos</h2>
           {comicsOwned?.map((comicOwned) => (
             <HQCard
               comic={comicOwned}
@@ -53,8 +54,8 @@ const SectionUserCollection = () => {
             />
           ))}
         </div>
-        <div>
-          <h2>Quadrinhos que quero</h2>
+        <div className="ListContainer">
+          <h2>Lista de desejos</h2>
           {comicsWanted?.map((comicWanted, index) => (
             <HQCard
               comic={comicWanted}
@@ -63,7 +64,7 @@ const SectionUserCollection = () => {
             />
           ))}
         </div>
-      </div>
+      </ComicListsContainer>
     </PanelContainer>
   ) : (
     <PanelContainer>

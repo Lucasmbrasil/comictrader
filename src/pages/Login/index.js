@@ -9,9 +9,9 @@ import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import fakeapi from "../../services/fakeapi";
 import { AnimationContainer, LoginBackground } from "./styles";
-import loginTitle from "../../assets/login-title.png";
 import { useAuth } from "../../providers/auth";
 import { useUser } from "../../providers/user";
+import { toast } from "react-toastify";
 
 // import { Container } from './styles';
 
@@ -53,8 +53,8 @@ function Login() {
         setAuthenticated(true);
       })
 
-      .then((_) => history.push("/main"))
-      .catch((error) => console.log(error));
+      .then((_) => {history.push("/main")})
+      .catch((err) => toast.error('Oops! Algo deu errado'));
   };
 
   return (

@@ -3,11 +3,19 @@ import background from "../../assets/small-background.jpg";
 
 export const UserCardContainer = styled.div`
   background: url(${background}) no-repeat center;
+  background-color: black;
   display: flex;
   align-items: center;
   justify-content: space-between;
   color: white;
   border-radius: 5px;
+  cursor: pointer;
+  border: 1px solid black;
+
+  &&:hover {
+    transform: scale(1.05);
+    transition: 0.2s;
+}
 
   img {
     border: 2px solid black;

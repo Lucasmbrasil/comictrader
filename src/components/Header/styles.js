@@ -24,7 +24,8 @@ export const HeaderMain = styled.div`
     }
 
     .HeaderLogo {
-        margin-inline-start: 15px;
+        margin-inline-end: 15px;
+        margin-inline-start: 0;
         cursor: pointer;
         display: flex;
         align-itens: center;
@@ -42,6 +43,7 @@ export const HeaderMain = styled.div`
     }
 
     .HeaderButtons {
+        display: none;
         margin-inline-end: 10px;
         
         h5 {
@@ -62,6 +64,7 @@ export const HeaderMain = styled.div`
 
         .HeaderButtons {
             margin-inline-end: 20px;
+            display: block;
 
             h5 {
                 font-size: 18px;
@@ -70,6 +73,7 @@ export const HeaderMain = styled.div`
 
         .HeaderLogo {
             margin-inline-start: 20px;
+            margin-inline-end: 0;
 
             .Logo1 {
                 font-size: 40px;

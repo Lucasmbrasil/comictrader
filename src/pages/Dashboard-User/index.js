@@ -11,7 +11,7 @@ import SectionUserCollection from "../../components/SectionUserCollection";
 import SectionUserRates from "../../components/SectionUserRates";
 import SectionUserTrades from "../../components/SectionUserTrades";
 import { UserInfoBar } from "./styles";
-import { useParams } from "react-router";
+import { useHistory, useParams } from "react-router";
 
 const useStyles = makeStyles({
   root: {
@@ -31,7 +31,7 @@ const DashboardUser = () => {
   const classes = useStyles();
   const profileID = localStorage.getItem("@comictrader:profileID") || "";
   const userId = localStorage.getItem("@comictrader:userID") || "";
-
+  const history = useHistory();
   const {
     name,
     location,
@@ -97,16 +97,16 @@ const DashboardUser = () => {
                 centered
                 aria-label="coisa"
               >
-                <Tab className={classes.tab} label="Avaliações" />
                 <Tab className={classes.tab} label="Coleção" />
+                <Tab className={classes.tab} label="Avaliações" />
                 {/* <Tab className={classes.tab} label="Minhas transações" /> */}
               </Tabs>
             </AppBar>
             <TabPanel value={selectedTab} index={0}>
-              <SectionUserRates />
+              <SectionUserCollection />
             </TabPanel>
             <TabPanel value={selectedTab} index={1}>
-              <SectionUserCollection />
+              <SectionUserRates />
             </TabPanel>
 
             {/* <TabPanel value={selectedTab} index={2}>
@@ -124,7 +124,7 @@ const DashboardUser = () => {
                 <h2>{profileLocation}, Brasil</h2>
                 <div className="visitorButtons">
                   <button>Avaliar</button>
-                  <button>Chat</button>
+                  <button onClick={() => history.push("/test")}>Chat</button>
                 </div>
               </div>
             </UserInfoBar>
