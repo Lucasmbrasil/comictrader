@@ -13,10 +13,10 @@ import { DashboardBackground } from "../../styles/globalComponents";
 import UserCardList from "../../components/UserCardList";
 import fakeapi from "../../services/fakeapi";
 import { useHistory } from "react-router";
+import { StyledCircularProgress } from "../Dashboard-Main/styles";
 
 function DashboardComic() {
-  
-  const { getComic, specificComic, addWanted, addOwned } = useComics();
+  const { getComic, specificComic, addWanted, addOwned, loading } = useComics();
   const token = localStorage.getItem("@comictrader:token");
   const userId = localStorage.getItem("@comictrader:userID");
   const config = { headers: { Authorization: `Bearer ${token}` } };
@@ -25,10 +25,10 @@ function DashboardComic() {
 
   const getUserList = () => {
     fakeapi
-    .get("users", config)
-    .then((response) => setUserList(response.data))
-    .catch((e) => console.log("deu ruim", e))
-  }
+      .get("users", config)
+      .then((response) => setUserList(response.data))
+      .catch((e) => console.log("deu ruim", e));
+  };
   console.log(userList);
 
   useEffect(() => {
@@ -79,51 +79,65 @@ function DashboardComic() {
       <Header />
       {specificComic.aliases !== undefined && (
         <DashboardComicContainer>
-          <ComicBackground image={specificComic.image.small_url}>
-            <ComicBlackTop>
-              <img
-                src={specificComic.image.thumb_url}
-                alt={specificComic.volume.name}
-              />
-              <h1>{specificComic.volume.name}</h1>
-              <p>
-                {specificComic.description !== null &&
-                  (specificComic.description.includes("<h4>")
-                    ? specificComic.description
-                        .slice(0, specificComic.description.indexOf("<h4>"))
-                        .replace(/<.*?>/g, " ")
-                    : specificComic.description.replace(/<.*?>/g, " "))}
-              </p>
-              <ComicButtons>
-                <button onClick={() => {addWanted(userId, config)
-                history.push(`/profile/${userId}`)}}>
-                  Eu quero
-                </button>
-                <button onClick={() => {addOwned(userId, config)
-                history.push(`/profile/${userId}`)}}>
-                  Eu tenho
-                </button>
-              </ComicButtons>
-            </ComicBlackTop>
-          </ComicBackground>
-          <InfoContainer>
-            <div className="WhoHas">
-              <h3>Quem tem esta HQ:</h3>
-              <div>
-                {ownerList?.map((user) => (
-                  <UserCardList user={user} />
-                ))}
-              </div>
-            </div>
-            <div className="WhoWants">
-              <h3>Quem também quer:</h3>
-              <div>
-                {wanterList?.map((user) => (
-                  <UserCardList user={user} />
-                ))}
-              </div>
-            </div>
-          </InfoContainer>
+          {loading ? (
+            <StyledCircularProgress />
+          ) : (
+            <>
+              <ComicBackground image={specificComic.image.small_url}>
+                <ComicBlackTop>
+                  <img
+                    src={specificComic.image.thumb_url}
+                    alt={specificComic.volume.name}
+                  />
+                  <h1>{specificComic.volume.name}</h1>
+                  <p>
+                    {specificComic.description !== null &&
+                      (specificComic.description.includes("<h4>")
+                        ? specificComic.description
+                            .slice(0, specificComic.description.indexOf("<h4>"))
+                            .replace(/<.*?>/g, " ")
+                        : specificComic.description.replace(/<.*?>/g, " "))}
+                  </p>
+                  <ComicButtons>
+                    <button
+                      onClick={() => {
+                        addWanted(userId, config);
+                        history.push(`/profile/${userId}`);
+                      }}
+                    >
+                      Eu quero
+                    </button>
+                    <button
+                      onClick={() => {
+                        addOwned(userId, config);
+                        history.push(`/profile/${userId}`);
+                      }}
+                    >
+                      Eu tenho
+                    </button>
+                  </ComicButtons>
+                </ComicBlackTop>
+              </ComicBackground>
+              <InfoContainer>
+                <div className="WhoHas">
+                  <h3>Quem tem esta HQ:</h3>
+                  <div>
+                    {ownerList?.map((user) => (
+                      <UserCardList user={user} />
+                    ))}
+                  </div>
+                </div>
+                <div className="WhoWants">
+                  <h3>Quem também quer:</h3>
+                  <div>
+                    {wanterList?.map((user) => (
+                      <UserCardList user={user} />
+                    ))}
+                  </div>
+                </div>
+              </InfoContainer>{" "}
+            </>
+          )}
         </DashboardComicContainer>
       )}
       <Footer />

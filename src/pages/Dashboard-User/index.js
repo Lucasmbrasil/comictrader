@@ -9,7 +9,6 @@ import { Box, makeStyles, Typography } from "@material-ui/core";
 import { DashboardBackground } from "../../styles/globalComponents";
 import SectionUserCollection from "../../components/SectionUserCollection";
 import SectionUserRates from "../../components/SectionUserRates";
-import SectionUserTrades from "../../components/SectionUserTrades";
 import { UserInfoBar } from "./styles";
 import { useHistory, useParams } from "react-router";
 import { Modal } from "@material-ui/core";

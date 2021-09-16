@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import main_background from "../../assets/main-background.jpg"
+import main_background from "../../assets/main-background.jpg";
+import { CircularProgress } from "@material-ui/core";
 
 export const ComicListContainer = styled.div`
   display: flex;
@@ -23,7 +24,7 @@ export const ComicSearchBar = styled.div`
   background-size: cover;
   border-bottom: 2px solid black;
   padding: 10px 0;
-  
+
   input {
     width: 250px;
     padding: 10px;
@@ -31,7 +32,7 @@ export const ComicSearchBar = styled.div`
     outline: none;
     border: 2px solid black;
     margin-block-start: 10px;
-    font-family: 'Urbanist', sans-serif;
+    font-family: "Urbanist", sans-serif;
   }
 
   .SearchBackground {
@@ -41,7 +42,7 @@ export const ComicSearchBar = styled.div`
     align-items: center;
     margin-block-start: 10px;
     background-color: white;
-    padding:0 15px;
+    padding: 0 15px;
     font-size: 16px;
     color: black;
     border: 2px solid black;
@@ -57,18 +58,23 @@ export const ComicSearchBar = styled.div`
     outline: none;
     border: none;
     font-size: 16px;
-    font-family: 'Urbanist', sans-serif;
+    font-family: "Urbanist", sans-serif;
     margin-block: 10px;
   }
 
   button:hover {
     background-color: red;
-    transition:0.3s;
+    transition: 0.3s;
   }
 
   button:active {
     background-color: white;
-    transition:0.3s;
+    transition: 0.3s;
     color: black;
   }
-`
+`;
+export const StyledCircularProgress = styled(CircularProgress)`
+  && {
+    color: red;
+  }
+`;

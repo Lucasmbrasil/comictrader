@@ -4,6 +4,7 @@ import RatingsCard from "../RatingsCard";
 import { useParams } from "react-router";
 import { useEffect, useState } from "react";
 import fakeapi from "../../services/fakeapi";
+import { StyledCircularProgress } from "../../pages/Dashboard-Main/styles";
 
 const SectionUserRates = () => {
   const { rating } = useUser();
@@ -12,27 +13,40 @@ const SectionUserRates = () => {
   const token = localStorage.getItem("@comictrader:token");
   const config = { headers: { Authorization: `Bearer ${token}` } };
   const [profileRating, setProfileRating] = useState();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const profileID = localStorage.getItem("@comictrader:profileID") || "[]";
     if (profileID !== "[]") {
-      fakeapi.get(`users/${profileID}`, config).then((res) => {
-        setProfileRating(res.data.rating);
-      });
+      fakeapi
+        .get(`users/${profileID}`, config)
+        .then((res) => {
+          setLoading(false);
+          setProfileRating(res.data.rating);
+        })
+        .catch((e) => {
+          setLoading(false);
+        });
     }
   }, []);
 
   return params.userId === userID ? (
     <PanelContainer>
-      {rating?.map((rate, index) => (
-        <RatingsCard rate={rate} key={index} />
-      ))}
+      {loading ? (
+        <StyledCircularProgress />
+      ) : (
+        rating?.map((rate, index) => <RatingsCard rate={rate} key={index} />)
+      )}
     </PanelContainer>
   ) : (
     <PanelContainer>
-      {profileRating?.map((rate, index) => (
-        <RatingsCard rate={rate} key={index} />
-      ))}
+      {loading ? (
+        <StyledCircularProgress />
+      ) : (
+        profileRating?.map((rate, index) => (
+          <RatingsCard rate={rate} key={index} />
+        ))
+      )}
     </PanelContainer>
   );
 };
