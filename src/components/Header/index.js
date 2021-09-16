@@ -15,6 +15,7 @@ const Header = () => {
   const classes = useStyles();
   const { authenticated, setAuthenticated } = useAuth();
   const [openMenu, setOpenMenu] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null)
   const history = useHistory();
   const userId = localStorage.getItem("@comictrader:userID");
 
@@ -24,20 +25,26 @@ const Header = () => {
     history.push("/");
   };
 
-  const handleClose = () => {
+  const handleOpen = (event) => {
+    setAnchorEl(event.currentTarget)
+    setOpenMenu(true)
+  }
 
+  const handleClose = () => {
+    setAnchorEl(null)
+    setOpenMenu(false)
   }
 
   return (
     <HeaderMain>
-      <div className="MenuButton" onClick={() => setOpenMenu(true)}>
+      <div className="MenuButton" onClick={handleOpen}>
         <AiOutlineMenu />
       </div>
       {authenticated ? (
         <Menu MenuListProps={{ classes: { list: classes.list } }}
           className = {classes.list}
-          anchorEl={{ vertical: 'bottom',horizontal: 'left' }}
-          transformOrigin={{ vertical: 'top', horizontal: 'left' }}
+          anchorEl={anchorEl}
+          // transformOrigin={{ vertical: 'top', horizontal: 'left' }}
           open={openMenu}
           onClose={handleClose}
         >
@@ -47,10 +54,7 @@ const Header = () => {
         </Menu>
       ) : (
         <Menu
-            anchorEl={{ vertical: 'bottom',horizontal: 'right' }}
-            transformOrigin={{ vertical: 'bottom', horizontal: 'right' }}
             getContentAnchorEl={null}
-            keepMounted
             open={openMenu}
             onClose={handleClose}
         >
