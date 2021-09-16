@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
+import { StyledCircularProgress } from "../../pages/Dashboard-Main/styles";
 import { useComics } from "../../providers/comics";
 import fakeapi from "../../services/fakeapi";
 import { PanelContainer } from "../../styles/globalComponents";
 import HQCard from "../HQCards";
-import { ComicListsContainer } from "./styles.js"
+import { ComicListsContainer } from "./styles.js";
 
 const SectionUserCollection = () => {
   const [profileWanted, setProfileWanted] = useState([]);
@@ -14,13 +15,14 @@ const SectionUserCollection = () => {
   const userID = localStorage.getItem("@comictrader:userID");
   const token = localStorage.getItem("@comictrader:token");
   const config = { headers: { Authorization: `Bearer ${token}` } };
-
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     const profileID = localStorage.getItem("@comictrader:profileID") || "[]";
 
     fakeapi.get(`users/${profileID}`, config).then((res) => {
       setProfileOwned(res.data.comics_owned);
       setProfileWanted(res.data.comics_wanted);
+      setLoading(false);
     });
   }, []);
 
@@ -68,28 +70,32 @@ const SectionUserCollection = () => {
     </PanelContainer>
   ) : (
     <PanelContainer>
-      <div>
+      {loading ? (
+        <StyledCircularProgress />
+      ) : (
         <div>
-          <h2>Quadrinhos que tenho</h2>
-          {profileOwned?.map((comicOwned) => (
-            <HQCard
-              comic={comicOwned}
-              comicID={comicOwned.id}
-              key={comicOwned.id}
-            />
-          ))}
+          <div>
+            <h2>Quadrinhos que tenho</h2>
+            {profileOwned?.map((comicOwned) => (
+              <HQCard
+                comic={comicOwned}
+                comicID={comicOwned.id}
+                key={comicOwned.id}
+              />
+            ))}
+          </div>
+          <div>
+            <h2>Quadrinhos que quero</h2>
+            {profileWanted?.map((comicWanted, index) => (
+              <HQCard
+                comic={comicWanted}
+                comicID={comicWanted.id}
+                key={comicWanted.id}
+              />
+            ))}
+          </div>
         </div>
-        <div>
-          <h2>Quadrinhos que quero</h2>
-          {profileWanted?.map((comicWanted, index) => (
-            <HQCard
-              comic={comicWanted}
-              comicID={comicWanted.id}
-              key={comicWanted.id}
-            />
-          ))}
-        </div>
-      </div>
+      )}
     </PanelContainer>
   );
 };

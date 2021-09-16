@@ -10,7 +10,7 @@ export const ComicsProvider = ({ children }) => {
   const [comicsList, setComicsList] = useState([]);
   // const [id, setId] = useState(0);
   const [specificComic, setSpecificComic] = useState([]);
-
+  const [loading, setLoading] = useState(false);
   // useEffect(() => {
   //   updateUserComics();
   // }, []);
@@ -102,6 +102,7 @@ export const ComicsProvider = ({ children }) => {
   // };
 
   const getComicsList = () => {
+    setLoading(true);
     const url = {
       url: "http://comicvine.gamespot.com/api/issues/?api_key=bf2d39824c84c5c81e7f1adcabea036406aff8e9&format=json&sort=cover_date:desc",
     };
@@ -109,9 +110,13 @@ export const ComicsProvider = ({ children }) => {
       .post("get-data/", url)
       .then((response) => {
         setComicsList(response.data.results);
+        setLoading(false);
       })
 
-      .catch((e) => console.log(e));
+      .catch((e) => {
+        console.log(e);
+        setLoading(false);
+      });
   };
 
   const searchComics = (input) => {
@@ -129,6 +134,8 @@ export const ComicsProvider = ({ children }) => {
   };
 
   const getComic = (id) => {
+    setLoading(true);
+
     const url = {
       url: `https://comicvine.gamespot.com/api/issue/4000-${id}/?api_key=e0240c902e8c43c50db1c50099fe9aa9c328103c&format=json`,
     };
@@ -136,9 +143,14 @@ export const ComicsProvider = ({ children }) => {
       .post("get-data/", url)
       .then((response) => {
         setSpecificComic(response.data.results);
+        setLoading(false);
+
         // setId(response.data.results.id);
       })
-      .catch((e) => console.log(e));
+      .catch((e) => {
+        console.log(e);
+        setLoading(false);
+      });
   };
 
   return (
@@ -154,6 +166,7 @@ export const ComicsProvider = ({ children }) => {
         getComicsList,
         searchComics,
         comicsList,
+        loading,
         // setId,
         // id,
         getComic,
