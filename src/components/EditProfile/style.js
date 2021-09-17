@@ -1,6 +1,6 @@
 import styled from "styled-components"
 
-export const RatingForm = styled.div`
+export const EditProfileForm = styled.div`
     position: absolute;
     top: 50%;
     left: 50%;
@@ -10,7 +10,7 @@ export const RatingForm = styled.div`
     flex: 1 0 auto;
     max-width: 400px;
     width: 90vw;
-    min-height: 50vh;
+    min-height: 40vh;
     align-items: center;
     justify-content: center;
     background-color: white;
@@ -24,17 +24,17 @@ export const RatingForm = styled.div`
         justify-content: center;
         align-items: center;
 
-    textarea {
-        width: 240px;
+    input {
+        width: 280px;
         padding: 10px;
         border-radius: 5px;
         outline: none;
         border: 2px solid black;
         margin-block-end: 2px;
-        font-family: 'Urbanist', sans-serif; 
-        resize: none; 
-        }
-        
+        font-family: 'Urbanist', sans-serif;  
+    }
+     
+    
         span {
         font-size: 14px;
         font-family: 'Urbanist', sans-serif;
@@ -67,12 +67,19 @@ export const RatingForm = styled.div`
         background-color: white;
         transition:0.3s;
         color: black;
-        }        
-
+        }     
+        
         h2 {
             font-family: "Staatliches", cursive;
             font-size: 20px;
             text-align: center;
+            font-weight: 100;
+        }
+
+        @media(max-width: 600px) {
+            input {
+                width: 240px;
+            }
         }
     }
 `

@@ -10,12 +10,8 @@ import { useHistory } from "react-router-dom";
 import fakeapi from "../../services/fakeapi";
 import { AnimationContainer, SignUpBackground } from "./styles";
 import { toast } from "react-toastify";
-// import { useAuth } from "../../providers/auth";
-
-// import { Container } from './styles';
 
 function Signup() {
-  // const { authenticated } = useAuth();
 
   const schema = yup.object().shape({
     name: yup.string().required("Nome obrigatório"),
@@ -41,10 +37,6 @@ function Signup() {
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
 
-  // if(authenticated) {
-  //   return <Redirect to="/dashboard" />
-  // }
-
   const history = useHistory();
 
   const onSubmitSignup = (data) => {
@@ -53,41 +45,11 @@ function Signup() {
     data.comcis_wanted = [];
     data.rating = [];
 
-    const { name } = data;
-    const userName = name;
-
     fakeapi
       .post("signup", data)
-      .then((_) => {
-        console.log("deu bom");
-        console.log(data);
-      })
       .then((_) => history.push("/login"))
       .catch((err) => toast.error("Algo deu errado. Tente novamente"));
-
-    let axios = require("axios");
-    let values = {
-      username: `${userName}`,
-      secret: `123`,
-    };
-
-    let config = {
-      method: "post",
-      url: "https://api.chatengine.io/users/",
-      headers: {
-        "PRIVATE-KEY": "{{1b8dc6f9-1ebd-4b08-a01a-44441efbc356}}",
-      },
-      data: values,
-    };
-
-    axios(config)
-      .then(function (response) {
-        console.log(JSON.stringify(response.data));
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
+  }
 
   return (
     <InitialBackground>

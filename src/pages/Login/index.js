@@ -10,14 +10,10 @@ import { useHistory } from "react-router-dom";
 import fakeapi from "../../services/fakeapi";
 import { AnimationContainer, LoginBackground } from "./styles";
 import { useAuth } from "../../providers/auth";
-import { useUser } from "../../providers/user";
 import { toast } from "react-toastify";
-
-// import { Container } from './styles';
 
 function Login() {
   const { setAuthenticated } = useAuth();
-  const { setUserId } = useUser();
   const schema = yup.object().shape({
     email: yup
       .string()

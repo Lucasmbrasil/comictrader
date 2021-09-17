@@ -1,4 +1,4 @@
-import { Route, Switch, useParams } from "react-router";
+import { Route, Switch } from "react-router";
 import AboutUs from "../pages/About-Us";
 import DashboardComic from "../pages/Dashboard-Comic";
 import DashboardMain from "../pages/Dashboard-Main";
@@ -7,7 +7,6 @@ import FAQ from "../pages/FAQ";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
 import Signup from "../pages/Signup";
-import PageTeste from "../pages/PaginaTestes";
 
 const Routes = () => {
   return (
@@ -35,9 +34,6 @@ const Routes = () => {
       </Route>
       <Route exact path="/about">
         <AboutUs />
-      </Route>
-      <Route exact path="/test">
-        <PageTeste />
       </Route>
     </Switch>
   );

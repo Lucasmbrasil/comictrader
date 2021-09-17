@@ -1,10 +1,10 @@
 import { toast } from "react-toastify";
 import fakeapi from "../../services/fakeapi";
-import { PanelContainer } from "../../styles/globalComponents";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { useUser } from "../../providers/user";
+import { EditProfileForm } from "./style";
 
 function EditProfile({ handleCloseEdit }) {
   const token = localStorage.getItem("@comictrader:token");
@@ -23,8 +23,8 @@ function EditProfile({ handleCloseEdit }) {
   };
 
   const schema = yup.object().shape({
-    name: yup.string(),
-    state: yup.string(),
+    name: yup.string().required("Campo obrigatório"),
+    state: yup.string().required("Campo obrigatório"),
   });
 
   const {
@@ -34,14 +34,16 @@ function EditProfile({ handleCloseEdit }) {
   } = useForm({ resolver: yupResolver(schema) });
 
   return (
-    <PanelContainer>
+    <EditProfileForm>
       <form onSubmit={handleSubmit(updateProfile)}>
         <h2>Atualizar dados</h2>
         <input {...register("name")} placeholder="Novo nome de usuário" />
+        <span>{errors.name?.message}</span>
         <input {...register("state")} placeholder="Estado" />
+        <span>{errors.state?.message}</span>
         <button type="submit">Salvar alterações</button>
       </form>
-    </PanelContainer>
+    </EditProfileForm>
   );
 }
 
