@@ -42,17 +42,18 @@ function FAQ() {
               <h1>Como faço uma troca?</h1>
               <p>
                 É super simples! Ao escolher a HQ que está procurando, você pode
-                clicar no botão "Quero!" na página de detalhes do quadrinho para
-                adicioná-la à sua seção de interesses. Na página da HQ, também há uma lista
-                de pessoas que tem aquela revista, e ao entrar no perfil de alguma delas, você
-                poderá entrar em contato e acertar os detalhes da troca (envio, pagamento, etc).
+                clicar no botão "Quero!", na página de detalhes do quadrinho,
+                para adicioná-la à sua seção de interesses. Na página da HQ,
+                também há uma lista de pessoas que têm aquela revista, e ao
+                entrar no perfil de alguma delas, você poderá entrar em contato
+                e acertar os detalhes da troca (envio, pagamento, etc).
               </p>
             </QuestionBlock>
             <QuestionBlock>
               <h1>As trocas são seguras?</h1>
               <p>
                 Para garantir que nossos usuários sempre estejam satisfeitos,
-                contamos com um sistema de avaliação onde você pode reportar
+                contamos com um sistema de avaliação em que você pode reportar
                 elogios ou reclamações sobre as pessoas com quem realizou
                 trocas. Usuários com melhores avaliações sempre estarão em maior
                 evidência, e os que apresentarem muitas reclamações serão
