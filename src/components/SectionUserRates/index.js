@@ -30,6 +30,12 @@ const SectionUserRates = () => {
     }
   }, []);
 
+  useEffect(() => {
+    if (rating) {
+      setLoading(false);
+    }
+  }, []);
+
   return params.userId === userID ? (
     <PanelContainer>
       {loading ? (

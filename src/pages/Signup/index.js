@@ -12,7 +12,6 @@ import { AnimationContainer, SignUpBackground } from "./styles";
 import { toast } from "react-toastify";
 
 function Signup() {
-
   const schema = yup.object().shape({
     name: yup.string().required("Nome obrigatório"),
     email: yup.string().email("Email inválido").required("Email obrigatório"),
@@ -26,7 +25,8 @@ function Signup() {
       .required("Senha inválida"),
     passwordConfirm: yup
       .string()
-      .oneOf([yup.ref("password"), null], "As senhas devem ser iguais"),
+      .oneOf([yup.ref("password"), null], "As senhas devem ser iguais")
+      .required("Confirmação obrigatória"),
     state: yup.string().required("Informe seu Estado"),
     cellphone: yup.string().required("Número de contato"),
   });
@@ -49,7 +49,7 @@ function Signup() {
       .post("signup", data)
       .then((_) => history.push("/login"))
       .catch((err) => toast.error("Algo deu errado. Tente novamente"));
-  }
+  };
 
   return (
     <InitialBackground>
