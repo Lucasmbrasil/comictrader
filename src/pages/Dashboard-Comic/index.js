@@ -27,9 +27,8 @@ function DashboardComic() {
     fakeapi
       .get("users", config)
       .then((response) => setUserList(response.data))
-      .catch((e) => console.log("deu ruim", e));
+      .catch((e) => console.log(e));
   };
-  console.log(userList);
 
   useEffect(() => {
     const comicID = localStorage.getItem("@comictrader:comicID");

@@ -10,6 +10,7 @@ import {
   StyledCircularProgress,
 } from "./styles";
 import Footer from "../../components/Footer";
+import error from "../../assets/error.png"
 
 function DashboardMain() {
   const [input, setInput] = useState("");
@@ -40,9 +41,15 @@ function DashboardMain() {
         {loading ? (
           <StyledCircularProgress />
         ) : (
+          comicsList.length !== 0 ? (          
           comicsList.map((item) => (
             <HQCard comic={item} key={item.id} comicID={item.id} />
-          ))
+          )))
+          : 
+          (<div className="errorContainer">
+            <img src={error} alt="Error message"/>
+            <p>HQ não encontrada, tente novamente.</p>
+          </div>)
         )}
       </ComicListContainer>
       <Footer />
