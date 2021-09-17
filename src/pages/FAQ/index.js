@@ -43,10 +43,9 @@ function FAQ() {
               <p>
                 É super simples! Ao escolher a HQ que está procurando, você pode
                 clicar no botão "Quero!" na página de detalhes do quadrinho para
-                adicioná-la à sua seção de interesses, e lá haverá uma lista de
-                pessoas que querem repassar esta HQ. Você pode entrar em contato
-                direto com esses usuários pelo chat disponível na plataforma, e
-                acertar os detalhes da troca (envio, pagamento, etc).
+                adicioná-la à sua seção de interesses. Na página da HQ, também há uma lista
+                de pessoas que tem aquela revista, e ao entrar no perfil de alguma delas, você
+                poderá entrar em contato e acertar os detalhes da troca (envio, pagamento, etc).
               </p>
             </QuestionBlock>
             <QuestionBlock>

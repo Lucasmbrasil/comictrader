@@ -1,10 +1,7 @@
 import { FooterMain } from "./style";
-// import { useState } from "react";
 import { useHistory } from "react-router";
 
 const Footer = () => {
-  // const [openFaqModal, setOpenFaqModal] = useState(false);
-  // const [openAboutUsModal, setOpenAboutUsModal] = useState(false);
 
   const history = useHistory();
 

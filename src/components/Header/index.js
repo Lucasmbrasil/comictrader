@@ -3,16 +3,9 @@ import { useHistory } from "react-router";
 import { AiOutlineMenu } from "react-icons/ai";
 import { useAuth } from "../../providers/auth";
 import { useState } from "react";
-import { makeStyles, Menu, MenuItem } from "@material-ui/core";
-
-const useStyles = makeStyles((theme) => ({
-  list:{
-    padding:0
-  }
-}));
+import { Menu, MenuItem } from "@material-ui/core";
 
 const Header = () => {
-  const classes = useStyles();
   const { authenticated, setAuthenticated } = useAuth();
   const [openMenu, setOpenMenu] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null)
@@ -41,16 +34,14 @@ const Header = () => {
         <AiOutlineMenu />
       </div>
       {authenticated ? (
-        <Menu MenuListProps={{ classes: { list: classes.list } }}
-          className = {classes.list}
+        <Menu          
           anchorEl={anchorEl}
-          // transformOrigin={{ vertical: 'top', horizontal: 'left' }}
           open={openMenu}
           onClose={handleClose}
         >
-          <MenuItem className={classes.item} onClick={() => {handleClose(); history.push("/main")}}>HQs</MenuItem>
-          <MenuItem className={classes.item} onClick={() => {handleClose(); history.push(`/profile/${userId}`)}}>Perfil</MenuItem>
-          <MenuItem className={classes.item} onClick={handleLogout}>Sair</MenuItem>
+          <MenuItem onClick={() => {handleClose(); history.push("/main")}}>HQs</MenuItem>
+          <MenuItem onClick={() => {handleClose(); history.push(`/profile/${userId}`)}}>Perfil</MenuItem>
+          <MenuItem onClick={handleLogout}>Sair</MenuItem>
         </Menu>
       ) : (
         <Menu

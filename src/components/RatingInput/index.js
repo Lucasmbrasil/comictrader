@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import fakeapi from "../../services/fakeapi";
-import { PanelContainer } from "../../styles/globalComponents";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { useUser } from "../../providers/user";
+import { RatingForm } from "./styles";
 
 const RatingInput = () => {
   const token = localStorage.getItem("@comictrader:token");
@@ -33,11 +33,7 @@ const RatingInput = () => {
   }, []);
 
   const handleComment = (data) => {
-    console.log(data);
     const newData = { comment: data.comment, userId: userId };
-    // data.userId = userId;
-    // data.comment = data.rating;
-    console.log(profileID);
     fakeapi
       .patch(
         `users/${profileID}`,
@@ -45,31 +41,29 @@ const RatingInput = () => {
         config
       )
       .then((res) => {
-        console.log("chegou aqui");
         setOpenRating(false);
       })
       .catch((err) => {
-        //   toast.error("Algo deu errado. Tente novamente.")
-        console.log(err);
+        toast.error("Algo deu errado. Tente novamente.")
         setOpenRating(false);
       });
   };
 
   return (
-    <PanelContainer>
+    <RatingForm>
       <form onSubmit={handleSubmit(handleComment)}>
+        <h2>Avalie sue troca com o usuário:</h2>
         <textarea
           maxLength="300"
           rows="5"
           placeholder="Digite seu comentário"
           wrap
-          required
           {...register("comment")}
         />
-        <span>{errors.message?.comment}</span>
+        <span>{errors.comment?.message}</span>
         <button type="submit">Enviar</button>
       </form>
-    </PanelContainer>
+    </RatingForm>
   );
 };
 export default RatingInput;

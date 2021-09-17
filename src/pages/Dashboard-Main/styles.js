@@ -11,6 +11,21 @@ export const ComicListContainer = styled.div`
   width: 80vw;
   margin-inline: 0;
   margin-block-start: 15px;
+
+
+  .errorContainer {
+    width: 80vh;
+
+    img {
+      max-width: 200px;
+    }
+
+    p {
+      font-family: "Urbanist", sans-serif;
+      font-size: 20px;
+      color: black;
+    }
+  }
 `;
 
 export const ComicSearchBar = styled.div`

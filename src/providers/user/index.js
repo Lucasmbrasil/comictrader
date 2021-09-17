@@ -1,11 +1,9 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import fakeapi from "../../services/fakeapi";
-// import { useAuth } from "../auth";
 
 export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
-  // const [userId, setUserId] = useState(0);
   const [name, setName] = useState("");
   const [location, setLocation] = useState();
   const [rating, setRating] = useState();
@@ -14,12 +12,9 @@ export const UserProvider = ({ children }) => {
   const [profileLocation, setProfileLocation] = useState();
   const [profileRating, setProfileRating] = useState();
   const [profileTrades, setProfileTrades] = useState();
-  const [comicsOwned, setComicsOwned] = useState();
-  const [comicsWanted, setComicsWanted] = useState();
   const [openRating, setOpenRating] = useState(false);
   const [cellphone, setCellphone] = useState();
 
-  // const { setAuthenticated } = useAuth();
   const getUsersList = () => {
     const token = localStorage.getItem("@comictrader:token");
     const config = { headers: { Authorization: `Bearer ${token}` } };
@@ -37,8 +32,6 @@ export const UserProvider = ({ children }) => {
     const userId = localStorage.getItem("@comictrader:userID");
     const config = { headers: { Authorization: `Bearer ${token}` } };
     if (token) {
-      // const decoderId = jwtDecode(token);
-      // setUserId(decoderId.sub);
       fakeapi.get(`users/${userId}`, config).then((response) => {
         setName(response.data.name);
         setLocation(response.data.state);
@@ -104,7 +97,6 @@ export const UserProvider = ({ children }) => {
       value={{
         addRating,
         getId,
-        // userId,
         profileName,
         profileLocation,
         profileRating,

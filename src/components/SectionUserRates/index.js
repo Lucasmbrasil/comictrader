@@ -17,7 +17,6 @@ const SectionUserRates = () => {
 
   useEffect(() => {
     const profileID = localStorage.getItem("@comictrader:profileID");
-    console.log(profileID);
     if (profileID) {
       fakeapi
         .get(`users/${profileID}`, config)
